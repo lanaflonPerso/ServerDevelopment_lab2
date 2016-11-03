@@ -25,7 +25,8 @@
     <h:form id="form2">
 
         <p:pickList id="pickList" value="#{searchForFriends.userPL}" var="userPL" itemLabel="#{userPL.name}" itemValue="#{userPL.name}"/>
-
+        <!--<h:commandButton action="#{searchForFriends.makeNewFriends(searchForFriends.userPL.target)}" value="make friends" />-->
+        <p:commandButton action="#{searchForFriends.makeNewFriends(searchForFriends.userPL.target)}" value="make friends" />
     </h:form>
 </f:view>
 </h:body>

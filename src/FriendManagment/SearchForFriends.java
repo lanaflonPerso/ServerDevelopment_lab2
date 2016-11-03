@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.view.facelets.FaceletContext;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,12 @@ public class SearchForFriends implements Serializable {
             System.out.println("\tgetUserList:User list: " + u.getName());
         }
         return userList;
+    }
+
+    public void makeNewFriends(List<String> friends) {
+        for (String u : friends) {
+            System.out.println("makeNewFriends:" + u);
+        }
     }
 
     public DualListModel<ShowUserVM> getUserPL() {
