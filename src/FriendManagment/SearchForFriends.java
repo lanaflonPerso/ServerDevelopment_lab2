@@ -1,11 +1,14 @@
 package FriendManagment;
 
+import org.primefaces.model.DualListModel;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,6 +19,7 @@ import java.util.List;
 public class SearchForFriends implements Serializable {
 
     private List<ShowUserVM> userList;
+    private DualListModel<ShowUserVM> userPL;
 
     @ManagedProperty("#{userService}")
     private UserService userService;
@@ -28,6 +32,10 @@ public class SearchForFriends implements Serializable {
             System.out.println("\tUser list: " + u.getName());
         }
         System.out.println("SearchForFriends:init completed");
+        List<ShowUserVM> tmp1 = new ArrayList<>() ;
+        List<ShowUserVM> tmp2 = new ArrayList<>() ;
+        tmp1.addAll(userList);
+        userPL = new DualListModel<ShowUserVM>(tmp1,tmp2);
     }
 
     public List<ShowUserVM> getUserList() {
@@ -35,6 +43,14 @@ public class SearchForFriends implements Serializable {
             System.out.println("\tgetUserList:User list: " + u.getName());
         }
         return userList;
+    }
+
+    public DualListModel<ShowUserVM> getUserPL() {
+        return userPL;
+    }
+
+    public void setUserPL(DualListModel<ShowUserVM> userPL) {
+        this.userPL = userPL;
     }
 
     public UserService getUserService() {
