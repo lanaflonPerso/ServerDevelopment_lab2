@@ -22,7 +22,11 @@ public class NavigationController {
             return "Destination1.jsf";
         }else if(id.equals("0")){
             return "index.jsf";
+        }else if(id.equals("2")){
+            return "GetNewFriends.jsf";
         }
         return "Destination2.jsf";
     }
+
+
 }
