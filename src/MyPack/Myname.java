@@ -11,6 +11,7 @@ import javax.faces.bean.SessionScoped;
 public class Myname {
     private String name;
 
+
     public String getName() {
         return name;
     }

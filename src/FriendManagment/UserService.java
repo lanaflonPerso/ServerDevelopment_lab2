@@ -15,4 +15,8 @@ public class UserService implements Serializable {
         return DummyUserFacade.getUsers();
     }
 
+    public void makeNewFriends(List<ShowUserVM> friends) {
+
+    }
+
 }
