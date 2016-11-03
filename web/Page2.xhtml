@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xml:lang="en" lang="en">
+<head>
+    <title>Page 2</title>
+</head>
+<body>
+<h:outputLabel value="#{q1.value == 'y' ? 'What project(s) have you worked on?' : 'Do you want to learn?'}"/>
+<h:form>
+    <h:inputText id="other" value="#{q1.value}"/>
+    <h:commandButton id="submlit" value="submit" action="Page2"/>
+</h:form>
+</body>
+</html>
