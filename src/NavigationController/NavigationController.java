@@ -25,4 +25,6 @@ public class NavigationController {
         }
         return "Destination2.jsf";
     }
+
+
 }
