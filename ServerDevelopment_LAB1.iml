@@ -25,10 +25,11 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Hibernate 5.2.3-5.2.3" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.5.5" level="application_server_libraries" />
+    <orderEntry type="library" exported="" name="Hibernate 5.2.3-5.2.3" level="project" />
+    <orderEntry type="library" exported="" scope="PROVIDED" name="Tomcat 8.5.5" level="application_server_libraries" />
     <orderEntry type="library" name="Mojarra-2.2.1" level="project" />
     <orderEntry type="library" name="Richfaces-4.2.2" level="project" />
     <orderEntry type="library" name="PrimeFaces-5.2" level="project" />
+    <orderEntry type="library" name="antlr-2.7.7" level="project" />
   </component>
 </module>
