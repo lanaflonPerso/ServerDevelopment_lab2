@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xml:lang="en" lang="en">
+<h:head>
+    <title>Title</title>
+</h:head>
+<body>
+
+<h:form>
+    <p:tabView dynamic="true" cache="true">
+        <p:tab title="Profile">
+            <h:panelGrid columns="2" cellpadding="2">
+                <ui:include src="profile.xhtml"/>
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="Chatt">
+            <h:panelGrid columns="2" cellpadding="10">
+                <p:graphicImage name="https://cdn.shopify.com/s/files/1/0789/8923/files/Death_to_Stock_Photo.jpg?6619391625017651897" />
+                <h:outputText value="Francis Ford Coppola's legendary..." />
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="Find Friends">
+            <h:panelGrid columns="2" cellpadding="2">
+                <!--<ui:include src="GetNewFriends.xhtml"/>-->
+                <ui:include src="makeNewFriends.xhtml" />
+
+            </h:panelGrid>
+        </p:tab>
+    </p:tabView>
+</h:form>
+
+</body>
+</html>

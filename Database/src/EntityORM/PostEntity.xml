@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+        version="2.0">
+
+    <entity class="EntityORM.PostEntity">
+        <table name="Post" schema="CommunityDB" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="subject">
+                <column name="Subject"/>
+            </basic>
+            <basic name="messageBody">
+                <column name="MessageBody"/>
+            </basic>
+            <basic name="timestamp">
+                <column name="Timestamp"/>
+            </basic>
+        </attributes>
+    </entity>
+</entity-mappings>
