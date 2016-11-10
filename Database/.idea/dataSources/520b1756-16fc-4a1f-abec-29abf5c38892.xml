@@ -32,13 +32,13 @@
       <data-type>int(11)|0</data-type>
       <sequence-identity>1</sequence-identity>
     </column>
-    <column id="16" parent="9" name="Subject">
+    <column id="16" parent="9" name="subject">
       <data-type>varchar(100)|0</data-type>
     </column>
-    <column id="17" parent="9" name="MessageBody">
+    <column id="17" parent="9" name="messageBody">
       <data-type>varchar(1000)|0</data-type>
     </column>
-    <column id="18" parent="9" name="Timestamp">
+    <column id="18" parent="9" name="timestamp">
       <mandatory>1</mandatory>
       <data-type>timestamp|0</data-type>
       <default-expression>CURRENT_TIMESTAMP</default-expression>
@@ -52,18 +52,18 @@
       <data-type>int(11)|0</data-type>
       <sequence-identity>1</sequence-identity>
     </column>
-    <column id="21" parent="10" name="Name">
+    <column id="21" parent="10" name="name">
       <mandatory>1</mandatory>
       <data-type>varchar(100)|0</data-type>
     </column>
-    <column id="22" parent="10" name="Info">
+    <column id="22" parent="10" name="info">
       <data-type>varchar(500)|0</data-type>
     </column>
     <column id="23" parent="10" name="age">
       <data-type>int(11)|0</data-type>
       <default-expression>&apos;0&apos;</default-expression>
     </column>
-    <column id="24" parent="10" name="RelationshipStatus">
+    <column id="24" parent="10" name="relationshipStatus">
       <mandatory>1</mandatory>
       <data-type>int(11)|0</data-type>
       <default-expression>&apos;0&apos;</default-expression>

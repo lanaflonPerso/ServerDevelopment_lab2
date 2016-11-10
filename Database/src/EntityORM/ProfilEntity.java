@@ -27,7 +27,7 @@ public class ProfilEntity {
     }
 
     @Basic
-    @Column(name = "Name")
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -37,7 +37,7 @@ public class ProfilEntity {
     }
 
     @Basic
-    @Column(name = "Info")
+    @Column(name = "info")
     public String getInfo() {
         return info;
     }
@@ -57,7 +57,7 @@ public class ProfilEntity {
     }
 
     @Basic
-    @Column(name = "RelationshipStatus")
+    @Column(name = "relationshipStatus")
     public int getRelationshipStatus() {
         return relationshipStatus;
     }

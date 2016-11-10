@@ -26,7 +26,7 @@ public class PostEntity {
     }
 
     @Basic
-    @Column(name = "Subject")
+    @Column(name = "subject")
     public String getSubject() {
         return subject;
     }
@@ -36,7 +36,7 @@ public class PostEntity {
     }
 
     @Basic
-    @Column(name = "MessageBody")
+    @Column(name = "messageBody")
     public String getMessageBody() {
         return messageBody;
     }
@@ -46,7 +46,7 @@ public class PostEntity {
     }
 
     @Basic
-    @Column(name = "Timestamp")
+    @Column(name = "timestamp")
     public Timestamp getTimestamp() {
         return timestamp;
     }
