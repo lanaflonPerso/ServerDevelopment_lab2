@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+        version="2.0">
+
+    <entity class="com.serverutvlab.database.DBModels.UserEntity">
+        <table name="UserEntity" schema="CommunityDB" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="email">
+                <column name="email"/>
+            </basic>
+            <basic name="password">
+                <column name="password"/>
+            </basic>
+        </attributes>
+    </entity>
+</entity-mappings>
