@@ -29,6 +29,7 @@ public class UserLogic {
     }
 
     public List<UserEntity> getAllUsers() {
+
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
         List<UserEntity> resultList = entityManager.createQuery("from UserEntity ").getResultList();
         System.out.println("UserLogic::getAllUsers list count = " + resultList.size());
