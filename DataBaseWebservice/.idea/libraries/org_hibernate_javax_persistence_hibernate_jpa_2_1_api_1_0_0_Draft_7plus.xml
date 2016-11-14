@@ -3,6 +3,7 @@
     <properties maven-id="org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Draft-7plus" />
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/javax/persistence/hibernate-jpa-2.1-api/1.0.0.Draft-7plus/hibernate-jpa-2.1-api-1.0.0.Draft-7plus.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/javax/persistence/hibernate-jpa-2.1-api/1.0.0.Draft-7plus/hibernate-jpa-2.1-api-1.0.0.Draft-7plus.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
