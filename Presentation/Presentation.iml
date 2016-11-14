@@ -32,5 +32,7 @@
     <orderEntry type="library" name="servlet-api" level="project" />
     <orderEntry type="library" name="javax.faces-2.2.1" level="project" />
     <orderEntry type="library" name="jstl-1.1.0" level="project" />
+    <orderEntry type="library" name="primefaces-6.0" level="project" />
+    <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
   </component>
 </module>
