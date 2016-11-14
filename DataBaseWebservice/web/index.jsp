@@ -12,5 +12,6 @@
   </head>
   <body>
   <a href="/rest/dbrestservice">click</a>
+  <a href="/business/businessservice">business test</a>
   </body>
 </html>
