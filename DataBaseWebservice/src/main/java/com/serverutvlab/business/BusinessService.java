@@ -21,4 +21,17 @@ public class BusinessService {
     {
        return "Name: BusinessService";
     }
+
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    @Path("users")
+    public String getBusinessUsers()
+    {
+        StringBuilder sb = new StringBuilder("");
+        List<UserEntity> allUsers = DBFacade.getAllUsers();
+        for (UserEntity ue: allUsers) {
+            sb.append(ue.toString() + "\n");
+        }
+        return sb.toString();
+    }
 }
