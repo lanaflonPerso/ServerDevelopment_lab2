@@ -6,7 +6,7 @@ import javax.faces.bean.SessionScoped;
 /**
  * Created by o_0 on 2016-11-03.
  */
-@ManagedBean
+
 @SessionScoped
 public class NavigationController {
     public String moveToStart() {
