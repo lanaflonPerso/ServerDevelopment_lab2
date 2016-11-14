@@ -7,6 +7,12 @@
         <element id="directory" name="classes">
           <element id="module-output" name="Presentation" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="jsp-api" />
+          <element id="library" level="project" name="servlet-api" />
+          <element id="library" level="project" name="javax.faces-2.2.1" />
+          <element id="library" level="project" name="jstl-1.1.0" />
+        </element>
       </element>
     </root>
   </artifact>
