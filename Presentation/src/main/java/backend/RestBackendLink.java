@@ -12,6 +12,7 @@ public class RestBackendLink {
         Client restClient = Client.create();
 
         WebResource webRes = restClient.resource("http://localhost:8090/business/businessservice/users");
+
         ClientResponse resp =  webRes.accept(MediaType.TEXT_PLAIN).get(ClientResponse.class);
         int status = resp.getStatus();
         System.out.println("DataConn.RestBackendLink::getUsers:: status code: " +status );
