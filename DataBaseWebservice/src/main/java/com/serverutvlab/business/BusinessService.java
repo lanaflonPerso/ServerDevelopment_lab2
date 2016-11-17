@@ -1,6 +1,7 @@
 package com.serverutvlab.business;
 
         import com.google.gson.Gson;
+        import com.serverutvlab.business.BModels.BUser;
         import com.serverutvlab.database.DBLayer.DBFacade;
         import com.serverutvlab.database.DBLayer.UserLogic;
         import com.serverutvlab.database.DBModels.UserEntity;
@@ -32,7 +33,7 @@ public class BusinessService {
     @Path("users")
     public String getBusinessUsers()
     {
-        List<UserEntity> allUsers = DBFacade.getAllUsers();
+        List<BUser> allUsers = DBFacade.getAllUsers();
         Gson gson = new Gson();
         String json = gson.toJson(allUsers);
         return json;
@@ -40,10 +41,9 @@ public class BusinessService {
 
     @POST
     @Path("login")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED
-    )
+    //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response sendEmail(@QueryParam("email") String email, @QueryParam("password") String password) {
+    public Response authenticateUser(@QueryParam("email") String email, @QueryParam("password") String password) {
         Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
 
         //System.out.println("Login attempt:Email = " + email);
@@ -55,6 +55,22 @@ public class BusinessService {
 
         Gson gson = new Gson();
         String response = gson.toJson(resultMap);
+
+        return Response.ok(response).build();
+    }
+
+    @POST
+    @Path("userById")
+    //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response getUserById(@QueryParam("email") int id) {
+        Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
+
+        UserEntity result = DBFacade.getUserById(id);
+        result.setPassword("null");
+
+        Gson gson = new Gson();
+        String response = gson.toJson(result);
 
         return Response.ok(response).build();
     }
