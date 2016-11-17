@@ -2,6 +2,7 @@ package com.serverutvlab.business;
 
         import com.google.gson.Gson;
         import com.serverutvlab.database.DBLayer.DBFacade;
+        import com.serverutvlab.database.DBLayer.UserLogic;
         import com.serverutvlab.database.DBModels.UserEntity;
 
         import javax.print.attribute.standard.Media;
@@ -9,7 +10,9 @@ package com.serverutvlab.business;
         import javax.ws.rs.core.Application;
         import javax.ws.rs.core.MediaType;
         import javax.ws.rs.core.Response;
+        import java.util.HashMap;
         import java.util.List;
+        import java.util.Map;
 
 /**
  * Created by o_0 on 2016-11-14.
@@ -41,9 +44,18 @@ public class BusinessService {
     )
     @Produces(MediaType.TEXT_PLAIN)
     public Response sendEmail(@QueryParam("email") String email, @QueryParam("password") String password) {
-        System.out.println("Login attempt:Email = " + email);
-        System.out.println("Login attempt:Password = " + password);
+        Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
 
-        return Response.ok("email= " + email + ", password= " + password).build();
+        //System.out.println("Login attempt:Email = " + email);
+        //System.out.println("Login attempt:Password = " + password);
+
+        boolean result = DBFacade.authenticateUser(email,password);
+
+        resultMap.put("success", result);
+
+        Gson gson = new Gson();
+        String response = gson.toJson(resultMap);
+
+        return Response.ok(response).build();
     }
 }

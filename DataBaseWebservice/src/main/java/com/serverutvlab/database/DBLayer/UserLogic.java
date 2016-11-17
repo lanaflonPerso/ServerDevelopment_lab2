@@ -3,6 +3,7 @@ package com.serverutvlab.database.DBLayer;
 import com.serverutvlab.database.DBModels.UserEntity;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
 
 /**
@@ -35,5 +36,20 @@ public class UserLogic {
         System.out.println("UserLogic::getAllUsers list count = " + resultList.size());
         entityManager.close();
         return resultList;
+    }
+
+
+
+    public boolean authenticateUser(String e, String p){
+        EntityManager entityManager = DBManager.getInstance().createEntityManager();
+        //List<UserEntity> resultList = entityManager.createQuery("from UserEntity where email=" + e + " and password ="+ p).getResultList();
+        Query q = entityManager.createQuery("from UserEntity user where user.email = ?1 and user.password = ?2");
+        q.setParameter(1, e);
+        q.setParameter(2, p);
+        List<UserEntity> resultList = q.getResultList();
+
+        System.out.println("UserLogic::authenticateUser list count = " + resultList.size());
+
+        return resultList.size() == 1;
     }
 }
