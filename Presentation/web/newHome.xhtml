@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xml:lang="en" lang="en">
+<h:head>
+    <title>Title</title>
+</h:head>
+<body>
+
+<p:layout style="min-width:400px;min-height:800px;">
+    <p:layoutUnit position="north" size="50">
+        Communitizer
+    </p:layoutUnit>
+    <p:layoutUnit position="west" resizable="true" size="200" minSize="100" maxSize="200">
+        <h:panelGroup id="menu" layout="block">
+            <h:form>
+                <f:ajax render=":content">
+                    <ul>
+                        <li><h:commandLink value="GetNewFriends" action="#{bean.setPage('GetNewFriends')}"/></li>
+                        <li><h:commandLink value="Page1" action="#{bean.setPage('Page1')}"/></li>
+                        <li><h:commandLink value="Page2" action="#{bean.setPage('Page2')}"/></li>
+                    </ul>
+                </f:ajax>
+            </h:form>
+        </h:panelGroup>
+    </p:layoutUnit>
+
+    <p:layoutUnit position="center" resizable="true">
+        <h:panelGroup id="content" layout="block">
+            <ui:include src="#{bean.page}.xhtml"/>
+        </h:panelGroup>
+    </p:layoutUnit>
+</p:layout>
+
+</body>
+</html>
