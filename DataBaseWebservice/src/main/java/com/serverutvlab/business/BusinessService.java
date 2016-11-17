@@ -63,7 +63,7 @@ public class BusinessService {
     @Path("userById")
     //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response getUserById(@QueryParam("email") int id) {
+    public Response getUserById(@QueryParam("id") int id) {
         Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
 
         UserEntity result = DBFacade.getUserById(id);
