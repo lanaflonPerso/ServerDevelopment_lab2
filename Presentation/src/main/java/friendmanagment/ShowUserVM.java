@@ -1,4 +1,4 @@
-package com.presentation.FriendManagment;
+package friendmanagment;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;

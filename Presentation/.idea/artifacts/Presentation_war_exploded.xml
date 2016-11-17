@@ -8,24 +8,15 @@
           <element id="module-output" name="Presentation" />
         </element>
         <element id="directory" name="lib">
-          <element id="library" level="project" name="jsp-api" />
-          <element id="library" level="project" name="servlet-api" />
-          <element id="library" level="project" name="javax.faces-2.2.1" />
-          <element id="library" level="project" name="jstl-1.1.0" />
-          <element id="library" level="project" name="primefaces-6.0" />
-          <element id="library" level="project" name="jersey-client-1.19.3" />
-          <element id="library" level="project" name="Maven: com.sun.faces:jsf-api:2.2.13" />
+          <element id="library" level="project" name="Maven: com.sun.faces:jsf-api:2.2.14" />
+          <element id="library" level="project" name="Maven: com.sun.faces:jsf-impl:2.2.14" />
           <element id="library" level="project" name="Maven: com.sun.jersey:jersey-client:1.19.3" />
           <element id="library" level="project" name="Maven: com.sun.jersey:jersey-core:1.19.3" />
-          <element id="library" level="project" name="Maven: javax.faces:javax.faces-api:2.2" />
-          <element id="library" level="project" name="Maven: javax.servlet.jsp:jsp-api:2.2" />
-          <element id="library" level="project" name="Maven: javax.servlet:javax.servlet-api:3.1.0" />
-          <element id="library" level="project" name="Maven: javax.ws.rs:javax.ws.rs-api:2.1-m01" />
+          <element id="library" level="project" name="Maven: javax.servlet.jsp:jsp-api:2.2.1-b03" />
+          <element id="library" level="project" name="Maven: javax.servlet:javax.servlet-api:4.0.0-b01" />
           <element id="library" level="project" name="Maven: javax.ws.rs:jsr311-api:1.1.1" />
-          <element id="library" level="project" name="Maven: javax:javaee-web-api:7.0" />
+          <element id="library" level="project" name="Maven: jstl:jstl:1.2" />
           <element id="library" level="project" name="Maven: org.primefaces:primefaces:6.0" />
-          <element id="library" level="project" name="jersey-core-1.19.3" />
-          <element id="library" level="project" name="Maven: com.sun.jersey:jersey-core:1.19" />
         </element>
       </element>
     </root>
