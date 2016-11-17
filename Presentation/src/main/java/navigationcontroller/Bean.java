@@ -1,4 +1,4 @@
-package com.presentation;
+package navigationcontroller;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;

@@ -1,4 +1,4 @@
-package com.presentation.FriendManagment;
+package friendmanagment;
 import java.util.ArrayList;
 import java.util.List;
 
