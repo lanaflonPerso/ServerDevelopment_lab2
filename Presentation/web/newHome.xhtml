@@ -20,7 +20,7 @@
     <p:layoutUnit position="west" resizable="true" size="200" minSize="100" maxSize="200">
         <h:panelGroup id="menu" layout="block">
             <h:form>
-                <f:ajax render=":content">
+                <f:ajax render=":mycontent" update="mycontent">
                     <ul>
                         <li><h:commandLink value="GetNewFriends" action="#{bean.setPage('GetNewFriends')}"/></li>
                         <li><h:commandLink value="Page1" action="#{bean.setPage('Page1')}"/></li>
@@ -29,10 +29,13 @@
                 </f:ajax>
             </h:form>
         </h:panelGroup>
+        <!--<h:panelGroup id="content" layout="block">-->
+            <!--<ui:include src="#{bean.page}.xhtml"/>-->
+        <!--</h:panelGroup>-->
     </p:layoutUnit>
 
     <p:layoutUnit position="center" resizable="true">
-        <h:panelGroup id="content" layout="block">
+        <h:panelGroup id="mycontent" layout="block">
             <ui:include src="#{bean.page}.xhtml"/>
         </h:panelGroup>
     </p:layoutUnit>

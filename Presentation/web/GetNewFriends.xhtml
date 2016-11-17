@@ -6,7 +6,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<h:head><title>testtest</title></h:head>
+<!--<h:head><title>testtest</title></h:head>-->
 
 
 <f:view>
@@ -24,9 +24,10 @@
     </h:form>
     <h:form id="form2">
 
-        <p:pickList id="pickList" value="#{searchForFriends.userPL}" var="userPL" itemLabel="#{userPL.name}" itemValue="#{userPL.name}"/>
+        <p:pickList id="pickList" value="#{searchForFriends.userPL}" var="userPL" itemLabel="#{userPL.getName}" itemValue="#{userPL.getName}"/>
         <!--<h:commandButton action="#{searchForFriends.makeNewFriends(searchForFriends.userPL.target)}" value="make friends" />-->
         <p:commandButton action="#{searchForFriends.makeNewFriends(searchForFriends.userPL.target)}" value="make friends" />
+
     </h:form>
 </f:view>
 

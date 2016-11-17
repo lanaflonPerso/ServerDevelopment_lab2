@@ -50,6 +50,7 @@ public class SearchForFriends implements Serializable {
         for (String u : friends) {
             System.out.println("makeNewFriends:" + u);
         }
+        userPL.getTarget().clear();
     }
 
     public DualListModel<ShowUserVM> getUserPL() {
