@@ -3,6 +3,8 @@ package com.serverutvlab.database.DBLayer;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by o_0 on 2016-11-10.
@@ -42,4 +44,8 @@ public class DBManager {
         }
         return current;
     }
+
+
+
+
 }
