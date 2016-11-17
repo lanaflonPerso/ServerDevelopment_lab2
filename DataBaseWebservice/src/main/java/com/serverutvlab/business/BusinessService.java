@@ -4,7 +4,9 @@ package com.serverutvlab.business;
         import com.serverutvlab.database.DBLayer.DBFacade;
         import com.serverutvlab.database.DBModels.UserEntity;
 
+        import javax.print.attribute.standard.Media;
         import javax.ws.rs.*;
+        import javax.ws.rs.core.Application;
         import javax.ws.rs.core.MediaType;
         import javax.ws.rs.core.Response;
         import java.util.List;
@@ -30,14 +32,15 @@ public class BusinessService {
         List<UserEntity> allUsers = DBFacade.getAllUsers();
         Gson gson = new Gson();
         String json = gson.toJson(allUsers);
-
         return json;
     }
 
     @POST
     @Path("login")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED
+    )
     @Produces(MediaType.TEXT_PLAIN)
-    public Response sendEmail(@FormParam("email") String email, @FormParam("password") String password) {
+    public Response sendEmail(@QueryParam("email") String email, @QueryParam("password") String password) {
         System.out.println("Login attempt:Email = " + email);
         System.out.println("Login attempt:Password = " + password);
 
