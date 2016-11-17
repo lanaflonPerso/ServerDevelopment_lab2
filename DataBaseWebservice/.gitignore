@@ -30,7 +30,7 @@ workspace.xml
 *.iws
 
 ## Plugin-specific files:
-
+*.class
 # IntelliJ
 /out/
 */out/
@@ -47,3 +47,4 @@ crashlytics-build.properties
 fabric.properties
 
 lib/
+target/generated-sources/
