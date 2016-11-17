@@ -26,4 +26,6 @@ public class DBFacade {
     static public boolean createNewUser(UserEntity user) {
         return new UserLogic().createNewUser(user);
     }
+
+    public static boolean authenticateUser(String e, String p) { return new UserLogic().authenticateUser(e, p); }
 }
