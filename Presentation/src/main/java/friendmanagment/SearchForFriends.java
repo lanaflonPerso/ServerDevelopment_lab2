@@ -1,4 +1,4 @@
-package com.presentation.FriendManagment;
+package friendmanagment;
 
 import org.primefaces.model.DualListModel;
 
