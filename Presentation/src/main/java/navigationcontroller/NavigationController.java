@@ -10,7 +10,7 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class NavigationController {
     public String moveToStart() {
-        return "Destination1";
+        return "newHome";
     }
 
     public String moveToPage() {
@@ -19,7 +19,7 @@ public class NavigationController {
 
     public String moveToSelection(String id) {
         if(id.equals("1")) {
-            return "Destination1";
+            return "newHome";
         }else if(id.equals("2")){
             return "GetNewFriends";
         }else if(id.equals("0")){
