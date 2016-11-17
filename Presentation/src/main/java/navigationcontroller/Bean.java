@@ -2,6 +2,7 @@ package navigationcontroller;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
 
@@ -9,7 +10,7 @@ import java.io.Serializable;
  * Created by cj on 2016-11-17.
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class Bean implements Serializable {
 
     private String page;

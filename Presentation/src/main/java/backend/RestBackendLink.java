@@ -40,9 +40,9 @@ public class RestBackendLink {
             return new ArrayList<UserEntity>();
         }
         String data = resp.getEntity(String.class);
-        //Gson gson = new Gson();
+        Gson gson = new Gson();
         Type arrType = new TypeToken<ArrayList<UserEntity>>(){}.getType();
-        List<UserEntity> list = new Gson().fromJson(data, arrType);
+        List<UserEntity> list = gson.fromJson(data, arrType);
         return list;
     }
 }
