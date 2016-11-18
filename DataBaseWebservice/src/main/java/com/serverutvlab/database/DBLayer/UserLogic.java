@@ -1,6 +1,7 @@
 package com.serverutvlab.database.DBLayer;
 
 import com.serverutvlab.database.DBModels.UserEntity;
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -11,8 +12,13 @@ import java.util.List;
  */
 public class UserLogic {
     //private EntityManagerFactory emf = Persistence.createEntityManagerFactory("NewPersistenceUnit");
-    public boolean createNewUser(UserEntity user) {
+    public boolean createNewUser(String email, String password) {
         boolean flag = false;
+
+        UserEntity user = new UserEntity();
+        user.setEmail(email);
+        user.setPassword(password);
+
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
         try {
             entityManager.getTransaction().begin();

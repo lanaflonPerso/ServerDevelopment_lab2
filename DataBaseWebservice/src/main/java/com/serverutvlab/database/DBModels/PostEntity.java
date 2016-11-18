@@ -4,16 +4,17 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by o_0 on 2016-11-07.
+ * Created by cj on 2016-11-18.
  */
 @Entity
-//@Table(name = "Post", schema = "CommunityDB", catalog = "")
 public class PostEntity {
     private int id;
     private String subject;
     private String messageBody;
     private Timestamp timestamp;
-    private ProfilEntity postedTo;
+    private int authorId;
+    private int recipientId;
+    private ProfileEntity postedTo;
 
     @Id
     @Column(name = "id")
@@ -55,6 +56,26 @@ public class PostEntity {
         this.timestamp = timestamp;
     }
 
+    @Basic
+    @Column(name = "authorId")
+    public int getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(int authorId) {
+        this.authorId = authorId;
+    }
+
+    @Basic
+    @Column(name = "recipientId")
+    public int getRecipientId() {
+        return recipientId;
+    }
+
+    public void setRecipientId(int recipientId) {
+        this.recipientId = recipientId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -63,6 +84,8 @@ public class PostEntity {
         PostEntity that = (PostEntity) o;
 
         if (id != that.id) return false;
+        if (authorId != that.authorId) return false;
+        if (recipientId != that.recipientId) return false;
         if (subject != null ? !subject.equals(that.subject) : that.subject != null) return false;
         if (messageBody != null ? !messageBody.equals(that.messageBody) : that.messageBody != null) return false;
         if (timestamp != null ? !timestamp.equals(that.timestamp) : that.timestamp != null) return false;
@@ -76,15 +99,17 @@ public class PostEntity {
         result = 31 * result + (subject != null ? subject.hashCode() : 0);
         result = 31 * result + (messageBody != null ? messageBody.hashCode() : 0);
         result = 31 * result + (timestamp != null ? timestamp.hashCode() : 0);
+        result = 31 * result + authorId;
+        result = 31 * result + recipientId;
         return result;
     }
 
     @ManyToOne(optional = false)
-    public ProfilEntity getPostedTo() {
+    public ProfileEntity getPostedTo() {
         return postedTo;
     }
 
-    public void setPostedTo(ProfilEntity postedTo) {
+    public void setPostedTo(ProfileEntity postedTo) {
         this.postedTo = postedTo;
     }
 }

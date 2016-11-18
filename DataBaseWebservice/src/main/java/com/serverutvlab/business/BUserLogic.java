@@ -13,4 +13,16 @@ public class BUserLogic {
     public List<BUser> getAllUsers() {
         return DBFacade.getAllUsers();
     }
+
+    public BUser getUserById(int id) {
+        return DBFacade.getUserById(id);
+    }
+
+    public boolean authenticateUser(String email, String password) {
+        return DBFacade.authenticateUser(email,password);
+    }
+
+    public boolean createUser(String email, String password){
+        return DBFacade.createNewUser(email, password);
+    }
 }

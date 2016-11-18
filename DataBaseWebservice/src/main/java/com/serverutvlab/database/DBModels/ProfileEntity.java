@@ -4,16 +4,16 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * Created by o_0 on 2016-11-07.
+ * Created by cj on 2016-11-18.
  */
 @Entity
-//@Table(name = "Profil", schema = "CommunityDB", catalog = "")
-public class ProfilEntity {
+public class ProfileEntity {
     private int id;
     private String name;
     private String info;
     private Integer age;
     private int relationshipStatus;
+    private int userId;
     private List<PostEntity> WallPost;
 
     @Id
@@ -66,15 +66,26 @@ public class ProfilEntity {
         this.relationshipStatus = relationshipStatus;
     }
 
+    @Basic
+    @Column(name = "userId")
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ProfilEntity that = (ProfilEntity) o;
+        ProfileEntity that = (ProfileEntity) o;
 
         if (id != that.id) return false;
         if (relationshipStatus != that.relationshipStatus) return false;
+        if (userId != that.userId) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (info != null ? !info.equals(that.info) : that.info != null) return false;
         if (age != null ? !age.equals(that.age) : that.age != null) return false;
@@ -89,6 +100,7 @@ public class ProfilEntity {
         result = 31 * result + (info != null ? info.hashCode() : 0);
         result = 31 * result + (age != null ? age.hashCode() : 0);
         result = 31 * result + relationshipStatus;
+        result = 31 * result + userId;
         return result;
     }
 

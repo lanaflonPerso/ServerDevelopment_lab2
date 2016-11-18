@@ -1,11 +1,11 @@
 package com.serverutvlab.database.DBLayer;
 
 
+import com.serverutvlab.business.BModels.BProfile;
 import com.serverutvlab.business.BModels.BUser;
 import com.serverutvlab.database.DBModels.PostEntity;
-import com.serverutvlab.database.DBModels.ProfilEntity;
+import com.serverutvlab.database.DBModels.ProfileEntity;
 import com.serverutvlab.database.DBModels.UserEntity;
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +14,13 @@ import java.util.List;
  * Created by o_0 on 2016-11-10.
  */
 public class DBFacade {
-    static public PostEntity getPostWithId(int id) {
-        return null;
-    }
 
-    static public ProfilEntity getProfileForUserId(int userId) {
-        return null;
-    }
+
+    /**
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     *  BUSER LOGIC CALLS
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     */
 
     static public List<BUser> getAllUsers() {
         List<UserEntity> entities = new UserLogic().getAllUsers();
@@ -30,11 +30,39 @@ public class DBFacade {
         return result;
     }
 
-    static public boolean createNewUser(UserEntity user) {
-        return new UserLogic().createNewUser(user);
+    static public boolean createNewUser(String email, String password) {
+
+        return new UserLogic().createNewUser(email,password);
     }
 
-    public static boolean authenticateUser(String e, String p) { return new UserLogic().authenticateUser(e, p); }
+    public static boolean authenticateUser(String e, String p) {
+        return new UserLogic().authenticateUser(e, p);
+    }
 
-    public static UserEntity getUserById(int id) { return new UserLogic().getUserById(id);}
+    public static BUser getUserById(int id) {
+        UserEntity user = new UserLogic().getUserById(id);
+        return new BUser(user.getId(),user.getEmail(),user.getPassword());
+    }
+
+    /**
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     *  BPROFILE LOGIC CALLS
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     */
+
+    static public BProfile getProfileForUserId(int userId) {
+        //new ProfileLogic().getProfileByUserId(userId);
+        return null;
+    }
+
+    /**
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     *  BPOST LOCIG CALLS
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     */
+
+    static public PostEntity getPostWithId(int id) {
+        return null;
+    }
+
 }

@@ -18,16 +18,16 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>BL rest service</servlet-name>
+        <servlet-name>Services</servlet-name>
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
         <init-param>
             <param-name>jersey.config.server.provider.packages</param-name>
-            <param-value>com.serverutvlab.business</param-value>
+            <param-value>com.serverutvlab.services</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>BL rest service</servlet-name>
-        <url-pattern>/business/*</url-pattern>
+        <servlet-name>Services</servlet-name>
+        <url-pattern>/services/*</url-pattern>
     </servlet-mapping>
 </web-app>

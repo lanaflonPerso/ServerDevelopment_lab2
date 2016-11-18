@@ -11,7 +11,9 @@
     <title>$Title$</title>
   </head>
   <body>
-  <a href="/rest/dbrestservice">click</a>
-  <a href="/business/businessservice">business test</a>
+  <a href="/services/userservice">UserService</a>
+  <a href="/services/userservice/users">UserService/Users</a>
+  <a href="/services/userservice/login?email=email2&password=pass2">UserService/Login</a>
+  <a href="/services/userservice/userById?id=1">UserService/UserById</a>
   </body>
 </html>
