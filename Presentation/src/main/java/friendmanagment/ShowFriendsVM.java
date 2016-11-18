@@ -10,4 +10,12 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 public class ShowFriendsVM {
     private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

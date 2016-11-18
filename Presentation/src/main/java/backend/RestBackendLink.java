@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RestBackendLink {
+    private final static String backendAddress = "http://localhost:8090/";
+
     public static String getUsers()
     {
         Client restClient = Client.create();
@@ -44,5 +46,34 @@ public class RestBackendLink {
         Type arrType = new TypeToken<ArrayList<UserEntity>>(){}.getType();
         List<UserEntity> list = gson.fromJson(data, arrType);
         return list;
+    }
+
+    /**
+     * doRestCall make a rest call to address to backend + path + service
+     * ex: path = business/businessservice/ , serviceName = users
+     * -> http://localhost:8090/ +  business/businessservice/ + users
+     * @param path the path to the service
+     * @param serviceName the name of the service
+     * @return returns a string data of it
+     */
+    public static String doRestCall(String path, String serviceName) {
+        Client restClient = null;
+
+        restClient = Client.create();
+        WebResource webRes = restClient.resource(backendAddress + path + serviceName);
+        ClientResponse resp = webRes.accept(MediaType.TEXT_PLAIN).get(ClientResponse.class);
+        int status = resp.getStatus();
+        if (status != 200) {
+            System.out.println("Warning; DataConn.RestBackendLink::doRestCall:: status code: " +status );
+            return "";
+        }
+        String data = resp.getEntity(String.class);
+        return data;
+    }
+
+    public static <T> T parseJsonData(Type type, String data) {
+        Gson gson = new Gson();
+        T result = gson.fromJson(data, type);
+        return result;
     }
 }

@@ -2,6 +2,7 @@ package com.serverutvlab.business;
 
         import com.google.gson.Gson;
         import com.serverutvlab.business.BModels.BUser;
+        import com.serverutvlab.business.BModels.FriendVM;
         import com.serverutvlab.database.DBLayer.DBFacade;
         import com.serverutvlab.database.DBLayer.UserLogic;
         import com.serverutvlab.database.DBModels.UserEntity;
@@ -11,6 +12,7 @@ package com.serverutvlab.business;
         import javax.ws.rs.core.Application;
         import javax.ws.rs.core.MediaType;
         import javax.ws.rs.core.Response;
+        import java.util.ArrayList;
         import java.util.HashMap;
         import java.util.List;
         import java.util.Map;
@@ -36,6 +38,20 @@ public class BusinessService {
         List<BUser> allUsers = DBFacade.getAllUsers();
         Gson gson = new Gson();
         String json = gson.toJson(allUsers);
+        return json;
+    }
+
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    @Path("friends")
+    public String getUsersFriends()
+    {
+        ArrayList<FriendVM> friends = new ArrayList<FriendVM>();
+        for (int i = 0; i < 10; i++) {
+            friends.add(new FriendVM(i + 1, "friends name" + i));
+        }
+        Gson gson = new Gson();
+        String json = gson.toJson(friends);
         return json;
     }
 
@@ -74,4 +90,6 @@ public class BusinessService {
 
         return Response.ok(response).build();
     }
+
+
 }
