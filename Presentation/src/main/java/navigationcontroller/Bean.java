@@ -14,10 +14,20 @@ import java.io.Serializable;
 public class Bean implements Serializable {
 
     private String page;
+    private String friendpage;
 
     @PostConstruct
     public void init() {
-        page = "GetNewFriends"; //  Default include.
+        page = "GetNewFriends"; friendpage = "friends";
+        //  Default include.
+    }
+
+    public String getFriendpage() {
+        return friendpage;
+    }
+
+    public void setFriendpage(String friendpage) {
+        this.friendpage = friendpage;
     }
 
     public String getPage() {
