@@ -1,6 +1,7 @@
 package com.serverutvlab.database.DBLayer;
 
 
+import com.serverutvlab.business.BModels.BPost;
 import com.serverutvlab.business.BModels.BProfile;
 import com.serverutvlab.business.BModels.BUser;
 import com.serverutvlab.database.DBModels.PostEntity;
@@ -31,8 +32,9 @@ public class DBFacade {
     }
 
     static public boolean createNewUser(String email, String password) {
+        UserEntity user = new UserLogic().createNewAccount(email,password);
 
-        return new UserLogic().createNewUser(email,password);
+        return user != null && user.getId() != 0;
     }
 
     public static boolean authenticateUser(String e, String p) {
@@ -51,8 +53,24 @@ public class DBFacade {
      */
 
     static public BProfile getProfileForUserId(int userId) {
-        //new ProfileLogic().getProfileByUserId(userId);
-        return null;
+        ProfileEntity profile = new ProfileLogic().getProfileByUserId(userId);
+        List<BPost> posts = new ArrayList<BPost>();
+        if (profile == null){
+            return null;
+        }
+        for (PostEntity p : new PostLogic().getPostsByProfileId(profile.getId())) {
+            posts.add(new BPost(p.getId(),p.getSubject(),p.getMessageBody(),p.getTimestamp(),p.getAuthorId(),p.getRecipientId()));
+        }
+
+        return new BProfile(
+                profile.getId(),
+                profile.getName(),
+                profile.getInfo(),
+                profile.getAge(),
+                profile.getRelationshipStatus(),
+                profile.getUserId(),
+                posts
+                );
     }
 
     /**
@@ -65,4 +83,19 @@ public class DBFacade {
         return null;
     }
 
+    public static List<BPost> getPostsForProfile(int profileId) {
+        List<BPost> posts = new ArrayList<BPost>();
+        for(PostEntity e : new PostLogic().getPostsByProfileId(profileId)){
+            posts.add(new BPost(e.getId(),e.getSubject(),e.getMessageBody(),e.getTimestamp(),e.getAuthorId(),e.getRecipientId()));
+        }
+
+        return posts;
+    }
+
+    public static BPost postPost(int autoridId, int recipientId, String subject, String messageBody) {
+        ProfileEntity postedTo = new ProfileLogic().getProfileById(recipientId);
+        PostEntity p = new PostLogic().createPost(autoridId,recipientId,subject,messageBody,postedTo);
+        System.out.println("Post returning from PostLogic: " + p);
+        return p != null? new BPost(p.getId(),p.getSubject(),p.getMessageBody(),p.getTimestamp(),p.getAuthorId(),p.getRecipientId()) : null;
+    }
 }

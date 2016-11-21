@@ -1,5 +1,6 @@
 package com.serverutvlab.database.DBLayer;
 
+import com.serverutvlab.database.DBModels.ProfileEntity;
 import com.serverutvlab.database.DBModels.UserEntity;
 import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 
@@ -12,10 +13,10 @@ import java.util.List;
  */
 public class UserLogic {
     //private EntityManagerFactory emf = Persistence.createEntityManagerFactory("NewPersistenceUnit");
-    public boolean createNewUser(String email, String password) {
-        boolean flag = false;
-
+    public UserEntity createNewAccount(String email, String password) {
         UserEntity user = new UserEntity();
+        ProfileEntity profile = new ProfileEntity();
+
         user.setEmail(email);
         user.setPassword(password);
 
@@ -23,16 +24,21 @@ public class UserLogic {
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(user);
+            entityManager.flush();
+
+            profile.setUserId(user.getId());
+            entityManager.persist(profile);
+
             entityManager.getTransaction().commit();
-            flag = true;
+
         }catch (Exception e) {
             entityManager.getTransaction().rollback();
-            flag = false;
+            return null;
         }finally {
             entityManager.close();
         }
 
-        return flag;
+        return user;
     }
 
     public List<UserEntity> getAllUsers() {

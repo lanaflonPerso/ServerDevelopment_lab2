@@ -2,6 +2,7 @@ package com.serverutvlab.services;
 
 import com.google.gson.Gson;
 import com.serverutvlab.business.BFacade;
+import com.serverutvlab.services.SModels.SProfile;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -22,13 +23,15 @@ public class ProfileService {
 
 
     @POST
-    @Path("registerUser")
+    @Path("getProfile")
     //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response getUserProfile(@QueryParam("email") int userId) {
+    public Response getUserProfile(@QueryParam("userId") int userId) {
+
+        SProfile profile = BFacade.getProfileById(userId);
 
         Gson gson = new Gson();
-        String response = gson.toJson("respones goes here");
+        String response = gson.toJson(profile);
 
         return Response.ok(response).build();
 

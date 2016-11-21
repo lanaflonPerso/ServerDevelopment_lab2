@@ -9,10 +9,10 @@
     <schema id="4" name="performance_schema"/>
     <schema id="5" name="sys"/>
     <schema id="6" name="Webshop"/>
-    <schema id="7" name="MediaDatabase"/>
+    <schema id="7" name="communityTest"/>
     <table id="8" parent="1" name="PostEntity"/>
-    <table id="9" parent="1" name="ProfileEntity"/>
-    <table id="10" parent="1" name="UserEntity"/>
+    <table id="9" parent="1" name="UserEntity"/>
+    <table id="10" parent="1" name="ProfileEntity"/>
     <column id="11" parent="8" name="id">
       <mandatory>1</mandatory>
       <data-type>int(11)|0</data-type>
@@ -54,34 +54,34 @@
       <mandatory>1</mandatory>
       <data-type>int(11)|0</data-type>
     </column>
-    <column id="22" parent="9" name="age">
-      <data-type>int(11)|0</data-type>
-    </column>
-    <column id="23" parent="9" name="info">
+    <column id="22" parent="9" name="email">
       <data-type>varchar(255)|0</data-type>
     </column>
-    <column id="24" parent="9" name="name">
+    <column id="23" parent="9" name="password">
       <data-type>varchar(255)|0</data-type>
     </column>
-    <column id="25" parent="9" name="relationshipStatus">
-      <data-type>int(11)|0</data-type>
-    </column>
-    <column id="26" parent="9" name="userId">
-      <data-type>int(11)|0</data-type>
-    </column>
-    <key id="27" parent="9" name="PRIMARY">
+    <key id="24" parent="9" name="PRIMARY">
       <columns>id</columns>
       <primary>1</primary>
     </key>
-    <column id="28" parent="10" name="id">
+    <column id="25" parent="10" name="id">
       <mandatory>1</mandatory>
       <data-type>int(11)|0</data-type>
     </column>
-    <column id="29" parent="10" name="email">
+    <column id="26" parent="10" name="age">
+      <data-type>int(11)|0</data-type>
+    </column>
+    <column id="27" parent="10" name="info">
       <data-type>varchar(255)|0</data-type>
     </column>
-    <column id="30" parent="10" name="password">
+    <column id="28" parent="10" name="name">
       <data-type>varchar(255)|0</data-type>
+    </column>
+    <column id="29" parent="10" name="relationshipStatus">
+      <data-type>int(11)|0</data-type>
+    </column>
+    <column id="30" parent="10" name="userId">
+      <data-type>int(11)|0</data-type>
     </column>
     <key id="31" parent="10" name="PRIMARY">
       <columns>id</columns>
