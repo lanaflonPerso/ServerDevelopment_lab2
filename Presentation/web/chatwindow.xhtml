@@ -7,8 +7,11 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
+<h:head>tt</h:head>
+<!--<h:body>-->
 <body>
 <f:view>
+
     <h:outputLabel value="Hello, world"/>
 
     <h:form id="chatform">
@@ -27,15 +30,20 @@
 
         </h:panelGroup>
     </h:form>
-    <p:socket channel="/{room}" autoConnect="false" onMessage="handleMessage" widgetVar='subscriber' />
-    
-    <script type="text/javascript">
-        function handleMessage(message) {
-            var content = $(PrimeFaces.escapeClientId('chatform:msgout'));
-            content.append(message.text);
-            updateList();
-        }
-    </script>
+    <p:socket onMessage="handleMessage" channel="/{room}" autoConnect="false" widgetVar='subscriber' />
+
+
+
 </f:view>
+<script type="text/javascript">
+    function handleMessage(chatMessage) {
+        alert("char msg" + chatMessage);
+
+        var content = $(PrimeFaces.escapeClientId('chatform:msgout'));
+        content.append(chatMessage.text);
+        updateList();
+    }
+</script>
 </body>
+<!--</h:body>-->
 </html>

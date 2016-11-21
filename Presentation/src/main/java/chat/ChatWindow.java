@@ -2,7 +2,8 @@ package chat;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.view.ViewScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -57,11 +58,14 @@ public class ChatWindow implements Serializable{
     private ArrayList<String> textLists = new ArrayList<String>();
 
     public void postMsg() {
+        System.out.println("postMsg: " + theMessage);
+        textLists.add(theMessage);
 //        resetEventBus();
         if (eventBus == null) {
             System.out.println("postMsg failed eventbus == null");
         }else {
-            eventBus.publish(CHANNEL + "u22", "message text");
+//            eventBus.publish(CHANNEL + "", "message text");
+            eventBus.publish(CHANNEL + "name22", new ChatMessage(theMessage,"from","to"));
         }
         //FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get();
         //eventBus.publish()

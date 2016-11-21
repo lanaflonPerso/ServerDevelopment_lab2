@@ -20,13 +20,13 @@ public class ChatData {
     @OnOpen
     public void onOpen(RemoteEndpoint r, EventBus eventBus)
     {
-        System.out.println("ChatData::onOpen");
+        System.out.println("ChatData::onOpen theRoom = " + theRoom + " the user = " + theUser);
         eventBus.publish(theRoom + "/*",new ChatMessage("onOpen","user 1","user2"));
     }
     @OnClose
     public void onClose(RemoteEndpoint r, EventBus eventBus)
     {
-        System.out.println("ChatData::onClose");
+        System.out.println("ChatData::onClose theRoom = " + theRoom + " the user = " + theUser);
         eventBus.publish(theRoom + "/*",new ChatMessage("onClose","user 1","user2"));
     }
 
