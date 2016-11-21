@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xml:lang="en" lang="en">
-<head>
-    <title>Page 2</title>
-</head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<!--<h:head><title>testtest</title></h:head>-->
+
 <body>
-<h:outputLabel value="#{q1.value == 'y' ? 'What project(s) have you worked on?' : 'Do you want to learn?'}"/>
-<h:form>
-    <h:inputText id="other" value="#{q1.value}"/>
-    <h:commandButton id="submlit" value="submit" action="Page2"/>
-</h:form>
+<f:view>
+    <h:outputLabel value="#{restTestBean.json}"/>
+
+</f:view>
 </body>
 </html>

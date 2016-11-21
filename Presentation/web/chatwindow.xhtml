@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<body>
+<f:view>
+    <h:outputLabel value="Hello, world"/>
+
+    <h:form id="chatform">
+        <p:remoteCommand name="updateList" update="mytest" process="@this" />
+        <h:panelGroup>
+            <p:dataList id="mytest" value="#{chatWindow.textLists}" var="mylist" type="ordered">
+                msg: #{mylist}
+            </p:dataList>
+            <h:outputText id="msgout">
+
+            </h:outputText>
+        </h:panelGroup>
+    </h:form>
+    <p:socket channel="/{room}" autoConnect="false" onMessage="handleMessage" widgetVar='subscriber' />
+    
+    <script type="text/javascript">
+        function handleMessage(message) {
+            var content = $(PrimeFaces.escapeClientId('chatform:msgout'));
+            content.append(message.text);
+            updateList();
+        }
+    </script>
+</f:view>
+</body>
+</html>
