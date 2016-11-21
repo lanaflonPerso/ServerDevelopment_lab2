@@ -21,6 +21,22 @@ public class ProfileLogic {
     }
 
 
+    public ProfileEntity createProfile(int id) {
+        ProfileEntity profile = new ProfileEntity();
+        profile.setUserId(id);
 
+        EntityManager entityManager = DBManager.getInstance().createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(profile);
+            entityManager.getTransaction().commit();
 
+        }catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            return null;
+        }finally {
+            entityManager.close();
+        }
+        return profile;
+    }
 }

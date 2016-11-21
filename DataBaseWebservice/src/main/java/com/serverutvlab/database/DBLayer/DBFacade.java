@@ -32,8 +32,9 @@ public class DBFacade {
     }
 
     static public boolean createNewUser(String email, String password) {
+        UserEntity user = new UserLogic().createNewAccount(email,password);
 
-        return new UserLogic().createNewUser(email,password);
+        return user != null && user.getId() != 0;
     }
 
     public static boolean authenticateUser(String e, String p) {
@@ -54,7 +55,9 @@ public class DBFacade {
     static public BProfile getProfileForUserId(int userId) {
         ProfileEntity profile = new ProfileLogic().getProfileByUserId(userId);
         List<BPost> posts = new ArrayList<BPost>();
-
+        if (profile == null){
+            return null;
+        }
         for (PostEntity p : new PostLogic().getPostsByProfileId(profile.getId())) {
             posts.add(new BPost(p.getId(),p.getSubject(),p.getMessageBody(),p.getTimestamp(),p.getAuthorId(),p.getRecipientId()));
         }

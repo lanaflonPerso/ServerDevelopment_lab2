@@ -18,6 +18,7 @@ public class ProfileEntity {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public int getId() {
         return id;
     }
@@ -112,4 +113,6 @@ public class ProfileEntity {
     public void setWallPost(List<PostEntity> wallPost) {
         WallPost = wallPost;
     }
+
+
 }

@@ -78,6 +78,11 @@ public class BFacade {
     public static SProfile getProfileById(int userId){
         BProfile profile = new BProfileLogic().getProfileForUser(userId);
         List<SPost> posts = new ArrayList<SPost>();
+
+        if (profile == null){
+            return null;
+        }
+
         for (BPost p : profile.getWallPosts()) {
             posts.add(new SPost(p.getId(),p.getSubject(),p.getMessageBody(),p.getTimestamp(),p.getAuthorId(),p.getRecipientId()));
         }
