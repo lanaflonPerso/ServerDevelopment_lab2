@@ -5,6 +5,7 @@ import com.serverutvlab.database.DBModels.PostEntity;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +22,6 @@ public class PostLogic {
         post.setAuthorId(authorId);
         post.setRecipientId(recipientId);
 
-
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
         try {
             entityManager.getTransaction().begin();
@@ -34,13 +34,11 @@ public class PostLogic {
         }finally {
             entityManager.close();
         }
-
         return flag;
     }
 
 
     public List<PostEntity> getPostsByProfileId(int id){
-        //List<UserEntity> resultList = entityManager.createQuery("from UserEntity where email=" + e + " and password ="+ p).getResultList();
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
         Query q = entityManager.createQuery("from PostEntity post where  post.recipientId = ?1");
         q.setParameter(1, id);
@@ -49,7 +47,7 @@ public class PostLogic {
         System.out.println("PostLogic::getPostsByProfileId list = " + resultList);
         System.out.println("PostLogic::getPostsByProfileId list count = " + resultList.size());
 
-        return resultList;
+        return resultList == null? new ArrayList<PostEntity>() : resultList;
     }
 
 }
