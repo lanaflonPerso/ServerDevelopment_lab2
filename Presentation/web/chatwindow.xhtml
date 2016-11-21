@@ -20,6 +20,11 @@
             <h:outputText id="msgout">
 
             </h:outputText>
+
+            <p:commandButton value="tt" actionListener="#{chatWindow.login}" update=":chatform"/>
+            <p:inputText value="#{chatWindow.theMessage}"/>
+            <p:commandButton value="sendMsg" actionListener="#{chatWindow.postMsg}" update=":chatform"/>
+
         </h:panelGroup>
     </h:form>
     <p:socket channel="/{room}" autoConnect="false" onMessage="handleMessage" widgetVar='subscriber' />

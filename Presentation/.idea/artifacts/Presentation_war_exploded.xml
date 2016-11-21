@@ -8,16 +8,30 @@
           <element id="module-output" name="Presentation" />
         </element>
         <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.6.2" />
           <element id="library" level="project" name="Maven: com.sun.faces:jsf-api:2.2.14" />
           <element id="library" level="project" name="Maven: com.sun.faces:jsf-impl:2.2.14" />
           <element id="library" level="project" name="Maven: com.sun.jersey:jersey-client:1.19.3" />
           <element id="library" level="project" name="Maven: com.sun.jersey:jersey-core:1.19.3" />
+          <element id="library" level="project" name="Maven: com.sun.jersey:jersey-server:1.19" />
+          <element id="library" level="project" name="Maven: com.sun.jersey:jersey-servlet:1.19" />
           <element id="library" level="project" name="Maven: javax.servlet.jsp:jsp-api:2.2.1-b03" />
           <element id="library" level="project" name="Maven: javax.servlet:javax.servlet-api:4.0.0-b01" />
           <element id="library" level="project" name="Maven: javax.ws.rs:jsr311-api:1.1.1" />
           <element id="library" level="project" name="Maven: jstl:jstl:1.2" />
+          <element id="library" level="project" name="Maven: org.atmosphere:atmosphere-annotations:2.4.8" />
+          <element id="library" level="project" name="Maven: org.atmosphere:atmosphere-jersey:2.4.8" />
+          <element id="library" level="project" name="Maven: org.atmosphere:atmosphere-runtime:2.4.8" />
           <element id="library" level="project" name="Maven: org.primefaces:primefaces:6.0" />
-          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.6.2" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.7" />
+          <element id="library" level="project" name="Maven: javax.inject:javax.inject:1" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.1" />
+          <element id="library" level="project" name="Maven: org.atmosphere:atmosphere-compat-jbossweb:2.0.1" />
+          <element id="library" level="project" name="Maven: org.atmosphere:atmosphere-compat-tomcat7:2.0.1" />
+          <element id="library" level="project" name="Maven: org.atmosphere:atmosphere-compat-tomcat:2.0.1" />
+          <element id="library" level="project" name="Maven: org.atmosphere:atmosphere-runtime-native:2.4.3" />
+          <element id="library" level="project" name="Maven: org.atmosphere:atmosphere-runtime:2.4.3" />
+          <element id="library" level="project" name="Maven: org.primefaces.extensions:primefaces-extensions:6.0.0" />
         </element>
       </element>
     </root>
