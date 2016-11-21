@@ -14,6 +14,11 @@
 
     <h:outputLabel value="Hello, world"/>
 
+    <h:form id="loginThingy">
+        <h:outputLabel value="Username"/>
+        <p:inputText value="#{chatWindow.currentUser}"/>
+        <p:commandButton value="tt" actionListener="#{chatWindow.login}" update=":chatform"/>
+    </h:form>
     <h:form id="chatform">
         <p:remoteCommand name="updateList" update="mytest" process="@this" />
         <h:panelGroup>
@@ -23,9 +28,15 @@
             <h:outputText id="msgout">
 
             </h:outputText>
+            <h:outputLabel value="Username"/>
+            <p:inputText value="#{chatWindow.currentUser}"/>
+            <p:commandButton value="login" actionListener="#{chatWindow.login}" update=":chatform"/>
 
-            <p:commandButton value="tt" actionListener="#{chatWindow.login}" update=":chatform"/>
+            <h:outputLabel value="dest name"/>
+            <p:inputText value="#{chatWindow.toUser}"/>
+            <h:outputLabel value="msg:"/>
             <p:inputText value="#{chatWindow.theMessage}"/>
+            <!--<p:inputText value="#{chatWindow.currentUser}" type=""/>-->
             <p:commandButton value="sendMsg" actionListener="#{chatWindow.postMsg}" update=":chatform"/>
 
         </h:panelGroup>
@@ -37,10 +48,13 @@
 </f:view>
 <script type="text/javascript">
     function handleMessage(chatMessage) {
-        alert("char msg" + chatMessage);
+        alert("char msg" +  chatMessage.fromUser + ':' + chatMessage.toUser + ':' + chatMessage.message);
 
-        var content = $(PrimeFaces.escapeClientId('chatform:msgout'));
-        content.append(chatMessage.text);
+        var dat = $(PrimeFaces.escapeClientId('chatform:msgout'));
+        var text = chatMessage.fromUser + ':' + chatMessage.toUser + ':' + chatMessage.message;
+
+        dat.append(text + '<br />');
+
         updateList();
     }
 </script>

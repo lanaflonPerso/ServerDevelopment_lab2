@@ -26,6 +26,24 @@ public class ChatWindow implements Serializable{
     private String theMessage;
     private boolean isLoggedin = false;
 
+    private String currentUser;
+    private String toUser;
+
+    public String getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(String currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    public String getToUser() {
+        return toUser;
+    }
+
+    public void setToUser(String toUser) {
+        this.toUser = toUser;
+    }
 
     public String getTheMessage() {
         return theMessage;
@@ -41,8 +59,9 @@ public class ChatWindow implements Serializable{
 
     public void login() {
         System.out.println("ChatWindow::login");
+        currentUser = (currentUser == null) ? "unknownUser" : currentUser;
         // this starts the socket connection command in the page,
-        RequestContext.getCurrentInstance().execute("PF('subscriber').connect('/" + "name22" + "')");
+        RequestContext.getCurrentInstance().execute("PF('subscriber').connect('/" + currentUser + "')");
         isLoggedin = true;
 
     }
@@ -64,8 +83,9 @@ public class ChatWindow implements Serializable{
         if (eventBus == null) {
             System.out.println("postMsg failed eventbus == null");
         }else {
+            toUser = (toUser == null) ? "unknownUser" : toUser;
 //            eventBus.publish(CHANNEL + "", "message text");
-            eventBus.publish(CHANNEL + "name22", new ChatMessage(theMessage,"from","to"));
+            eventBus.publish(CHANNEL + toUser, new ChatMessage(theMessage,currentUser,toUser));
         }
         //FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get();
         //eventBus.publish()
