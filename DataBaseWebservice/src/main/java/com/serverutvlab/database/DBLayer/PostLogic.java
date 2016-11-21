@@ -1,6 +1,7 @@
 package com.serverutvlab.database.DBLayer;
 
 import com.serverutvlab.database.DBModels.PostEntity;
+import com.serverutvlab.database.DBModels.ProfileEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -12,31 +13,6 @@ import java.util.List;
  * Created by o_0 on 2016-11-10.
  */
 public class PostLogic {
-
-    public boolean createNewPost(String subject, String messageBody,int authorId,int recipientId) {
-        boolean flag = false;
-
-        PostEntity post = new PostEntity();
-        post.setSubject(subject);
-        post.setMessageBody(messageBody);
-        post.setAuthorId(authorId);
-        post.setRecipientId(recipientId);
-
-        EntityManager entityManager = DBManager.getInstance().createEntityManager();
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(post);
-            entityManager.getTransaction().commit();
-            flag = true;
-        }catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            flag = false;
-        }finally {
-            entityManager.close();
-        }
-        return flag;
-    }
-
 
     public List<PostEntity> getPostsByProfileId(int id){
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
@@ -50,4 +26,32 @@ public class PostLogic {
         return resultList == null? new ArrayList<PostEntity>() : resultList;
     }
 
+    public PostEntity createPost(int autoridId, int recipientId, String subject, String messageBody, ProfileEntity postedTo) {
+
+        PostEntity post = new PostEntity();
+        post.setSubject(subject);
+        post.setMessageBody(messageBody);
+        post.setRecipientId(recipientId);
+        post.setAuthorId(autoridId);
+        post.setPostedTo(postedTo);
+
+        EntityManager entityManager = DBManager.getInstance().createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(post);
+            entityManager.getTransaction().commit();
+
+        }catch (Exception e) {
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+            System.out.println("Failed to insert post");
+            return null;
+
+        }finally {
+            entityManager.close();
+        }
+
+        return post;
+
+    }
 }

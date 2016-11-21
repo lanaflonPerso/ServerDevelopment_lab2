@@ -83,4 +83,19 @@ public class DBFacade {
         return null;
     }
 
+    public static List<BPost> getPostsForProfile(int profileId) {
+        List<BPost> posts = new ArrayList<BPost>();
+        for(PostEntity e : new PostLogic().getPostsByProfileId(profileId)){
+            posts.add(new BPost(e.getId(),e.getSubject(),e.getMessageBody(),e.getTimestamp(),e.getAuthorId(),e.getRecipientId()));
+        }
+
+        return posts;
+    }
+
+    public static BPost postPost(int autoridId, int recipientId, String subject, String messageBody) {
+        ProfileEntity postedTo = new ProfileLogic().getProfileById(recipientId);
+        PostEntity p = new PostLogic().createPost(autoridId,recipientId,subject,messageBody,postedTo);
+        System.out.println("Post returning from PostLogic: " + p);
+        return p != null? new BPost(p.getId(),p.getSubject(),p.getMessageBody(),p.getTimestamp(),p.getAuthorId(),p.getRecipientId()) : null;
+    }
 }

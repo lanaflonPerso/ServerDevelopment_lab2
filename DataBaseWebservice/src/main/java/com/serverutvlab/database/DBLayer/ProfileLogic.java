@@ -39,4 +39,16 @@ public class ProfileLogic {
         }
         return profile;
     }
+
+    public ProfileEntity getProfileById(int recipientId) {
+
+        EntityManager entityManager = DBManager.getInstance().createEntityManager();
+        Query q = entityManager.createQuery("from ProfileEntity p where  p.id = ?1");
+        q.setParameter(1, recipientId);
+        List<ProfileEntity> profiles = q.getResultList();
+
+        return profiles.size() == 0? null : profiles.get(0);
+
+
+    }
 }
