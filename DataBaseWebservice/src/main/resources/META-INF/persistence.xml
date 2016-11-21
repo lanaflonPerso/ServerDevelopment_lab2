@@ -7,14 +7,13 @@
         <!--<mapping-file>com/serverutvlab/database/DBModels/ProfilEntity.xml</mapping-file>-->
         <!--<mapping-file>com/serverutvlab/database/DBModels/UserEntity.xml</mapping-file>-->
         <class>com.serverutvlab.database.DBModels.PostEntity</class>
-        <class>com.serverutvlab.database.DBModels.ProfilEntity</class>
-        <class>com.serverutvlab.database.DBModels.UserEntity</class>
         <class>com.serverutvlab.database.DBModels.ProfileEntity</class>
+        <class>com.serverutvlab.database.DBModels.UserEntity</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/communityDB"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-            <property name="hibernate.connection.username"/>
-            <property name="hibernate.connection.password"/>
+            <property name="hibernate.connection.username" value="serverutv"/>
+            <property name="hibernate.connection.password" value="!Qaz2wsx"/>
             <property name="hibernate.archive.autodetection" value="class"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
