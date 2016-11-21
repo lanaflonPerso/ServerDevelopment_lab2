@@ -1,7 +1,9 @@
 package com.serverutvlab.business;
 
+import com.serverutvlab.business.BModels.BPost;
 import com.serverutvlab.business.BModels.BProfile;
 import com.serverutvlab.business.BModels.BUser;
+import com.serverutvlab.services.SModels.SPost;
 import com.serverutvlab.services.SModels.SProfile;
 import com.serverutvlab.services.SModels.SUser;
 
@@ -73,8 +75,22 @@ public class BFacade {
      * @param userId userId
      * @return BProfile converted To SProfile
      */
-    public SProfile getProfileById(int userId){//BProfile result = new BProfileLogic().getProfileForUser(userId);
-       return null;
+    public static SProfile getProfileById(int userId){
+        BProfile profile = new BProfileLogic().getProfileForUser(userId);
+        List<SPost> posts = new ArrayList<SPost>();
+        for (BPost p : profile.getWallPosts()) {
+            posts.add(new SPost(p.getId(),p.getSubject(),p.getMessageBody(),p.getTimestamp(),p.getAuthorId(),p.getRecipientId()));
+        }
+
+        return new SProfile(
+                profile.getId(),
+                profile.getName(),
+                profile.getInfo(),
+                profile.getAge(),
+                profile.getRelationshipStatus(),
+                profile.getUserId(),
+                posts
+        );
     }
 
 
@@ -85,4 +101,6 @@ public class BFacade {
      *  POST SERVICE CALLS
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
      */
+
+
 }

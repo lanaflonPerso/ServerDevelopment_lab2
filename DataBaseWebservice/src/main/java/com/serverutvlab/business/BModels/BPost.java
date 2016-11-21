@@ -13,18 +13,19 @@ public class BPost {
     private String messageBody;
     private Timestamp timestamp;
     private int authorId;
+    private int recipientId;
     private SProfile postedTo;
 
     public BPost() {
     }
 
-    public BPost(int id, String subject, String messageBody, Timestamp timestamp, int authorId, SProfile postedTo) {
+    public BPost(int id, String subject, String messageBody, Timestamp timestamp, int authorId, int recipientId) {
         this.id = id;
         this.subject = subject;
         this.messageBody = messageBody;
         this.timestamp = timestamp;
         this.authorId = authorId;
-        this.postedTo = postedTo;
+        this.recipientId = recipientId;
     }
 
     public int getId() {
@@ -67,6 +68,14 @@ public class BPost {
         this.authorId = authorId;
     }
 
+    public int getRecipientId() {
+        return recipientId;
+    }
+
+    public void setRecipientId(int recipientId) {
+        this.recipientId = recipientId;
+    }
+
     public SProfile getPostedTo() {
         return postedTo;
     }
@@ -74,6 +83,7 @@ public class BPost {
     public void setPostedTo(SProfile postedTo) {
         this.postedTo = postedTo;
     }
+
 
     @Override
     public String toString() {
