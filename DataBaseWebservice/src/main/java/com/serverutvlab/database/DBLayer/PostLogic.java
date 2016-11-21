@@ -5,6 +5,7 @@ import com.serverutvlab.database.DBModels.PostEntity;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,7 +47,7 @@ public class PostLogic {
         System.out.println("PostLogic::getPostsByProfileId list = " + resultList);
         System.out.println("PostLogic::getPostsByProfileId list count = " + resultList.size());
 
-        return resultList;
+        return resultList == null? new ArrayList<PostEntity>() : resultList;
     }
 
 }
