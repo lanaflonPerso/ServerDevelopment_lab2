@@ -19,7 +19,7 @@ public class DBFacade {
 
     /**
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-     *  BUSER LOGIC CALLS
+     *  USERENTITY LOGIC CALLS
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
      */
 
@@ -46,9 +46,20 @@ public class DBFacade {
         return new BUser(user.getId(),user.getEmail(),user.getPassword());
     }
 
+    public static List<BUser> getFriendsByUserId(int id) {
+        List<BUser> friends = new ArrayList<BUser>();
+        for(UserEntity u: new UserLogic().getFriendsByUserId(id)){
+            friends.add(new BUser(u.getId(),u.getEmail(),u.getPassword()));
+        }
+        return friends;
+    }
+    public static boolean addFriendToUser(int uId, int fId) {
+        return new UserLogic().addFriendToUser(uId,fId);
+    }
+
     /**
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-     *  BPROFILE LOGIC CALLS
+     *  PROFILEENTITY LOGIC CALLS
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
      */
 
@@ -75,7 +86,7 @@ public class DBFacade {
 
     /**
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-     *  BPOST LOCIG CALLS
+     *  POSTENTITY LOCIG CALLS
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
      */
 
@@ -98,4 +109,7 @@ public class DBFacade {
         System.out.println("Post returning from PostLogic: " + p);
         return p != null? new BPost(p.getId(),p.getSubject(),p.getMessageBody(),p.getTimestamp(),p.getAuthorId(),p.getRecipientId()) : null;
     }
+
+
+
 }

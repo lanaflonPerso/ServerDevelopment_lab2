@@ -89,4 +89,36 @@ public class UserService {
 
         return Response.ok(response).build();
     }
+
+    @POST
+    @Path("getFriendsByUserId")
+    //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response getFriendsByUserId(@QueryParam("userId") int id) {
+
+        List<SUser> result = BFacade.getFriendsByUserId(id);
+
+        Gson gson = new Gson();
+        String response = gson.toJson(result);
+
+        return Response.ok(response).build();
+    }
+
+    @POST
+    @Path("addFriendToUser")
+    //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response addFriendToUser(@QueryParam("userId") int uId, @QueryParam("friendId")int fId) {
+        Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
+
+        boolean result = BFacade.addFriendToUser(uId,fId);
+
+        resultMap.put("success", result);
+
+        Gson gson = new Gson();
+        String response = gson.toJson(resultMap);
+
+        return Response.ok(response).build();
+    }
+
 }

@@ -67,6 +67,17 @@ public class BFacade {
         return new BUserLogic().createUser(email, password);
     }
 
+    public static List<SUser> getFriendsByUserId(int id) {
+        List<SUser> friends = new ArrayList<SUser>();
+        for(BUser u: new BUserLogic().getFriendsByUserId(id)){
+            friends.add(new SUser(u.getId(),u.getEmail()));
+        }
+        return friends;
+    }
+
+    public static boolean addFriendToUser(int uId, int fId) {
+        return new BUserLogic().addFriendToUser(uId,fId);
+    }
 
     /**
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -123,4 +134,6 @@ public class BFacade {
         BPost p = new BPostLogic().postPost(autoridId,recipientId,subject,messageBody);
         return p != null? new SPost(p.getId(),p.getSubject(),p.getMessageBody(),p.getTimestamp(),p.getAuthorId(),p.getRecipientId()) : null;
     }
+
+
 }

@@ -25,4 +25,14 @@ public class BUserLogic {
     public boolean createUser(String email, String password){
         return DBFacade.createNewUser(email, password);
     }
+
+    public List<BUser> getFriendsByUserId(int id) {
+
+        return DBFacade.getFriendsByUserId(id);
+
+    }
+
+    public boolean addFriendToUser(int uId, int fId) {
+        return DBFacade.addFriendToUser(uId,fId);
+    }
 }
