@@ -1,13 +1,12 @@
 package chat;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 
+import backend.RestBackendLink;
 import org.primefaces.context.RequestContext;
 import org.primefaces.push.EventBus;
 import org.primefaces.push.EventBusFactory;
@@ -22,6 +21,7 @@ public class ChatWindow implements Serializable{
 //    private final PushContext pushContext = PushContextFactory.getDefault().getPushContext();
        private final EventBus eventBus = EventBusFactory.getDefault().eventBus();
 //    private EventBus eventBus;// = EventBusFactory.getDefault().eventBus();
+
     private static final String CHANNEL = "/{room}/";
     private String theMessage;
     private boolean isLoggedin = false;
@@ -85,7 +85,8 @@ public class ChatWindow implements Serializable{
         }else {
             toUser = (toUser == null) ? "unknownUser" : toUser;
 //            eventBus.publish(CHANNEL + "", "message text");
-            eventBus.publish(CHANNEL + toUser, new ChatMessage(theMessage,currentUser,toUser));
+            //eventBus.publish(CHANNEL + toUser, new ChatMessageVM(theMessage,currentUser,toUser));
+            RestBackendLink.sendChatMessage(new ChatMessageVM(theMessage,currentUser,toUser));
         }
         //FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get();
         //eventBus.publish()

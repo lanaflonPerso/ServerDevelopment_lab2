@@ -3,6 +3,7 @@ package com.serverutvlab.business;
 import com.serverutvlab.business.BModels.BPost;
 import com.serverutvlab.business.BModels.BProfile;
 import com.serverutvlab.business.BModels.BUser;
+import com.serverutvlab.services.SModels.ChatMessageVM;
 import com.serverutvlab.services.SModels.SPost;
 import com.serverutvlab.services.SModels.SProfile;
 import com.serverutvlab.services.SModels.SUser;
@@ -122,5 +123,9 @@ public class BFacade {
     public static SPost postPost(int autoridId, int recipientId, String subject, String messageBody) {
         BPost p = new BPostLogic().postPost(autoridId,recipientId,subject,messageBody);
         return p != null? new SPost(p.getId(),p.getSubject(),p.getMessageBody(),p.getTimestamp(),p.getAuthorId(),p.getRecipientId()) : null;
+    }
+
+    public static boolean sendMessage(ChatMessageVM chatMessageVM) {
+        return BChatLogic.broadcastMessage(chatMessageVM);
     }
 }

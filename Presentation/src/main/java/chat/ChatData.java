@@ -21,17 +21,17 @@ public class ChatData {
     public void onOpen(RemoteEndpoint r, EventBus eventBus)
     {
         System.out.println("ChatData::onOpen theRoom = " + theRoom + " the user = " + theUser);
-        eventBus.publish(theRoom + "/*",new ChatMessage("onOpen","user 1","user2"));
+        eventBus.publish(theRoom + "/*",new ChatMessageVM("onOpen","user 1","user2"));
     }
     @OnClose
     public void onClose(RemoteEndpoint r, EventBus eventBus)
     {
         System.out.println("ChatData::onClose theRoom = " + theRoom + " the user = " + theUser);
-        eventBus.publish(theRoom + "/*",new ChatMessage("onClose","user 1","user2"));
+        eventBus.publish(theRoom + "/*",new ChatMessageVM("onClose","user 1","user2"));
     }
 
     @OnMessage(decoders = {MessageCoder.class}, encoders = {MessageCoder.class})
-    public ChatMessage onMessage(ChatMessage message) {
+    public ChatMessageVM onMessage(ChatMessageVM message) {
         System.out.println("ChatData::onMessage");
         return message;
     }

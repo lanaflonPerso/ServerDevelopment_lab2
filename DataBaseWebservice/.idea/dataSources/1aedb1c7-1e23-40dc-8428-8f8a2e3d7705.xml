@@ -1,91 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="MySQL - communityDB@localhost">
-  <database-model serializer="dbm" rdbms="MYSQL" format-version="2.6">
-    <schema id="1" name="CommunityDB">
-      <visible>1</visible>
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
+    <root id="1"/>
+    <schema id="2" parent="1" name="CommunityDB">
+      <Current>1</Current>
+      <Visible>1</Visible>
     </schema>
-    <schema id="2" name="information_schema"/>
-    <schema id="3" name="mysql"/>
-    <schema id="4" name="performance_schema"/>
-    <schema id="5" name="sys"/>
-    <schema id="6" name="Webshop"/>
-    <schema id="7" name="communityTest"/>
-    <table id="8" parent="1" name="PostEntity"/>
-    <table id="9" parent="1" name="UserEntity"/>
-    <table id="10" parent="1" name="ProfileEntity"/>
-    <column id="11" parent="8" name="id">
-      <mandatory>1</mandatory>
-      <data-type>int(11)|0</data-type>
+    <schema id="3" parent="1" name="information_schema"/>
+    <schema id="4" parent="1" name="mysql"/>
+    <schema id="5" parent="1" name="performance_schema"/>
+    <schema id="6" parent="1" name="sys"/>
+    <schema id="7" parent="1" name="Webshop"/>
+    <schema id="8" parent="1" name="MediaDatabase"/>
+    <table id="9" parent="2" name="PostEntity"/>
+    <table id="10" parent="2" name="ProfileEntity"/>
+    <table id="11" parent="2" name="UserEntity"/>
+    <table id="12" parent="2" name="hibernate_sequence"/>
+    <column id="13" parent="9" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
     </column>
-    <column id="12" parent="8" name="authorId">
-      <data-type>int(11)|0</data-type>
+    <column id="14" parent="9" name="authorId">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
     </column>
-    <column id="13" parent="8" name="messageBody">
-      <data-type>varchar(255)|0</data-type>
+    <column id="15" parent="9" name="messageBody">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="14" parent="8" name="recipientId">
-      <data-type>int(11)|0</data-type>
+    <column id="16" parent="9" name="recipientId">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
     </column>
-    <column id="15" parent="8" name="subject">
-      <data-type>varchar(255)|0</data-type>
+    <column id="17" parent="9" name="subject">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="16" parent="8" name="timestamp">
-      <data-type>datetime|0</data-type>
+    <column id="18" parent="9" name="timestamp">
+      <Position>6</Position>
+      <DataType>datetime|0</DataType>
     </column>
-    <column id="17" parent="8" name="postedTo_id">
-      <mandatory>1</mandatory>
-      <data-type>int(11)|0</data-type>
+    <column id="19" parent="9" name="postedTo_id">
+      <Position>7</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
     </column>
-    <index id="18" parent="8" name="FKcmmfijkpmtujfc7gntfo4cv03">
-      <columns>postedTo_id</columns>
-      <desc-columns></desc-columns>
+    <index id="20" parent="9" name="FKcmmfijkpmtujfc7gntfo4cv03">
+      <ColNames>postedTo_id</ColNames>
     </index>
-    <key id="19" parent="8" name="PRIMARY">
-      <columns>id</columns>
-      <primary>1</primary>
+    <key id="21" parent="9" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
     </key>
-    <foreign-key id="20" parent="8" name="FKcmmfijkpmtujfc7gntfo4cv03">
-      <columns>postedTo_id</columns>
-      <ref-key>~.ProfileEntity.PRIMARY</ref-key>
-      <cascade-update-rule>restrict</cascade-update-rule>
-      <cascade-delete-rule>restrict</cascade-delete-rule>
+    <foreign-key id="22" parent="9" name="FKcmmfijkpmtujfc7gntfo4cv03">
+      <ColNames>postedTo_id</ColNames>
+      <RefSchemaName>communitydb</RefSchemaName>
+      <RefTableName>ProfileEntity</RefTableName>
+      <RefKeyName>PRIMARY</RefKeyName>
+      <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="21" parent="9" name="id">
-      <mandatory>1</mandatory>
-      <data-type>int(11)|0</data-type>
+    <column id="23" parent="10" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
     </column>
-    <column id="22" parent="9" name="email">
-      <data-type>varchar(255)|0</data-type>
+    <column id="24" parent="10" name="age">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
     </column>
-    <column id="23" parent="9" name="password">
-      <data-type>varchar(255)|0</data-type>
+    <column id="25" parent="10" name="info">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
     </column>
-    <key id="24" parent="9" name="PRIMARY">
-      <columns>id</columns>
-      <primary>1</primary>
+    <column id="26" parent="10" name="name">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="27" parent="10" name="relationshipStatus">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="28" parent="10" name="userId">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <key id="29" parent="10" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
     </key>
-    <column id="25" parent="10" name="id">
-      <mandatory>1</mandatory>
-      <data-type>int(11)|0</data-type>
+    <column id="30" parent="11" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
     </column>
-    <column id="26" parent="10" name="age">
-      <data-type>int(11)|0</data-type>
+    <column id="31" parent="11" name="email">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="27" parent="10" name="info">
-      <data-type>varchar(255)|0</data-type>
+    <column id="32" parent="11" name="password">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="28" parent="10" name="name">
-      <data-type>varchar(255)|0</data-type>
-    </column>
-    <column id="29" parent="10" name="relationshipStatus">
-      <data-type>int(11)|0</data-type>
-    </column>
-    <column id="30" parent="10" name="userId">
-      <data-type>int(11)|0</data-type>
-    </column>
-    <key id="31" parent="10" name="PRIMARY">
-      <columns>id</columns>
-      <primary>1</primary>
+    <key id="33" parent="11" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
     </key>
+    <column id="34" parent="12" name="next_val">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+    </column>
   </database-model>
 </dataSource>
