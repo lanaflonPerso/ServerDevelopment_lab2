@@ -22,6 +22,8 @@ public class NavigationController {
             return "newHome";
         }else if(id.equals("2")){
             return "GetNewFriends";
+        }else if(id.equals("4")){
+            return "chatwindow";
         }else if(id.equals("0")){
             return "index";
         }

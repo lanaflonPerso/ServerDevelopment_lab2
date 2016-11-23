@@ -1,5 +1,6 @@
 package backend;
 
+import chat.ChatMessageVM;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sun.jersey.api.client.Client;
@@ -13,6 +14,17 @@ import java.util.List;
 
 public class RestBackendLink {
     private final static String backendAddress = "http://localhost:8090/";
+
+    public static boolean sendChatMessage(ChatMessageVM chatMessageVM) {
+        System.out.println("RestBackendLink::sendChatMessage");
+        //ChatMessageVM chatMessageVM = new ChatMessageVM("the message", "this is me", "recive it dude");
+        String s = new Gson().toJson(chatMessageVM, ChatMessageVM.class);
+        System.out.println("Sending json string: " + s);
+
+        String s1 = RestBackendLink.doRestPost("services/chatService/","sendmessage",s);
+        System.out.println("Response is: " + s1);
+        return true;
+    }
 
     public static String getUsers()
     {
@@ -48,6 +60,33 @@ public class RestBackendLink {
         return list;
     }
 
+    //ClientResponse resp =  webRes.type(MediaType.APPLICATION_JSON_TYPE).accept(MediaType.APPLICATION_JSON).post().get(ClientResponse.class);
+
+    /**
+     * doRestCall make a rest call to address to backend + path + service
+     * ex: path = business/businessservice/ , serviceName = users
+     * -> http://localhost:8090/ +  business/businessservice/ + users
+     * @param path the path to the service
+     * @param serviceName the name of the service
+     * @return returns a string data of it
+     */
+    public static String doRestPost(String path, String serviceName,String jsonString) {
+        Client restClient = null;
+
+        restClient = Client.create();
+        WebResource webRes = restClient.resource(backendAddress + path + serviceName);
+        System.out.println("add: " + backendAddress + path + serviceName);
+        ClientResponse resp =  webRes.type(MediaType.APPLICATION_JSON).post(ClientResponse.class,jsonString);
+
+        int status = resp.getStatus();
+        if (status != 200) {
+            System.out.println("Warning; DataConn.RestBackendLink::doRestCall:: status code: " +status );
+            return "";
+        }
+        String data = resp.getEntity(String.class);
+        return data;
+    }
+
     /**
      * doRestCall make a rest call to address to backend + path + service
      * ex: path = business/businessservice/ , serviceName = users
@@ -61,6 +100,7 @@ public class RestBackendLink {
 
         restClient = Client.create();
         WebResource webRes = restClient.resource(backendAddress + path + serviceName);
+
         ClientResponse resp = webRes.accept(MediaType.TEXT_PLAIN).get(ClientResponse.class);
         int status = resp.getStatus();
         if (status != 200) {

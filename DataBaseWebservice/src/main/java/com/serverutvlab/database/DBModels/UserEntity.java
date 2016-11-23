@@ -75,10 +75,9 @@ public class UserEntity {
                 '}';
     }
 
-
     private List<UserEntity> friends;
 
-    @ManyToMany
+    @OneToMany
     public List<UserEntity> getFriends() {
         return friends;
     }
