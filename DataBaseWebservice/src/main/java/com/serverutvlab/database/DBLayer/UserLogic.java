@@ -91,7 +91,7 @@ public class UserLogic {
             q2.setParameter(1,friendId);
 
 
-            UserEntity friend = (UserEntity) q.getSingleResult();
+            UserEntity friend = (UserEntity) q2.getSingleResult();
             System.out.println("User: " + user);
             System.out.println("Friend: " + friend);
 
