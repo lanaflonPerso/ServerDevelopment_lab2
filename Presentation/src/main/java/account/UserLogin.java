@@ -1,7 +1,8 @@
-package navigationcontroller;
+package account;
 
 import backend.BackendFacade;
 import chat.ChatSession;
+import viewmodel.UserVM;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -16,6 +17,17 @@ import javax.faces.bean.SessionScoped;
 public class UserLogin {
     @ManagedProperty("#{chatSession}")
     private ChatSession chatSession;
+
+    @ManagedProperty("#{account}")
+    private Account userAccount;
+
+    public Account getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(Account userAccount) {
+        this.userAccount = userAccount;
+    }
 
     public ChatSession getChatSession() {
         return chatSession;
@@ -52,11 +64,15 @@ public class UserLogin {
     public boolean login() {
         // TODO: login into the webpage
         System.out.println("user: " + userName + " pass: " + password);
-        boolean success = BackendFacade.loginUser(userName, password);
-        if (success) {
+        UserVM userVM = BackendFacade.loginUser(userName, password);
+        if (userVM != null) {
             chatSession.setUserName(userName);
             chatSession.setDestinationName(userName);
             chatSession.setLoggedin(true);
+            userAccount.setUserId(userVM.getUserId());
+            userAccount.setUsername(userVM.getUsername());
+            userAccount.setLoggedin(true);
+
         }
         System.out.println("user have loggedin: " + chatSession.toString());
         return true;

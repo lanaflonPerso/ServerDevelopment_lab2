@@ -37,7 +37,7 @@ public class DBFacade {
         return user != null && user.getId() != 0;
     }
 
-    public static boolean authenticateUser(String e, String p) {
+    public static BUser authenticateUser(String e, String p) {
         return new UserLogic().authenticateUser(e, p);
     }
 

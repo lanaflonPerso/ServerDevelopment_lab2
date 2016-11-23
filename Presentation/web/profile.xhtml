@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>tt</h:head>
+<!--<h:body>-->
+<h:body>
+    <f:view>
+        <h:outputLabel value="profile, world"/>
+        <h:panelGroup id="profileData">
+            <ul>
+                <li>
+                    <h:outputLabel value="Name"/>
+                    <h:outputLabel value="#{profileView.name}"/>
+                </li>
+
+                <li>
+                    <h:outputLabel value="info"/>
+                    <h:outputText value="#{profileView.info}"/>
+
+                </li>
+                <li>
+                    <h:outputLabel value="age"/>
+                    <h:outputLabel value="#{profileView.age}"/>
+                </li>
+                <li>
+
+                    <h:outputLabel value="relationshipStatus"/>
+                    <h:outputLabel value="#{profileView.relationshipStatus}"/>
+                </li>
+            </ul>
+        </h:panelGroup>
+
+    </f:view>
+</h:body>
+</html>

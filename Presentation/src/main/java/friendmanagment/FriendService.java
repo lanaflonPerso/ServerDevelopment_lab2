@@ -18,7 +18,7 @@ public class FriendService {
     private ArrayList<FriendVM>  friendList = new ArrayList<FriendVM>();
 
     public boolean loadFriends(int userId) {
-        String data = RestBackendLink.doRestCall("business/businessservice/","friends");
+        String data = RestBackendLink.doRestGet("business/businessservice/","friends");
         Type type = new TypeToken<ArrayList<FriendVM>>(){}.getType();
         ArrayList<FriendVM> friends = RestBackendLink.parseJsonData(type, data);
         if (friends == null) {

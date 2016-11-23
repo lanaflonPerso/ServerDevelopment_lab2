@@ -22,7 +22,7 @@ public class ProfileService {
     }
 
 
-    @POST
+    @GET
     @Path("getProfile")
     //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)

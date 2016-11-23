@@ -13,7 +13,7 @@ public class RestTestApp {
         String s = new Gson().toJson(chatMessageVM, ChatMessageVM.class);
         System.out.println("Sending json string: " + s);
 
-        String s1 = RestBackendLink.doRestPost("services/chatService/","sendmessage",s);
+        String s1 = RestBackendLink.doRestJsonPost("services/chatService/","sendmessage",s);
         System.out.println("Response is: " + s1);
 
 

@@ -18,7 +18,7 @@ public class BUserLogic {
         return DBFacade.getUserById(id);
     }
 
-    public boolean authenticateUser(String email, String password) {
+    public BUser authenticateUser(String email, String password) {
         return DBFacade.authenticateUser(email,password);
     }
 

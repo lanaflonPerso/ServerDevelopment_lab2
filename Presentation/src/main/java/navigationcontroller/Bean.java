@@ -16,9 +16,20 @@ public class Bean implements Serializable {
     private String page;
     private String friendpage;
 
+    public String getProfilepage() {
+        return profilepage;
+    }
+
+    public void setProfilepage(String profilepage) {
+        this.profilepage = profilepage;
+    }
+
+    private String profilepage;
+
     @PostConstruct
     public void init() {
         page = "GetNewFriends"; friendpage = "friends";
+        profilepage = "profile";
         //  Default include.
     }
 

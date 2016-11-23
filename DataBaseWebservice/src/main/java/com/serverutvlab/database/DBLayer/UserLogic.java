@@ -1,9 +1,8 @@
 package com.serverutvlab.database.DBLayer;
 
+import com.serverutvlab.business.BModels.BUser;
 import com.serverutvlab.database.DBModels.ProfileEntity;
 import com.serverutvlab.database.DBModels.UserEntity;
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
-import org.omg.CORBA.UserException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -53,7 +52,7 @@ public class UserLogic {
 
 
 
-    public boolean authenticateUser(String e, String p){
+    public BUser authenticateUser(String e, String p){
         //List<UserEntity> resultList = entityManager.createQuery("from UserEntity where email=" + e + " and password ="+ p).getResultList();
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
         Query q = entityManager.createQuery("from UserEntity user where user.email = ?1 and user.password = ?2");
@@ -64,8 +63,13 @@ public class UserLogic {
 
         System.out.println("UserLogic::authenticateUser list = " + resultList);
         System.out.println("UserLogic::authenticateUser list count = " + resultList.size());
+        BUser user = null;
+        if (resultList.size() == 1){
+            UserEntity userEntity = resultList.get(0);
+            user = new BUser(userEntity.getId(),userEntity.getEmail(),"");
+        }
 
-        return resultList.size() == 1;
+        return user;
     }
 
     public UserEntity getUserById(int id) {

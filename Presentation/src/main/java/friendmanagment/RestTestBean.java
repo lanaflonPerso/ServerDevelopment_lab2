@@ -1,17 +1,11 @@
 package friendmanagment;
 
 import backend.RestBackendLink;
-import org.primefaces.model.DualListModel;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
-import javax.faces.view.facelets.FaceletContext;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by o_0 on 2016-11-03.
@@ -32,7 +26,7 @@ public class RestTestBean implements Serializable {
     }
 
     public String getJson() {
-        return RestBackendLink.doRestCall("services/userservice/","users");
+        return RestBackendLink.doRestGet("services/userservice/","users");
     }
 
 }

@@ -60,18 +60,18 @@ public class UserService {
     //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
     public Response authenticateUser(@QueryParam("email") String email, @QueryParam("password") String password) {
-        Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
 
-        //System.out.println("Login attempt:Email = " + email);
-        //System.out.println("Login attempt:Password = " + password);
+        System.out.println("Login attempt:Email = " + email);
+        System.out.println("Login attempt:Password = " + password);
 
-        boolean result = BFacade.authenticateUser(email,password);
+        SUser sUser = BFacade.authenticateUser(email, password);
 
-        resultMap.put("success", result);
+        if (sUser == null) {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
 
         Gson gson = new Gson();
-        String response = gson.toJson(resultMap);
-
+        String response = gson.toJson(sUser);
         return Response.ok(response).build();
     }
 

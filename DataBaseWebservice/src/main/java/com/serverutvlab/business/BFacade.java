@@ -53,8 +53,9 @@ public class BFacade {
      * @param password password
      * @return true if authentication is a success, false otherwise
      */
-    public static boolean authenticateUser(String email, String password) {
-        return new BUserLogic().authenticateUser(email, password);
+    public static SUser authenticateUser(String email, String password) {
+        BUser user = new BUserLogic().authenticateUser(email, password);
+        return new SUser(user.getId(),user.getEmail());
     }
 
     /**
