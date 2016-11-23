@@ -1,5 +1,7 @@
 package com.serverutvlab.business.BModels;
 
+import java.util.List;
+
 /**
  * Created by cj on 2016-11-17.
  */
@@ -7,6 +9,7 @@ public class BUser {
     private int id;
     private String email;
     private String password;
+    private List<BUser> friends;
 
 
     public BUser(int id, String email, String password) {
@@ -37,5 +40,13 @@ public class BUser {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<BUser> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(List<BUser> friends) {
+        this.friends = friends;
     }
 }

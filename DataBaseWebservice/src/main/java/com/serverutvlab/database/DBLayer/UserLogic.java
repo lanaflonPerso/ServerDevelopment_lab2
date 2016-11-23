@@ -3,6 +3,7 @@ package com.serverutvlab.database.DBLayer;
 import com.serverutvlab.database.DBModels.ProfileEntity;
 import com.serverutvlab.database.DBModels.UserEntity;
 import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
+import org.omg.CORBA.UserException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -73,5 +74,53 @@ public class UserLogic {
         q.setParameter(1, id);
 
         return (UserEntity) q.getSingleResult();
+    }
+
+    public boolean addFriendToUser(int userId, int friendId){
+        EntityManager entityManager = DBManager.getInstance().createEntityManager();
+            System.out.println("Adding friend to user ");
+        try {
+            entityManager.getTransaction().begin();
+
+            Query q = entityManager.createQuery("from UserEntity user where user.id = ?1");
+            q.setParameter(1, userId);
+
+            UserEntity user = (UserEntity) q.getSingleResult();
+
+            Query q2 = entityManager.createQuery("from UserEntity user where user.id = ?1");
+            q2.setParameter(1,friendId);
+
+
+            UserEntity friend = (UserEntity) q.getSingleResult();
+            System.out.println("User: " + user);
+            System.out.println("Friend: " + friend);
+
+
+            if (friend == null){
+                System.out.println("friend not found, returning false");
+                return false;
+            }
+
+
+            user.getFriends().add(friend);
+            entityManager.persist(user);
+
+            entityManager.getTransaction().commit();
+
+        }catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            return false;
+        }finally {
+            entityManager.close();
+        }
+        return true;
+    }
+
+    public List<UserEntity> getFriendsByUserId(int id) {
+        EntityManager entityManager = DBManager.getInstance().createEntityManager();
+        Query q = entityManager.createQuery("select friends from UserEntity user where user.id = ?1");
+        q.setParameter(1, id);
+
+        return q.getResultList();
     }
 }

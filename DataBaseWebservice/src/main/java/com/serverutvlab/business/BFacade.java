@@ -3,7 +3,6 @@ package com.serverutvlab.business;
 import com.serverutvlab.business.BModels.BPost;
 import com.serverutvlab.business.BModels.BProfile;
 import com.serverutvlab.business.BModels.BUser;
-import com.serverutvlab.services.SModels.ChatMessageVM;
 import com.serverutvlab.services.SModels.SPost;
 import com.serverutvlab.services.SModels.SProfile;
 import com.serverutvlab.services.SModels.SUser;
@@ -68,6 +67,17 @@ public class BFacade {
         return new BUserLogic().createUser(email, password);
     }
 
+    public static List<SUser> getFriendsByUserId(int id) {
+        List<SUser> friends = new ArrayList<SUser>();
+        for(BUser u: new BUserLogic().getFriendsByUserId(id)){
+            friends.add(new SUser(u.getId(),u.getEmail()));
+        }
+        return friends;
+    }
+
+    public static boolean addFriendToUser(int uId, int fId) {
+        return new BUserLogic().addFriendToUser(uId,fId);
+    }
 
     /**
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
