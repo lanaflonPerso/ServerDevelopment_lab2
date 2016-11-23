@@ -14,13 +14,9 @@
 
     <h:outputLabel value="Hello, world"/>
 
-    <h:form id="loginThingy">
-        <h:outputLabel value="Username"/>
-        <p:inputText value="#{chatWindow.currentUser}"/>
-        <p:commandButton value="tt" actionListener="#{chatWindow.login}" update=":chatform"/>
-    </h:form>
     <h:form id="chatform">
         <p:remoteCommand name="updateList" update="mytest" process="@this" />
+
         <h:panelGroup>
             <p:dataList id="mytest" value="#{chatWindow.textLists}" var="mylist" type="ordered">
                 msg: #{mylist}
@@ -28,12 +24,9 @@
             <h:outputText id="msgout">
 
             </h:outputText>
-            <h:outputLabel value="Username"/>
-            <p:inputText value="#{chatWindow.currentUser}"/>
-            <p:commandButton value="login" actionListener="#{chatWindow.login}" update=":chatform"/>
 
-            <h:outputLabel value="dest name"/>
-            <p:inputText value="#{chatWindow.toUser}"/>
+            <!--<h:outputLabel value="dest name"/>-->
+            <!--<p:inputText value="#{chatWindow.toUser}"/>-->
             <h:outputLabel value="msg:"/>
             <p:inputText value="#{chatWindow.theMessage}"/>
             <!--<p:inputText value="#{chatWindow.currentUser}" type=""/>-->
