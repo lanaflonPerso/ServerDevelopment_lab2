@@ -1,7 +1,6 @@
 package com.serverutvlab.database.DBModels;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * Created by o_0 on 2016-11-07.
@@ -73,17 +72,5 @@ public class UserEntity {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';
-    }
-
-
-    private List<UserEntity> friends;
-
-    @ManyToMany
-    public List<UserEntity> getFriends() {
-        return friends;
-    }
-
-    public void setFriends(List<UserEntity> friends) {
-        this.friends = friends;
     }
 }
