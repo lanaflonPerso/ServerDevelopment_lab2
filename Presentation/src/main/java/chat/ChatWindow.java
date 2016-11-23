@@ -17,10 +17,8 @@ import org.primefaces.push.EventBusFactory;
  */
 @ManagedBean
 @ViewScoped
-public class ChatWindow implements Serializable{
-//    private final PushContext pushContext = PushContextFactory.getDefault().getPushContext();
+public class ChatWindow implements Serializable {
        private final EventBus eventBus = EventBusFactory.getDefault().eventBus();
-//    private EventBus eventBus;// = EventBusFactory.getDefault().eventBus();
 
     private static final String CHANNEL = "/{room}/";
     private String theMessage;
