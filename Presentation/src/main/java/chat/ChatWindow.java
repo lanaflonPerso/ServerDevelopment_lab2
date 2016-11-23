@@ -1,6 +1,7 @@
 package chat;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,6 +24,17 @@ public class ChatWindow implements Serializable {
     private static final String CHANNEL = "/{room}/";
     private String theMessage;
     private boolean isLoggedin = false;
+
+    @ManagedProperty("#{chatSession}")
+    private ChatSession chatSession;
+
+    public ChatSession getChatSession() {
+        return chatSession;
+    }
+
+    public void setChatSession(ChatSession chatSession) {
+        this.chatSession = chatSession;
+    }
 
     private String currentUser;
     private String toUser;
@@ -54,13 +66,24 @@ public class ChatWindow implements Serializable {
     public void setTheMessage(String theMessage) {
         this.theMessage = theMessage;
     }
+    private  void startChat() {
+        System.out.println("ChatWindow::startChat");
+        RequestContext.getCurrentInstance().execute("PF('subscriber').connect('/" + chatSession.getUserName() + "')");
+        isLoggedin = true;
+    }
 
     public void login() {
         System.out.println("ChatWindow::login");
+        System.out.println("ChatWindow::login prev chatsession: " + chatSession.toString());
         currentUser = (currentUser == null) ? "unknownUser" : currentUser;
+        currentUser = (toUser == null) ? "unknowntoUser" : toUser;
+        chatSession.setUserName(currentUser);
+        chatSession.setDestinationName(toUser);
+        System.out.println("ChatWindow::login: " + chatSession);
         // this starts the socket connection command in the page,
-        RequestContext.getCurrentInstance().execute("PF('subscriber').connect('/" + currentUser + "')");
-        isLoggedin = true;
+        startChat();
+       // RequestContext.getCurrentInstance().execute("PF('subscriber').connect('/" + chatSession.getUserName() + "')");
+//        isLoggedin = true;
 
     }
 
@@ -75,6 +98,13 @@ public class ChatWindow implements Serializable {
     private ArrayList<String> textLists = new ArrayList<String>();
 
     public void postMsg() {
+        if (chatSession.isLoggedin() == false) {
+            System.out.println("Not loggedin");
+            return;
+        }
+        if(isLoggedin == false) {
+            startChat();
+        }
         System.out.println("postMsg: " + theMessage);
         textLists.add(theMessage);
 //        resetEventBus();
@@ -82,9 +112,8 @@ public class ChatWindow implements Serializable {
             System.out.println("postMsg failed eventbus == null");
         }else {
             toUser = (toUser == null) ? "unknownUser" : toUser;
-//            eventBus.publish(CHANNEL + "", "message text");
-            //eventBus.publish(CHANNEL + toUser, new ChatMessageVM(theMessage,currentUser,toUser));
-            RestBackendLink.sendChatMessage(new ChatMessageVM(theMessage,currentUser,toUser));
+//            RestBackendLink.sendChatMessage(new ChatMessageVM(theMessage,currentUser,toUser));
+            RestBackendLink.sendChatMessage(new ChatMessageVM(theMessage,chatSession.getUserName(),chatSession.getDestinationName()));
         }
         //FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get();
         //eventBus.publish()

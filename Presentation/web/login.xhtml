@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>tt</h:head>
+<!--<h:body>-->
+<h:body>
+<f:view>
+
+    <h:outputLabel value="Hello, world"/>
+
+    <h:form id="loginForm">
+        <!--<p:remoteCommand name="updateList" update="mytest" process="@this" />-->
+        <h:panelGroup>
+            <h:outputLabel value="Username"/>
+            <p:inputText value="#{userLogin.userName}"/>
+            <p:inputText value="#{userLogin.password}"/>
+            <p:commandButton value="tt" action="#{userLogin.login}" update=":loginForm"/>
+        </h:panelGroup>
+
+    </h:form>
+    <h:form>
+        <h:panelGroup>
+            <h:commandButton action="#{navigationController.moveToSelection(4)}" value="chat" />
+        </h:panelGroup>
+    </h:form>
+
+
+</f:view>
+</h:body>
+</html>
