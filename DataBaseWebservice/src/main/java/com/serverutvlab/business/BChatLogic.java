@@ -7,6 +7,9 @@ import com.serverutvlab.services.SModels.ChatMessageVM;
  * Created by o_0 on 2016-11-22.
  */
 public class BChatLogic {
+
+
+    // TODO: check so that they are actually friends that tries to talk
     public static boolean broadcastMessage(ChatMessageVM chatMessageVM) {
         System.out.printf("BChatLogic::broadcastMessage: " + chatMessageVM.toString());
         // send to all frontendservers

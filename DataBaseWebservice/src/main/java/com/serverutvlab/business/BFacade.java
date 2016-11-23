@@ -3,6 +3,7 @@ package com.serverutvlab.business;
 import com.serverutvlab.business.BModels.BPost;
 import com.serverutvlab.business.BModels.BProfile;
 import com.serverutvlab.business.BModels.BUser;
+import com.serverutvlab.services.SModels.ChatMessageVM;
 import com.serverutvlab.services.SModels.SPost;
 import com.serverutvlab.services.SModels.SProfile;
 import com.serverutvlab.services.SModels.SUser;

@@ -15,10 +15,7 @@ public class DummyUserFacade {
         for (UserEntity ue : usersAll ) {
             list.add(new ShowUserVM(ue.getEmail()));
         }
-//
-//        for (int i = 0; i < 10; i++) {
-//            list.add(new ShowUserVM("User" + i));
-//        }
+
         return list;
     }
 }
