@@ -20,20 +20,28 @@ public class PostLogic {
         q.setParameter(1, id);
         List<PostEntity> resultList = q.getResultList();
 
+        Query q2 = entityManager.createQuery("from PostEntity post where  post.authorId = ?1");
+        q2.setParameter(1, id);
+
+        resultList.addAll(q2.getResultList());
+
         System.out.println("PostLogic::getPostsByProfileId list = " + resultList);
         System.out.println("PostLogic::getPostsByProfileId list count = " + resultList.size());
 
         return resultList == null? new ArrayList<PostEntity>() : resultList;
     }
 
-    public PostEntity createPost(int autoridId, int recipientId, String subject, String messageBody, ProfileEntity postedTo) {
+    public PostEntity createPost(int auhtoridId, int recipientId, String subject, String messageBody, ProfileEntity postedTo, ProfileEntity postedFrom, boolean isPrivate) {
 
         PostEntity post = new PostEntity();
         post.setSubject(subject);
         post.setMessageBody(messageBody);
         post.setRecipientId(recipientId);
-        post.setAuthorId(autoridId);
+        post.setAuthorId(auhtoridId);
         post.setPostedTo(postedTo);
+        post.setAuthorName(postedFrom.getName());
+        post.setRecipientName(postedTo.getName());
+        post.setPrivate(isPrivate);
 
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
         try {
