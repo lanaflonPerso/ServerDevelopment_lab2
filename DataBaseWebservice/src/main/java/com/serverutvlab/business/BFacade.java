@@ -115,6 +115,10 @@ public class BFacade {
                 posts
         );
     }
+    public static boolean updateProfile(int userId, String username, String info, int relationshipStatus, int age) {
+        return new BProfileLogic().updateProfile(userId,username,info,relationshipStatus,age);
+
+    }
 
 
     /**
@@ -140,4 +144,6 @@ public class BFacade {
     public static boolean sendMessage(ChatMessageVM chatMessageVM) {
         return BChatLogic.broadcastMessage(chatMessageVM);
     }
+
+
 }
