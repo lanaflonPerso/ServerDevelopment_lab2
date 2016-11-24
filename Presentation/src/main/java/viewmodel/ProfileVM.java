@@ -3,7 +3,7 @@ package viewmodel;
 /**
  * Created by o_0 on 2016-11-23.
  */
-public class ProfileVM {
+public class ProfileVM implements ProfileItem{
     private String name;
     private String info;
     private Integer age;

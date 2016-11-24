@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.internal.ObjectConstructor;
 import com.google.gson.reflect.TypeToken;
 import friendmanagment.FriendVM;
+import viewmodel.ProfileItem;
 import viewmodel.ProfileVM;
 import viewmodel.UserVM;
 
@@ -40,19 +41,22 @@ public class BackendFacade {
         return new UserVM(sUser.getId(),sUser.getEmail());
     }
 
-    public static ProfileVM loadProfile(int userId) {
+    public static ProfileItem loadProfile(int userId) {
         System.out.println("user id: " +userId );
         Map<String,Object> parameters = new LinkedHashMap<String,Object>();
         parameters.put("userId", userId);
 
         String jsonResp = RestBackendLink.doRestGet(pathProfileervice, "getProfile", parameters);
         System.out.println("Json response: " + jsonResp);
+        if (jsonResp.equals("")) {
+            return null;
+        }
         SProfile sProfile = new Gson().fromJson(jsonResp, SProfile.class);
         System.out.println(sProfile.toString());
         return new ProfileVM(sProfile.getName(),sProfile.getInfo(),sProfile.getAge(),sProfile.getRelationshipStatus());
     }
 
-    public static boolean saveProfile(int userId, ProfileVM profileInfo) {
+    public static boolean saveProfile(int userId, ProfileItem profileInfo) {
         System.out.println("BackendFacade::saveProfile userId:" + userId + " profile: " + profileInfo.toString());
 
         Map<String,Object> parameters = new LinkedHashMap<String,Object>();
