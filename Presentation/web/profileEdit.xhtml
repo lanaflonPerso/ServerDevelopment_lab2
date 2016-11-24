@@ -36,10 +36,10 @@
                     </li>
                 </ul>
                 <p:commandButton value="saveProfile" action="#{profileView.saveUserProfile}" update="saveProfileResult, profileEdit"/>
+
+            </h:panelGroup>
             <h:panelGroup id="saveProfileResult">
                 <h:outputLabel value="#{profileView.responseMessage}"/>
-            </h:panelGroup>
-
             </h:panelGroup>
         </h:form>
 

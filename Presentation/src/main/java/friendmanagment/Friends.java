@@ -1,5 +1,8 @@
 package friendmanagment;
 
+import account.Account;
+import backend.BackendFacade;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -16,19 +19,39 @@ import java.util.List;
 public class Friends {
     List<FriendVM> friendList;
 
-    @ManagedProperty("#{friendService}")
-    private FriendService service;
+//    @ManagedProperty("#{friendService}")
+//    private FriendService service;
 
-    public void setService(FriendService service) {
-        this.service = service;
+    @ManagedProperty("#{account}")
+    private Account userAccount;
+
+    public Account getUserAccount() {
+        return userAccount;
     }
+
+    public void setUserAccount(Account userAccount) {
+        this.userAccount = userAccount;
+    }
+
+
 
     @PostConstruct
     public void init() {
-        String s = FacesContext.getCurrentInstance().getCurrentPhaseId().toString();
-        System.out.println("Friends:FacesContext phaseId: "+ s );
-        service.loadFriends(0);
-        friendList = service.getFriendList();
+        if (userAccount.isLoggedin()) {
+            this.friendList = BackendFacade.loadFriends(userAccount.getUserId());
+
+        }else {
+            this.friendList = new ArrayList<FriendVM>();
+        }
+//
+//        service.loadFriends(0);
+//        friendList = service.getFriendList();
+    }
+
+    public void updateFriends() {
+        if (userAccount.isLoggedin()) {
+            this.friendList = BackendFacade.loadFriends(userAccount.getUserId());
+        }
     }
 
     public List<FriendVM> getFriendList() {

@@ -4,10 +4,12 @@ import backend.SModels.SProfile;
 import backend.SModels.SUser;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import friendmanagment.FriendVM;
 import viewmodel.ProfileVM;
 import viewmodel.UserVM;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -53,12 +55,28 @@ public class BackendFacade {
         }
 
         System.out.println("saveProfile: response: " + jsonResp);
-        Type type = new TypeToken<Map<String, Boolean>>() {
-        }.getType();
-        Map<String, Boolean> res = (Map<String, Boolean>)new Gson().fromJson(jsonResp, type);
+
+        Type type = new TypeToken<Map<String, Boolean>>(){}.getType();
+        Map<String, Boolean> res = RestBackendLink.parseJsonData(type, jsonResp);
 
 
 //        return new UserVM(sUser.getId(),sUser.getEmail());
         return true;
+    }
+
+    public static ArrayList<FriendVM> loadFriends(int userId) {
+
+        //getFriendsByUserId
+        String data = RestBackendLink.doRestGet("services/userservice/","getFriendsByUserId","?userId=" + userId);
+        Type type = new TypeToken<ArrayList<SUser>>(){}.getType();
+        ArrayList<SUser> friends = RestBackendLink.parseJsonData(type, data);
+        if (friends == null) {
+            return null;
+        }
+        ArrayList<FriendVM> result = new ArrayList<FriendVM>();
+        for (SUser u : friends) {
+            result.add(new FriendVM(u.getId(),u.getEmail()));
+        }
+        return result;
     }
 }
