@@ -2,6 +2,7 @@ package view;
 
 import account.Account;
 import backend.BackendFacade;
+import backend.ProfileService;
 import viewmodel.ProfileVM;
 
 import javax.annotation.PostConstruct;
@@ -22,6 +23,16 @@ public class ProfileView {
     private Integer age;
     private int relationshipStatus;
 
+    @ManagedProperty("#{profileService}")
+    private ProfileService profileService;
+
+    public ProfileService getProfileService() {
+        return profileService;
+    }
+
+    public void setProfileService(ProfileService profileService) {
+        this.profileService = profileService;
+    }
 
     @PostConstruct
     public void init() {
@@ -32,10 +43,10 @@ public class ProfileView {
         if (userAccount.isLoggedin() == false) {
             System.out.println("Not logged in" + userAccount);
         }
-        ProfileVM profileVM = BackendFacade.loadProfile(userAccount.getUserId());
+        //ProfileVM profileVM = BackendFacade.loadProfile(userAccount.getUserId());
         System.out.println("ProfileView namn: " + userAccount);
         this.responseMessage = "";
-        updateProfileInfo(profileVM);
+        //updateProfileInfo(profileVM);
     }
 
     @ManagedProperty("#{account}")
@@ -135,8 +146,8 @@ public class ProfileView {
         }
         if (userAccount.isLoggedin()) {
             // TODO: parse id to correct one
-            ProfileVM profileVM = BackendFacade.loadProfile(1);
-            updateProfileInfo(profileVM);
+//            ProfileVM profileVM = BackendFacade.loadProfile(1);
+//            updateProfileInfo(profileVM);
         }else {
             System.out.println("not loggedin");
         }

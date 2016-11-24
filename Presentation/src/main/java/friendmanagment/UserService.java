@@ -1,5 +1,7 @@
 package friendmanagment;
 
+import backend.BackendFacade;
+
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import java.io.Serializable;
@@ -12,6 +14,7 @@ import java.util.List;
 @ApplicationScoped
 public class UserService implements Serializable {
     public List<ShowUserVM> getUserList() {
+
         return DummyUserFacade.getUsers();
     }
 

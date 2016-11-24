@@ -48,7 +48,8 @@ public class DBFacade {
 
     public static List<BUser> getFriendsByUserId(int id) {
         List<BUser> friends = new ArrayList<BUser>();
-        for(UserEntity u: new UserLogic().getFriendsByUserId(id)){
+        List<UserEntity> friendsByUserId = new UserLogic().getFriendsByUserId(id);
+        for(UserEntity u: friendsByUserId ){
             friends.add(new BUser(u.getId(),u.getEmail(),u.getPassword()));
         }
         return friends;
