@@ -154,4 +154,12 @@ public class BFacade {
     }
 
 
+    public static List<SPost> getFeedByUser(int userId) {
+        List<SPost> feed = new ArrayList<SPost>();
+        List<BPost> posts = new BPostLogic().getFeedForUser(userId);
+        for(BPost p: posts)
+            feed.add(new SPost(p.getId(),p.getSubject(),p.getMessageBody(),p.getAuthorName(),p.getRecipientName(),p.getTimestamp(),p.getAuthorId(),p.getRecipientId(),p.isPrivate()));
+
+        return feed;
+    }
 }

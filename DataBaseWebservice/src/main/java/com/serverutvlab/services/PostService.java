@@ -53,4 +53,18 @@ public class PostService {
 
         return Response.ok(response).build();
     }
+
+    @GET
+    @Path("getFeed")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response getFeedById(@QueryParam("userId") int userId){
+        List<SPost> feed = BFacade.getFeedByUser(userId);
+
+        Gson gson = new Gson();
+        String response = gson.toJson(feed);
+
+        return Response.ok(response).build();
+    }
+
+
 }

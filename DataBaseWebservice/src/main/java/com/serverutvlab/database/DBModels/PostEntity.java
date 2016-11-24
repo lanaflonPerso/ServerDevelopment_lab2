@@ -15,6 +15,8 @@ public class PostEntity {
     private int authorId;
     private int recipientId;
     private ProfileEntity postedTo;
+    private boolean isPrivate;
+
 
     @Id
     @Column(name = "id")
