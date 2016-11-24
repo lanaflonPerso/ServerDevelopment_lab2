@@ -16,10 +16,12 @@ import java.util.Map;
  * Created by o_0 on 2016-11-23.
  */
 public class BackendFacade {
+    private static final String pathUserservice = "services/userservice/";
+    private static final String pathProfileervice = "services/profileservice/";
     public static UserVM loginUser(String userName, String password) {
         // TODO: make restcall to backend
         System.out.println("BackendFacade::loginUser user:" + userName + " pass: " + password);
-        String jsonResp = RestBackendLink.doRestParmPost("services/userservice/","login",
+        String jsonResp = RestBackendLink.doRestParmPost(pathUserservice,"login",
                 "?email="+userName+"&password="+password);
         if (jsonResp.equals("")) {
             System.out.println("loginUser wrong");
@@ -34,7 +36,7 @@ public class BackendFacade {
 
     public static ProfileVM loadProfile(int userId) {
         System.out.println("user id: " +userId );
-        String jsonResp = RestBackendLink.doRestGet("services/profileservice/", "getProfile", "?userId=" + userId);
+        String jsonResp = RestBackendLink.doRestGet(pathProfileervice, "getProfile", "?userId=" + userId);
         System.out.println("Json response: " + jsonResp);
         SProfile sProfile = new Gson().fromJson(jsonResp, SProfile.class);
         System.out.println(sProfile.toString());
@@ -43,7 +45,7 @@ public class BackendFacade {
 
     public static boolean saveProfile(int userId, ProfileVM profileInfo) {
         System.out.println("BackendFacade::saveProfile userId:" + userId + " profile: " + profileInfo.toString());
-        String jsonResp = RestBackendLink.doRestParmPost("services/profileservice/","updateProfile",
+        String jsonResp = RestBackendLink.doRestParmPost(pathProfileervice,"updateProfile",
                 "?userId="+userId +
                         "&username="+profileInfo.getName() +
                         "&info="+profileInfo.getInfo() +
@@ -67,7 +69,7 @@ public class BackendFacade {
     public static ArrayList<FriendVM> loadFriends(int userId) {
 
         //getFriendsByUserId
-        String data = RestBackendLink.doRestGet("services/userservice/","getFriendsByUserId","?userId=" + userId);
+        String data = RestBackendLink.doRestGet(pathUserservice,"getFriendsByUserId","?userId=" + userId);
         Type type = new TypeToken<ArrayList<SUser>>(){}.getType();
         ArrayList<SUser> friends = RestBackendLink.parseJsonData(type, data);
         if (friends == null) {
