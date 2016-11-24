@@ -1,5 +1,7 @@
 package com.serverutvlab.database.DBModels;
 
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -8,7 +10,7 @@ import java.util.List;
  */
 @Entity
 //@Table(name = "User", schema = "CommunityDB", catalog = "")
-public class UserEntity {
+public class UserEntity implements Comparable<UserEntity> {
     private int id;
     private String email;
     private String password;
@@ -84,5 +86,9 @@ public class UserEntity {
 
     public void setFriends(List<UserEntity> friends) {
         this.friends = friends;
+    }
+
+    public int compareTo(UserEntity o) {
+        return this.id - o.getId();
     }
 }

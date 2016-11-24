@@ -37,6 +37,10 @@ public class BUserLogic {
         return DBFacade.addFriendToUser(uId,fId);
     }
 
+    public boolean removeFriend(int uId, int fId) {
+        return DBFacade.removeFriend(uId,fId);
+    }
+
     public List<BUser> getNonFriendsByUser(int userId) {
         List<BUser> allUsers = DBFacade.getAllUsers();
         System.out.println("All users before: " + allUsers );

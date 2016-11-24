@@ -121,6 +121,21 @@ public class UserService {
 
         return Response.ok(response).build();
     }
+    @POST
+    @Path("removeFriend")
+    //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response removeFriendToUser(@QueryParam("userId") int uId, @QueryParam("friendId")int fId) {
+        Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
+        boolean result = BFacade.removeFriendToUser(uId,fId);
+
+        resultMap.put("success", result);
+
+        Gson gson = new Gson();
+        String response = gson.toJson(resultMap);
+
+        return Response.ok(response).build();
+    }
 
     @GET
     @Path("getNonFriends")

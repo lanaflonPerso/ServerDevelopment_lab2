@@ -80,6 +80,9 @@ public class BFacade {
     public static boolean addFriendToUser(int uId, int fId) {
         return new BUserLogic().addFriendToUser(uId,fId);
     }
+    public static boolean removeFriendToUser(int uId, int fId) {
+        return new BUserLogic().removeFriend(uId,fId);
+    }
 
     public static List<SUser> getNonFriendsByUserId(int userId) {
         List<SUser> result = new ArrayList<SUser>();
