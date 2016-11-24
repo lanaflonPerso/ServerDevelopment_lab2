@@ -34,6 +34,7 @@ public class ProfileView {
         }
         ProfileVM profileVM = BackendFacade.loadProfile(userAccount.getUserId());
         System.out.println("ProfileView namn: " + userAccount);
+        this.responseMessage = "";
         updateProfileInfo(profileVM);
     }
 
@@ -97,7 +98,37 @@ public class ProfileView {
         this.relationshipStatus = profileVM.getRelationshipStatus();
     }
 
+    private ProfileVM getProfileInfo() {
+        ProfileVM profileVM = new ProfileVM(name, info, age, relationshipStatus);
+        return profileVM;
+    }
+
+    private String responseMessage;
+
+    public String getResponseMessage() {
+        return responseMessage;
+    }
+
+    public void setResponseMessage(String responseMessage) {
+        this.responseMessage = responseMessage;
+    }
+
+    public void saveUserProfile() {
+        System.out.println("ProfileView::saveUserProfile");
+        this.responseMessage = "failed";
+        if (userAccount.isLoggedin()) {
+            // TODO: parse id to correct one
+            boolean success = BackendFacade.saveProfile(userAccount.getUserId(), getProfileInfo());
+            this.responseMessage = success ? "profile saved" : "failed to save";
+
+        }else {
+            this.responseMessage = "Not loggedin";
+            System.out.println("not loggedin");
+        }
+    }
+
     public void loadUserProfile() {
+        this.responseMessage = "";
         if (showProfile == null ) {
             System.out.println("loadUserProfile showProfile null");
             return;
@@ -109,6 +140,5 @@ public class ProfileView {
         }else {
             System.out.println("not loggedin");
         }
-
     }
 }

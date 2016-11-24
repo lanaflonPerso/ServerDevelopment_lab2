@@ -3,8 +3,12 @@ package backend;
 import backend.SModels.SProfile;
 import backend.SModels.SUser;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import viewmodel.ProfileVM;
 import viewmodel.UserVM;
+
+import java.lang.reflect.Type;
+import java.util.Map;
 
 /**
  * Created by o_0 on 2016-11-23.
@@ -33,5 +37,28 @@ public class BackendFacade {
         SProfile sProfile = new Gson().fromJson(jsonResp, SProfile.class);
         System.out.println(sProfile.toString());
         return new ProfileVM(sProfile.getName(),sProfile.getInfo(),sProfile.getAge(),sProfile.getRelationshipStatus());
+    }
+
+    public static boolean saveProfile(int userId, ProfileVM profileInfo) {
+        System.out.println("BackendFacade::saveProfile userId:" + userId + " profile: " + profileInfo.toString());
+        String jsonResp = RestBackendLink.doRestParmPost("services/profileservice/","updateProfile",
+                "?userId="+userId +
+                        "&username="+profileInfo.getName() +
+                        "&info="+profileInfo.getInfo() +
+                        "&relationshipStatus="+profileInfo.getRelationshipStatus() +
+                        "&age="+profileInfo.getAge());
+        if (jsonResp.equals("")) {
+            System.out.println("loginUser wrong");
+            return false;
+        }
+
+        System.out.println("saveProfile: response: " + jsonResp);
+        Type type = new TypeToken<Map<String, Boolean>>() {
+        }.getType();
+        Map<String, Boolean> res = (Map<String, Boolean>)new Gson().fromJson(jsonResp, type);
+
+
+//        return new UserVM(sUser.getId(),sUser.getEmail());
+        return true;
     }
 }

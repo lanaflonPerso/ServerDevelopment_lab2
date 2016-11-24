@@ -3,7 +3,7 @@ package com.serverutvlab.database.DBLayer;
 import com.serverutvlab.business.BModels.BUser;
 import com.serverutvlab.database.DBModels.ProfileEntity;
 import com.serverutvlab.database.DBModels.UserEntity;
-import sun.util.BuddhistCalendar;
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -84,7 +84,7 @@ public class UserLogic {
 
     public boolean addFriendToUser(int userId, int friendId){
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
-            System.out.println("Adding friend to user ");
+            System.out.println("Adding friend to user, uId = "+userId+ ", fId = "+ friendId);
         try {
             entityManager.getTransaction().begin();
 
@@ -96,8 +96,8 @@ public class UserLogic {
             Query q2 = entityManager.createQuery("from UserEntity user where user.id = ?1");
             q2.setParameter(1,friendId);
 
-
             UserEntity friend = (UserEntity) q2.getSingleResult();
+
             System.out.println("User: " + user);
             System.out.println("Friend: " + friend);
 
@@ -109,11 +109,15 @@ public class UserLogic {
 
 
             user.getFriends().add(friend);
+            friend.getFriends().add(user);
             entityManager.persist(user);
+            entityManager.persist(friend);
 
             entityManager.getTransaction().commit();
 
         }catch (Exception e) {
+            System.out.println("Exeption: " + e.getMessage());
+            e.printStackTrace();
             entityManager.getTransaction().rollback();
             return false;
         }finally {
@@ -124,10 +128,11 @@ public class UserLogic {
 
     public List<UserEntity> getFriendsByUserId(int id) {
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
-        Query q = entityManager.createQuery("select friends from UserEntity user where user.id = ?1");
+        Query q = entityManager.createQuery("from UserEntity user where user.id = ?1");
         q.setParameter(1, id);
+        UserEntity user = (UserEntity) q.getSingleResult();
 
-        return q.getResultList();
+        return user.getFriends();
     }
 
     public boolean removeFriend(int userId, int friendId) {

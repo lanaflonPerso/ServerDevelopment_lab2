@@ -3,6 +3,7 @@ package com.serverutvlab.business;
 import com.serverutvlab.business.BModels.BUser;
 import com.serverutvlab.database.DBLayer.DBFacade;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,8 +37,25 @@ public class BUserLogic {
         return DBFacade.addFriendToUser(uId,fId);
     }
 
-
     public boolean removeFriend(int uId, int fId) {
         return DBFacade.removeFriend(uId,fId);
+    }
+
+    public List<BUser> getNonFriendsByUser(int userId) {
+        List<BUser> allUsers = DBFacade.getAllUsers();
+        System.out.println("All users before: " + allUsers );
+        List<BUser> friends = DBFacade.getFriendsByUserId(userId);
+        List<BUser> results = new ArrayList<BUser>();
+        for (BUser b: allUsers) {
+            for (BUser f : friends) {
+                if (b.getId() != f.getId() && b.getId() != userId) {
+                    results.add(b);
+                }
+            }
+        }
+
+        System.out.println("All users after: " + results);
+
+        return results;
     }
 }

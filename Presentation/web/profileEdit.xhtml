@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:u="http://java.sun.com/jsf/html">
+
+<h:head>tt</h:head>
+<!--<h:body>-->
+<h:body>
+    <f:view>
+        <h:outputLabel value="profile, world"/>
+        <h:form>
+            <h:panelGroup id="profileEdit">
+                <ul>
+                    <li>
+                        <h:outputLabel value="Name"/>
+                        <h:inputText value="#{profileView.name}"/>
+                    </li>
+
+                    <li>
+                        <h:outputLabel value="info"/>
+                        <h:inputText value="#{profileView.info}"/>
+
+                    </li>
+                    <li>
+                        <h:outputLabel value="age"/>
+                        <h:inputText value="#{profileView.age}"/>
+                    </li>
+                    <li>
+
+                        <h:outputLabel value="relationshipStatus"/>
+                        <h:inputText value="#{profileView.relationshipStatus}"/>
+                    </li>
+                </ul>
+                <p:commandButton value="saveProfile" action="#{profileView.saveUserProfile}" update="saveProfileResult, profileEdit"/>
+            <h:panelGroup id="saveProfileResult">
+                <h:outputLabel value="#{profileView.responseMessage}"/>
+            </h:panelGroup>
+
+            </h:panelGroup>
+        </h:form>
+
+    </f:view>
+</h:body>
+</html>
