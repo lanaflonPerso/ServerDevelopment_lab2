@@ -12,6 +12,7 @@
 <h:body>
     <f:view>
         <h:form>
+            <p:remoteCommand name="profileEditUpdate" action="#{profileView.loadUserProfile}" update="saveProfileResult, profileEdit"/>
             <h:panelGroup id="profileEdit">
                 <ul>
                     <li>
@@ -34,7 +35,7 @@
                         <h:inputText value="#{profileView.relationshipStatus}"/>
                     </li>
                 </ul>
-                <p:commandButton value="saveProfile" action="#{profileView.saveUserProfile}" update="saveProfileResult, profileEdit"/>
+                <p:commandButton value="saveProfile" action="#{profileView.saveUserProfile}" oncomplete="profileEditUpdate()"/>
 
             </h:panelGroup>
             <h:panelGroup id="saveProfileResult">

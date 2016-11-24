@@ -1,8 +1,12 @@
 package backend;
 
 import account.Account;
+import backend.SModels.SProfile;
+import com.google.gson.Gson;
 import viewmodel.ProfileItem;
+import viewmodel.ProfileVM;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -33,6 +37,16 @@ public class ProfileService implements ProfileItem{
     private int relationshipStatus;
 
     private int profileUserId;
+
+    @PostConstruct
+    public void init() {
+        if (userAccount == null) {
+            System.out.println("inint error (userAccount == null) ");
+            return;
+        }
+        this.profileUserId = -1;
+        selectProfile(userAccount.getUserId());
+    }
 
     public String getName() {
         return name;
@@ -66,24 +80,46 @@ public class ProfileService implements ProfileItem{
         this.relationshipStatus = relationshipStatus;
     }
 
-    public boolean saveUserProfile() {
+    public boolean saveUserProfile(ProfileItem profileItem) {
+
         System.out.println("ProfileView::saveUserProfile");
         boolean success = false;
-        //this.responseMessage = "failed";
         if (userAccount.isLoggedin()) {
+            setProfileTo(profileItem);
             // TODO: parse id to correct one
             success = BackendFacade.saveProfile(userAccount.getUserId(), this);
-//            this.responseMessage = success ? "profile saved" : "failed to save";
 
         }else {
-//            this.responseMessage = "Not loggedin";
             System.out.println("not loggedin");
         }
         return success;
     }
 
-    public boolean loadUserProfile(int userId) {
+    public boolean selectProfile(int userId) {
+        // TODO: check friend status
+        boolean ret = false;
+        if (this.profileUserId != userId) {
+            this.profileUserId = userId;
+            ret = loadUserProfile();
+        }
 
-        return false;
+        return ret;
+    }
+
+    public boolean loadUserProfile() {
+        System.out.println("ProfileService::loadUserProfile = " + this.profileUserId);
+        ProfileItem profileItem = BackendFacade.loadProfile(this.profileUserId);
+        if (profileItem == null) {
+            return false;
+        }
+        setProfileTo(profileItem);
+        return true;
+    }
+
+    private void setProfileTo(ProfileItem profile) {
+        this.name = profile.getName();
+        this.info = profile.getInfo();
+        this.age = profile.getAge();
+        this.relationshipStatus = profile.getRelationshipStatus();
     }
 }

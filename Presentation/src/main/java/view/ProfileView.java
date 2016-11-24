@@ -3,6 +3,7 @@ package view;
 import account.Account;
 import backend.BackendFacade;
 import backend.ProfileService;
+import viewmodel.ProfileItem;
 import viewmodel.ProfileVM;
 
 import javax.annotation.PostConstruct;
@@ -23,19 +24,11 @@ public class ProfileView {
     private Integer age;
     private int relationshipStatus;
 
-    @ManagedProperty("#{profileService}")
-    private ProfileService profileService;
 
-    public ProfileService getProfileService() {
-        return profileService;
-    }
-
-    public void setProfileService(ProfileService profileService) {
-        this.profileService = profileService;
-    }
 
     @PostConstruct
     public void init() {
+        System.out.println("ProfileView::init");
         if (userAccount == null) {
             System.out.println("inint error (userAccount == null) ");
             return;
@@ -60,8 +53,19 @@ public class ProfileView {
         this.userAccount = userAccount;
     }
 
+    @ManagedProperty("#{profileService}")
+    private ProfileService profileService;
+
+    public ProfileService getProfileService() {
+        return profileService;
+    }
+
+    public void setProfileService(ProfileService profileService) {
+        this.profileService = profileService;
+    }
+
     public String getName() {
-        return name;
+        return profileService.getName();
     }
 
     public void setName(String name) {
@@ -69,7 +73,7 @@ public class ProfileView {
     }
 
     public String getInfo() {
-        return info;
+        return profileService.getInfo();
     }
 
     public void setInfo(String info) {
@@ -77,7 +81,7 @@ public class ProfileView {
     }
 
     public Integer getAge() {
-        return age;
+        return profileService.getAge();
     }
 
     public void setAge(Integer age) {
@@ -85,7 +89,7 @@ public class ProfileView {
     }
 
     public int getRelationshipStatus() {
-        return relationshipStatus;
+        return profileService.getRelationshipStatus();
     }
 
     public void setRelationshipStatus(int relationshipStatus) {
@@ -99,14 +103,24 @@ public class ProfileView {
     }
 
     public void setShowProfile(String showProfile) {
+        int userId = 0;
+        try {
+            userId = Integer.parseInt(showProfile);
+
+        } catch (NumberFormatException ex) {
+            System.out.println("showProfile wrong format" + showProfile);
+            return;
+        }
         this.showProfile = showProfile;
+
+        profileService.selectProfile(userId);
     }
 
-    private void updateProfileInfo(ProfileVM profileVM) {
-        this.name = profileVM.getName();
-        this.info = profileVM.getInfo();
-        this.age = profileVM.getAge();
-        this.relationshipStatus = profileVM.getRelationshipStatus();
+    private void updateProfileInfo(ProfileItem profile) {
+        this.name = profile.getName();
+        this.info = profile.getInfo();
+        this.age = profile.getAge();
+        this.relationshipStatus = profile.getRelationshipStatus();
     }
 
     private ProfileVM getProfileInfo() {
@@ -129,7 +143,8 @@ public class ProfileView {
         this.responseMessage = "failed";
         if (userAccount.isLoggedin()) {
             // TODO: parse id to correct one
-            boolean success = BackendFacade.saveProfile(userAccount.getUserId(), getProfileInfo());
+            boolean success = profileService.saveUserProfile(getProfileInfo());
+            //BackendFacade.saveProfile(userAccount.getUserId(), getProfileInfo());
             this.responseMessage = success ? "profile saved" : "failed to save";
 
         }else {
@@ -140,14 +155,15 @@ public class ProfileView {
 
     public void loadUserProfile() {
         this.responseMessage = "";
-        if (showProfile == null ) {
-            System.out.println("loadUserProfile showProfile null");
-            return;
-        }
+//        if (showProfile == null ) {
+//            System.out.println("loadUserProfile showProfile null");
+//            return;
+//        }
+        System.out.println("loadUserProfile");
         if (userAccount.isLoggedin()) {
             // TODO: parse id to correct one
-//            ProfileVM profileVM = BackendFacade.loadProfile(1);
-//            updateProfileInfo(profileVM);
+            profileService.loadUserProfile();
+            this.responseMessage = "loaded";
         }else {
             System.out.println("not loggedin");
         }

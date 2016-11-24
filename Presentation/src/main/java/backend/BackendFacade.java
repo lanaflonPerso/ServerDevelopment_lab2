@@ -39,6 +39,9 @@ public class BackendFacade {
         System.out.println("user id: " +userId );
         String jsonResp = RestBackendLink.doRestGet(pathProfileervice, "getProfile", "?userId=" + userId);
         System.out.println("Json response: " + jsonResp);
+        if (jsonResp.equals("")) {
+            return null;
+        }
         SProfile sProfile = new Gson().fromJson(jsonResp, SProfile.class);
         System.out.println(sProfile.toString());
         return new ProfileVM(sProfile.getName(),sProfile.getInfo(),sProfile.getAge(),sProfile.getRelationshipStatus());
