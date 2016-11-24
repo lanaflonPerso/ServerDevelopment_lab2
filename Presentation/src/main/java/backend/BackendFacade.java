@@ -34,4 +34,9 @@ public class BackendFacade {
         System.out.println(sProfile.toString());
         return new ProfileVM(sProfile.getName(),sProfile.getInfo(),sProfile.getAge(),sProfile.getRelationshipStatus());
     }
+
+    public static boolean saveProfile(int userId, ProfileVM profileInfo) {
+        System.out.println("BackendFacade::saveProfile userId:" + userId + " profile: " + profileInfo.toString());
+        return true;
+    }
 }

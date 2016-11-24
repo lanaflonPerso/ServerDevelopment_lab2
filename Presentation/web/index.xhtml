@@ -9,10 +9,11 @@
 <f:view>
     <h:outputLabel value="Hello, world"/>
     <h:form>
-        <h:commandButton action="#{navigationController.moveToStart}" value="tt" />
+        <h:commandButton action="#{navigationController.moveToSelection(1)}" value="friends" />
         <h:commandButton action="#{navigationController.moveToSelection(2)}" value="friends" />
         <h:commandButton action="#{navigationController.moveToSelection(4)}" value="chat" />
         <h:commandButton action="#{navigationController.moveToSelection(5)}" value="login" />
+        <h:commandButton action="#{navigationController.moveToSelection(6)}" value="profileEdit" />
     </h:form>
 </f:view>
 </html>
