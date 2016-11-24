@@ -7,7 +7,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:u="http://java.sun.com/jsf/html">
 
-<h:head>tt</h:head>
+<!--<h:head>tt</h:head>-->
 <!--<h:body>-->
 <h:body>
     <f:view>
@@ -16,22 +16,22 @@
             <h:panelGroup id="profileEdit">
                 <ul>
                     <li>
-                        <h:outputLabel value="Name"/>
+                        <h:outputLabel value="Name: "/>
                         <h:inputText value="#{profileView.name}"/>
                     </li>
 
                     <li>
-                        <h:outputLabel value="info"/>
+                        <h:outputLabel value="info: "/>
                         <h:inputText value="#{profileView.info}"/>
 
                     </li>
                     <li>
-                        <h:outputLabel value="age"/>
+                        <h:outputLabel value="age: "/>
                         <h:inputText value="#{profileView.age}"/>
                     </li>
                     <li>
 
-                        <h:outputLabel value="relationshipStatus"/>
+                        <h:outputLabel value="relationshipStatus: "/>
                         <h:inputText value="#{profileView.relationshipStatus}"/>
                     </li>
                 </ul>
