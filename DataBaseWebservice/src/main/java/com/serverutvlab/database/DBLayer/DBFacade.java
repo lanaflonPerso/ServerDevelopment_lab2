@@ -83,6 +83,9 @@ public class DBFacade {
                 posts
                 );
     }
+    public static boolean updateProfile(int userId, String username, String info, int relationshipStatus, int age) {
+        return new ProfileLogic().updateProfile(userId,username,info,relationshipStatus,age);
+    }
 
     /**
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

@@ -7,6 +7,8 @@ import com.serverutvlab.services.SModels.SProfile;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by cj on 2016-11-18.
@@ -36,4 +38,27 @@ public class ProfileService {
         return Response.ok(response).build();
 
     }
+    @POST
+    @Path("updateProfile")
+    //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response updateProfile(
+            @QueryParam("userId") int userId,
+            @QueryParam("username") String username,
+            @QueryParam("info") String info,
+            @QueryParam("relationshipStatus") int relationshipStatus,
+            @QueryParam("age") int age
+            ) {
+        Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
+
+        boolean result = BFacade.updateProfile(userId,username,info,relationshipStatus,age);
+
+        resultMap.put("success",result);
+        Gson gson = new Gson();
+        String response = gson.toJson(resultMap);
+
+        return Response.ok(response).build();
+
+    }
+
 }

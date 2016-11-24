@@ -10,4 +10,8 @@ public class BProfileLogic {
     public BProfile getProfileForUser(int userId) {
         return DBFacade.getProfileForUserId(userId);
     }
+
+    public boolean updateProfile(int userId, String username, String info, int relationshipStatus, int age) {
+        return DBFacade.updateProfile(userId,username, info,relationshipStatus,age);
+    }
 }

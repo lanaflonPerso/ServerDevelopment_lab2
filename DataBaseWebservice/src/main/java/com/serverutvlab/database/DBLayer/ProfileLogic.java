@@ -51,4 +51,40 @@ public class ProfileLogic {
 
 
     }
+
+    public boolean updateProfile(int userId, String username, String info, int relationshipStatus, int age) {
+        EntityManager entityManager = DBManager.getInstance().createEntityManager();
+
+        try {
+            entityManager.getTransaction().begin();
+
+            Query q = entityManager.createQuery("from ProfileEntity p where  p.userId = ?1");
+            q.setParameter(1, userId);
+            List<ProfileEntity> profiles = q.getResultList();
+
+            if (profiles.size() == 0){
+                System.out.println("Profile not found");
+                return false;
+            }
+
+            ProfileEntity profile = profiles.get(0);
+            System.out.println("Profile to be edited: "+profile);
+
+            profile.setName(username);
+            profile.setInfo(info);
+            profile.setRelationshipStatus(relationshipStatus);
+            profile.setAge(age);
+
+            entityManager.persist(profile);
+            entityManager.getTransaction().commit();
+
+        }catch (Exception e) {
+            System.out.println("Exeption, "+ e.getMessage());
+            entityManager.getTransaction().rollback();
+            return false;
+        }finally {
+            entityManager.close();
+        }
+        return true;
+    }
 }
