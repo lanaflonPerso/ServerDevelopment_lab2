@@ -57,6 +57,10 @@ public class DBFacade {
         return new UserLogic().addFriendToUser(uId,fId);
     }
 
+
+    public static boolean removeFriend(int uId, int fId) {
+        return new UserLogic().removeFriend(uId,fId);
+    }
     /**
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
      *  PROFILEENTITY LOGIC CALLS
@@ -112,7 +116,6 @@ public class DBFacade {
         System.out.println("Post returning from PostLogic: " + p);
         return p != null? new BPost(p.getId(),p.getSubject(),p.getMessageBody(),p.getTimestamp(),p.getAuthorId(),p.getRecipientId()) : null;
     }
-
 
 
 }
