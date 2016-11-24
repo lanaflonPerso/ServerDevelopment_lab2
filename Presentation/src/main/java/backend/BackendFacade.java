@@ -5,6 +5,7 @@ import backend.SModels.SUser;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import friendmanagment.FriendVM;
+import viewmodel.ProfileItem;
 import viewmodel.ProfileVM;
 import viewmodel.UserVM;
 
@@ -34,16 +35,19 @@ public class BackendFacade {
     }
     //    public ProfileVM(String name, String info, Integer age, int relationshipStatus) {
 
-    public static ProfileVM loadProfile(int userId) {
+    public static ProfileItem loadProfile(int userId) {
         System.out.println("user id: " +userId );
         String jsonResp = RestBackendLink.doRestGet(pathProfileervice, "getProfile", "?userId=" + userId);
         System.out.println("Json response: " + jsonResp);
+        if (jsonResp.equals("")) {
+            return null;
+        }
         SProfile sProfile = new Gson().fromJson(jsonResp, SProfile.class);
         System.out.println(sProfile.toString());
         return new ProfileVM(sProfile.getName(),sProfile.getInfo(),sProfile.getAge(),sProfile.getRelationshipStatus());
     }
 
-    public static boolean saveProfile(int userId, ProfileVM profileInfo) {
+    public static boolean saveProfile(int userId, ProfileItem profileInfo) {
         System.out.println("BackendFacade::saveProfile userId:" + userId + " profile: " + profileInfo.toString());
         String jsonResp = RestBackendLink.doRestParmPost(pathProfileervice,"updateProfile",
                 "?userId="+userId +
