@@ -80,6 +80,9 @@ public class BFacade {
     public static boolean addFriendToUser(int uId, int fId) {
         return new BUserLogic().addFriendToUser(uId,fId);
     }
+    public static boolean removeFriendToUser(int uId, int fId) {
+        return new BUserLogic().removeFriend(uId,fId);
+    }
 
     /**
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -144,6 +147,7 @@ public class BFacade {
     public static boolean sendMessage(ChatMessageVM chatMessageVM) {
         return BChatLogic.broadcastMessage(chatMessageVM);
     }
+
 
 
 }

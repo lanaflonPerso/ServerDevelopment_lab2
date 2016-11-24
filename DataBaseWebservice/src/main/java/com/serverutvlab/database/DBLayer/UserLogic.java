@@ -3,9 +3,11 @@ package com.serverutvlab.database.DBLayer;
 import com.serverutvlab.business.BModels.BUser;
 import com.serverutvlab.database.DBModels.ProfileEntity;
 import com.serverutvlab.database.DBModels.UserEntity;
+import sun.util.BuddhistCalendar;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -126,5 +128,61 @@ public class UserLogic {
         q.setParameter(1, id);
 
         return q.getResultList();
+    }
+
+    public boolean removeFriend(int userId, int friendId) {
+        EntityManager entityManager = DBManager.getInstance().createEntityManager();
+        System.out.println("Removing friend from user ");
+        try {
+            entityManager.getTransaction().begin();
+
+            Query q = entityManager.createQuery("from UserEntity user where user.id = ?1");
+            q.setParameter(1, userId);
+
+            UserEntity user = (UserEntity) q.getSingleResult();
+
+            Query q2 = entityManager.createQuery("from UserEntity user where user.id = ?1");
+            q2.setParameter(1,friendId);
+
+
+            UserEntity friend = (UserEntity) q2.getSingleResult();
+            System.out.println("User: " + user);
+            System.out.println("Friend: " + friend);
+
+
+            if (friend == null){
+                System.out.println("friend not found, returning false");
+                return false;
+            }
+
+            // Removing the friend from the current user friends
+            LinkedList<UserEntity> friends = (LinkedList<UserEntity>) user.getFriends();
+            for (UserEntity u : friends){
+                if (u.getId() == friendId)
+                    friends.remove();
+            }
+            user.setFriends(friends);
+            entityManager.persist(user);
+
+
+            // Removing current user from the friends list of friends
+            friends = (LinkedList<UserEntity>) friend.getFriends();
+            for (UserEntity u : friends){
+                if (u.getId() == userId)
+                    friends.remove();
+            }
+            friend.setFriends(friends);
+            entityManager.persist(friend);
+
+            entityManager.getTransaction().commit();
+
+        }catch (Exception e) {
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+            return false;
+        }finally {
+            entityManager.close();
+        }
+        return true;
     }
 }

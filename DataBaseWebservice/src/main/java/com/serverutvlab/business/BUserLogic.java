@@ -35,4 +35,9 @@ public class BUserLogic {
     public boolean addFriendToUser(int uId, int fId) {
         return DBFacade.addFriendToUser(uId,fId);
     }
+
+
+    public boolean removeFriend(int uId, int fId) {
+        return DBFacade.removeFriend(uId,fId);
+    }
 }
