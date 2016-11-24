@@ -161,21 +161,15 @@ public class UserLogic {
             }
 
             // Removing the friend from the current user friends
-            LinkedList<UserEntity> friends = (LinkedList<UserEntity>) user.getFriends();
-            for (UserEntity u : friends){
-                if (u.getId() == friendId)
-                    friends.remove();
-            }
+            List<UserEntity> friends = user.getFriends();
+            friends.remove(friend);
             user.setFriends(friends);
             entityManager.persist(user);
 
 
             // Removing current user from the friends list of friends
-            friends = (LinkedList<UserEntity>) friend.getFriends();
-            for (UserEntity u : friends){
-                if (u.getId() == userId)
-                    friends.remove();
-            }
+            friends = friend.getFriends();
+            friends.remove(user);
             friend.setFriends(friends);
             entityManager.persist(friend);
 
