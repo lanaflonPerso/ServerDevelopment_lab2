@@ -1,7 +1,10 @@
 package navigationcontroller;
 
+import account.Account;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
@@ -13,8 +16,10 @@ import java.io.Serializable;
 @SessionScoped
 public class Bean implements Serializable {
 
+
     private String page;
     private String friendpage;
+
 
     public String getProfilepage() {
         return profilepage;

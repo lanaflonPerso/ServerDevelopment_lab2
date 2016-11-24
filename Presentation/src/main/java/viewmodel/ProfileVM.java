@@ -47,4 +47,14 @@ public class ProfileVM {
     public void setRelationshipStatus(int relationshipStatus) {
         this.relationshipStatus = relationshipStatus;
     }
+
+    @Override
+    public String toString() {
+        return "ProfileVM{" +
+                "name='" + name + '\'' +
+                ", info='" + info + '\'' +
+                ", age=" + age +
+                ", relationshipStatus=" + relationshipStatus +
+                '}';
+    }
 }
