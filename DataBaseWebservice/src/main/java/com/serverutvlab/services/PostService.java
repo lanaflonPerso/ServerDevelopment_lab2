@@ -44,9 +44,10 @@ public class PostService {
     public Response postPost(@QueryParam("authorId") int autoridId,
                              @QueryParam("recipientId") int recipientId,
                              @QueryParam("subject") String subject,
-                             @QueryParam("messageBody") String messageBody){
+                             @QueryParam("messageBody") String messageBody,
+                             @QueryParam("messageBody") boolean isPrivate){
 
-        SPost post = BFacade.postPost(autoridId,recipientId,subject,messageBody);
+        SPost post = BFacade.postPost(autoridId,recipientId,subject,messageBody,isPrivate);
 
         Gson gson = new Gson();
         String response = gson.toJson(post);

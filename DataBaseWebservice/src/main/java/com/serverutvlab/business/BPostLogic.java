@@ -18,8 +18,8 @@ public class BPostLogic {
         return posts;
     }
 
-    public BPost postPost(int autoridId, int recipientId, String subject, String messageBody) {
-        BPost p = DBFacade.postPost(autoridId,recipientId,subject,messageBody);
+    public BPost postPost(int autoridId, int recipientId, String subject, String messageBody, boolean isPrivate) {
+        BPost p = DBFacade.postPost(autoridId,recipientId,subject,messageBody,isPrivate);
         return p;
     }
 
@@ -33,7 +33,7 @@ public class BPostLogic {
         for (BUser f: friends){
             BProfile p = DBFacade.getProfileForUserId(f.getId());
             for (BPost post:DBFacade.getPostsForProfile(p.getId())) {
-                if (!feed.contains(post))
+                if (!feed.contains(post) && !post.isPrivate())
                     feed.add(post);
             }
         }

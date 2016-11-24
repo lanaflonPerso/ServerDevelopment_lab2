@@ -22,6 +22,18 @@ public class BPost implements Comparable<BPost> {
     public BPost() {
     }
 
+    public BPost(int id, String subject, String messageBody, String authorName, String recipientName, Timestamp timestamp, int authorId, int recipientId, boolean isPrivate) {
+        this.id = id;
+        this.subject = subject;
+        this.messageBody = messageBody;
+        this.authorName = authorName;
+        this.recipientName = recipientName;
+        this.timestamp = timestamp;
+        this.authorId = authorId;
+        this.recipientId = recipientId;
+        this.isPrivate = isPrivate;
+    }
+
     public BPost(int id, String subject, String messageBody, String authorName, String recipientName, Timestamp timestamp, int authorId, int recipientId, SProfile postedTo, boolean isPrivate) {
         this.id = id;
         this.subject = subject;

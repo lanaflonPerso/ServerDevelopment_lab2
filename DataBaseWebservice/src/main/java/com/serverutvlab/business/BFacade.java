@@ -138,14 +138,14 @@ public class BFacade {
     public static List<SPost> getPostsByProfile(int profileId) {
         List<SPost> posts = new ArrayList<SPost>();
         for (BPost b : new BPostLogic().getPostsByProfile(profileId)) {
-            posts.add(new SPost(b.getId(),b.getSubject(),b.getMessageBody(),b.getTimestamp(),b.getAuthorId(),b.getRecipientId()));
+            posts.add(new SPost(b.getId(),b.getSubject(),b.getMessageBody(),b.getAuthorName(),b.getRecipientName(),b.getTimestamp(),b.getAuthorId(),b.getRecipientId(),b.isPrivate()));
 
         }
         return posts;
     }
 
-    public static SPost postPost(int autoridId, int recipientId, String subject, String messageBody) {
-        BPost p = new BPostLogic().postPost(autoridId,recipientId,subject,messageBody);
+    public static SPost postPost(int autoridId, int recipientId, String subject, String messageBody,boolean isPrivate) {
+        BPost p = new BPostLogic().postPost(autoridId,recipientId,subject,messageBody, isPrivate);
         return p != null? new SPost(p.getId(),p.getSubject(),p.getMessageBody(),p.getTimestamp(),p.getAuthorId(),p.getRecipientId()) : null;
     }
 

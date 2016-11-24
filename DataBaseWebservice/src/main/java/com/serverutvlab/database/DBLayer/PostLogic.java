@@ -31,7 +31,7 @@ public class PostLogic {
         return resultList == null? new ArrayList<PostEntity>() : resultList;
     }
 
-    public PostEntity createPost(int auhtoridId, int recipientId, String subject, String messageBody, ProfileEntity postedTo) {
+    public PostEntity createPost(int auhtoridId, int recipientId, String subject, String messageBody, ProfileEntity postedTo, ProfileEntity postedFrom, boolean isPrivate) {
 
         PostEntity post = new PostEntity();
         post.setSubject(subject);
@@ -39,6 +39,9 @@ public class PostLogic {
         post.setRecipientId(recipientId);
         post.setAuthorId(auhtoridId);
         post.setPostedTo(postedTo);
+        post.setAuthorName(postedFrom.getName());
+        post.setRecipientName(postedTo.getName());
+        post.setPrivate(isPrivate);
 
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
         try {
