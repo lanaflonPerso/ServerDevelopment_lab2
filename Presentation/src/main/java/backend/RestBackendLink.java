@@ -3,14 +3,18 @@ package backend;
 import chat.ChatMessageVM;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
 import javax.ws.rs.core.MediaType;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class RestBackendLink {
     private final static String backendAddress = "http://localhost:8090/";
@@ -95,12 +99,13 @@ public class RestBackendLink {
      * @param serviceName the name of the service
      * @return returns a string data of it
      */
-    public static String doRestParmPost(String path, String serviceName, String parm) {
-        Client restClient = null;
+    public static String doRestParmPost(String path, String serviceName,Map<String,Object> params) {
+        String parameters = prepareParams(params);
 
+        Client restClient = null;
         restClient = Client.create();
-        WebResource webRes = restClient.resource(backendAddress + path + serviceName + parm);
-        System.out.println("add: " + backendAddress + path + serviceName + parm);
+        WebResource webRes = restClient.resource(backendAddress + path + serviceName + parameters);
+        System.out.println("add: " + backendAddress + path + serviceName + parameters);
         ClientResponse resp =  webRes.type(MediaType.TEXT_PLAIN).post(ClientResponse.class);
 
         int status = resp.getStatus();
@@ -144,11 +149,11 @@ public class RestBackendLink {
      * @param serviceName the name of the service
      * @return returns a string data of it
      */
-    public static String doRestGet(String path, String serviceName,String parm) {
+    public static String doRestGet(String path, String serviceName,Map<String,Object> params) {
+        String parameters = prepareParams(params);
         Client restClient = null;
-
         restClient = Client.create();
-        WebResource webRes = restClient.resource(backendAddress + path + serviceName + parm);
+        WebResource webRes = restClient.resource(backendAddress + path + serviceName + parameters);
 
         ClientResponse resp = webRes.accept(MediaType.TEXT_PLAIN).get(ClientResponse.class);
         int status = resp.getStatus();
@@ -165,4 +170,29 @@ public class RestBackendLink {
         T result = gson.fromJson(data, type);
         return result;
     }
+
+    public static String prepareParams(Map<String,Object> parameters){
+        StringBuilder params = new StringBuilder();
+        try{
+
+        for (Map.Entry<String,Object> p: parameters.entrySet()){
+            if (params.length() == 0)
+                params.append('?');
+            else
+                params.append('&');
+
+            params.append(URLEncoder.encode(p.getKey(),"UTF-8"));
+            params.append('=');
+            params.append(URLEncoder.encode(String.valueOf(p.getValue()), "UTF-8"));
+        }
+
+        } catch (UnsupportedEncodingException e){
+            e.printStackTrace();
+            return null;
+        }
+
+        return params.toString();
+    }
+
+
 }
