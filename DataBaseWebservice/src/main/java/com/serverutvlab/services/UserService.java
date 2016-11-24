@@ -90,7 +90,7 @@ public class UserService {
         return Response.ok(response).build();
     }
 
-    @POST
+    @GET
     @Path("getFriendsByUserId")
     //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
@@ -109,6 +109,7 @@ public class UserService {
     //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
     public Response addFriendToUser(@QueryParam("userId") int uId, @QueryParam("friendId")int fId) {
+
         Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
 
         boolean result = BFacade.addFriendToUser(uId,fId);
@@ -121,4 +122,16 @@ public class UserService {
         return Response.ok(response).build();
     }
 
+    @GET
+    @Path("getNonFriends")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response getNonFriends(@QueryParam("userId") int userId){
+
+        List<SUser> result = BFacade.getNonFriendsByUserId(userId);
+
+        Gson gson = new Gson();
+        String response = gson.toJson(result);
+
+        return Response.ok(response).build();
+    }
 }

@@ -81,6 +81,14 @@ public class BFacade {
         return new BUserLogic().addFriendToUser(uId,fId);
     }
 
+    public static List<SUser> getNonFriendsByUserId(int userId) {
+        List<SUser> result = new ArrayList<SUser>();
+        for(BUser u: new BUserLogic().getNonFriendsByUser(userId))
+            result.add(new SUser(u.getId(),u.getEmail()));
+
+        return result;
+    }
+
     /**
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
      *  PROFILE SERVICE CALLS
@@ -140,4 +148,6 @@ public class BFacade {
     public static boolean sendMessage(ChatMessageVM chatMessageVM) {
         return BChatLogic.broadcastMessage(chatMessageVM);
     }
+
+
 }
