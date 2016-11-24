@@ -12,9 +12,13 @@ public class PostEntity {
     private String subject;
     private String messageBody;
     private Timestamp timestamp;
+    private String authorName;
+    private String recipientName;
     private int authorId;
     private int recipientId;
     private ProfileEntity postedTo;
+    private boolean isPrivate;
+
 
     @Id
     @Column(name = "id")
@@ -92,6 +96,34 @@ public class PostEntity {
         if (timestamp != null ? !timestamp.equals(that.timestamp) : that.timestamp != null) return false;
 
         return true;
+    }
+
+    @Basic
+    @Column(name = "authorName")
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+    @Basic
+    @Column(name = "recipientName")
+    public String getRecipientName() {
+        return recipientName;
+    }
+
+    public void setRecipientName(String recipientName) {
+        this.recipientName = recipientName;
+    }
+    @Basic
+    @Column(name = "isPrivate")
+    public boolean isPrivate() {
+        return isPrivate;
+    }
+
+    public void setPrivate(boolean aPrivate) {
+        isPrivate = aPrivate;
     }
 
     @Override
