@@ -7,6 +7,7 @@ import java.util.List;
  */
 public class BUser {
     private int id;
+    private int profileId;
     private String email;
     private String password;
     private List<BUser> friends;
@@ -16,6 +17,20 @@ public class BUser {
         this.id = id;
         this.email = email;
         this.password = password;
+    }
+
+    public BUser(int id, int profileId, String email, String password) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+    }
+
+    public int getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(int profileId) {
+        this.profileId = profileId;
     }
 
     public int getId() {

@@ -9,7 +9,6 @@ import java.sql.Timestamp;
  */
 public class PostVM {
 
-
     private int id;
     private String subject;
     private String messageBody;
