@@ -64,4 +64,24 @@ public class BUser {
     public void setFriends(List<BUser> friends) {
         this.friends = friends;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BUser user = (BUser) o;
+
+        if (id != user.id) return false;
+        if (profileId != user.profileId) return false;
+        return email != null ? email.equals(user.email) : user.email == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + profileId;
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        return result;
+    }
 }

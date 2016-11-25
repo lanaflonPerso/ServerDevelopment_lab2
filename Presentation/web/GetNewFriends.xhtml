@@ -8,27 +8,23 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <!--<h:head><title>testtest</title></h:head>-->
 
-
+<h:head></h:head>
 <f:view>
     <h:outputLabel value="Hello, world"/>
-    <h:form id="form">
+    <h:form id="makefriendform">
 
-
-        <p:dataList value="#{searchForFriends.userList}" var="mylist" type="ordered">
+        <p:remoteCommand name="updatefriend" update="makefriendform myfriends"/>
+        <p:dataList value="#{searchForFriends.nonFriends}" var="mylist" type="ordered">
             <f:facet name="header">
-                Test test header
+                My new Friends ?
             </f:facet>
-            Data stuff: #{mylist.name}
+            <p:commandButton value="#{mylist.name}" action="#{searchForFriends.makeNewFriends(mylist.id)}" oncomplete="updatefriend()"/>
+
 
         </p:dataList>
-    </h:form>
-    <h:form id="form2">
-
-        <p:pickList id="pickList" value="#{searchForFriends.userPL}" var="userPL" itemLabel="#{userPL}" itemValue="#{userPL}"/>
-        <!--<h:commandButton action="#{searchForFriends.makeNewFriends(searchForFriends.userPL.target)}" value="make friends" />-->
-        <p:commandButton action="#{searchForFriends.makeNewFriends(searchForFriends.userPL.target)}" value="make friends" />
 
     </h:form>
+
 </f:view>
 
 </html>

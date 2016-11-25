@@ -9,7 +9,7 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 @ManagedBean
 public class FriendVM {
-    private int id;
+    private int id; // är det här userId ??
     private String name;
 
     public FriendVM(int id, String name) {
@@ -36,5 +36,13 @@ public class FriendVM {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "FriendVM{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
