@@ -13,10 +13,26 @@ import java.util.List;
  * Created by cj on 2016-11-18.
  */
 public class BPostLogic {
-    public List<BPost> getPostsByProfile(int profileId) {
-        List<BPost> posts = DBFacade.getPostsForProfile(profileId);
 
-        return posts;
+    public List<BPost> getPostsByProfile(int profileId, int activeUserId) {
+        List<BPost> result = new ArrayList<BPost>();
+        List<BPost> posts = DBFacade.getPostsForProfile(profileId);
+        BProfile activeUserProfile = DBFacade.getProfileForUserId(activeUserId);
+
+        if (activeUserProfile == null)
+            return result;
+
+        for (BPost p: posts){
+            if (p.isPrivate()){
+                if (activeUserProfile.getId() == p.getAuthorId() || activeUserProfile.getId() == p.getRecipientId()){
+                    result.add(p);
+                }
+            } else {
+                result.add(p);
+            }
+        }
+
+        return result;
     }
 
     public BPost postPost(int autoridId, int recipientId, String subject, String messageBody, boolean isPrivate) {

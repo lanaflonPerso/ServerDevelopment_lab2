@@ -155,9 +155,9 @@ public class BFacade {
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
      */
 
-    public static List<SPost> getPostsByProfile(int profileId) {
+    public static List<SPost> getPostsByProfile(int profileId, int activeUserId) {
         List<SPost> posts = new ArrayList<SPost>();
-        for (BPost b : new BPostLogic().getPostsByProfile(profileId)) {
+        for (BPost b : new BPostLogic().getPostsByProfile(profileId,activeUserId)) {
             posts.add(new SPost(b.getId(),b.getSubject(),b.getMessageBody(),b.getAuthorName(),b.getRecipientName(),b.getTimestamp(),b.getAuthorId(),b.getRecipientId(),b.isPrivate()));
 
         }
@@ -166,7 +166,7 @@ public class BFacade {
 
     public static SPost postPost(int autoridId, int recipientId, String subject, String messageBody,boolean isPrivate) {
         BPost p = new BPostLogic().postPost(autoridId,recipientId,subject,messageBody, isPrivate);
-        return p != null? new SPost(p.getId(),p.getSubject(),p.getMessageBody(),p.getTimestamp(),p.getAuthorId(),p.getRecipientId()) : null;
+        return p != null? new SPost(p.getId(),p.getSubject(),p.getMessageBody(),p.getAuthorName(),p.getRecipientName(),p.getTimestamp(),p.getAuthorId(),p.getRecipientId(),p.isPrivate()) : null;
     }
 
     public static boolean sendMessage(ChatMessageVM chatMessageVM) {

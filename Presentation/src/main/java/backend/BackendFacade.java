@@ -226,6 +226,37 @@ public class BackendFacade {
         return feed;
     }
 
+    public static List<PostVM> getPostForProfile(int profileId, int activeUserId){
+
+        Map<String,Object> parameters = new LinkedHashMap<String,Object>();
+        parameters.put("profileId", profileId);
+        parameters.put("activeUserId", activeUserId);
+
+        String jsonResp = RestBackendLink.doRestGet(pathPostService,"getprofileposts",parameters);
+        if (jsonResp.equals("[]"))
+            return null;
+
+        Type type = new TypeToken<ArrayList<SPost>>(){}.getType();
+        ArrayList<SPost> result = RestBackendLink.parseJsonData(type,jsonResp);
+        System.out.println("loaded feed: " + result.toString());
+
+
+        ArrayList<PostVM> wallPosts = new ArrayList<PostVM>();
+        for (SPost p: result){
+            wallPosts.add(new PostVM(
+                    p.getId(),
+                    p.getSubject(),
+                    p.getMessageBody(),
+                    p.getAuthorName(),
+                    p.getRecipientName(),
+                    p.getTimestamp(),
+                    p.getAuthorId(),
+                    p.getRecipientId(),
+                    p.isPrivate())
+            );
+        }
+        return wallPosts;
+    }
 
     public static PostVM postPost(int auhtoridId,int recipientId,String subject,String messageBody,boolean isPrivate){
         Map<String,Object> parameters = new LinkedHashMap<String,Object>();
@@ -240,16 +271,23 @@ public class BackendFacade {
             return null;
         }
 
+        Type type = new TypeToken<SPost>(){}.getType();
+        SPost post = RestBackendLink.parseJsonData(type,jsonResp);
 
-        return null;
+        if (post == null)
+            return null;
+
+        return new PostVM(
+                post.getId(),
+                post.getSubject(),
+                post.getMessageBody(),
+                post.getAuthorName(),
+                post.getRecipientName(),
+                post.getTimestamp(),
+                post.getAuthorId(),
+                post.getRecipientId(),
+                post.isPrivate());
 
     }
-
-
-
-
-
-
-
 
 }
