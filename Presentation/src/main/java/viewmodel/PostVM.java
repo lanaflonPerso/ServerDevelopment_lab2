@@ -1,13 +1,15 @@
-package backend.SModels;
+package viewmodel;
 
 import backend.SModels.SProfile;
 
 import java.sql.Timestamp;
 
 /**
- * Created by cj on 2016-11-18.
+ * Created by cj on 2016-11-25.
  */
-public class SPost {
+public class PostVM {
+
+
     private int id;
     private String subject;
     private String messageBody;
@@ -16,11 +18,10 @@ public class SPost {
     private Timestamp timestamp;
     private int authorId;
     private int recipientId;
-    private SProfile postedTo;
     private boolean isPrivate;
 
 
-    public SPost(int id, String subject, String messageBody, String authorName, String recipientName, Timestamp timestamp, int authorId, int recipientId, boolean isPrivate) {
+    public PostVM(int id, String subject, String messageBody, String authorName, String recipientName, Timestamp timestamp, int authorId, int recipientId, boolean isPrivate){
         this.id = id;
         this.subject = subject;
         this.messageBody = messageBody;
@@ -32,7 +33,7 @@ public class SPost {
         this.isPrivate = isPrivate;
     }
 
-    public SPost(int id, String subject, String messageBody, Timestamp timestamp, int authorId, int recipientId) {
+    public PostVM(int id, String subject, String messageBody, Timestamp timestamp, int authorId, int recipientId){
         this.id = id;
         this.subject = subject;
         this.messageBody = messageBody;
@@ -81,14 +82,6 @@ public class SPost {
         this.authorId = authorId;
     }
 
-    public SProfile getPostedTo() {
-        return postedTo;
-    }
-
-    public void setPostedTo(SProfile postedTo) {
-        this.postedTo = postedTo;
-    }
-
     public String getAuthorName() {
         return authorName;
     }
@@ -132,8 +125,8 @@ public class SPost {
                 ", timestamp=" + timestamp +
                 ", authorId=" + authorId +
                 ", recipientId=" + recipientId +
-                ", postedTo=" + postedTo +
                 ", isPrivate=" + isPrivate +
                 '}';
     }
 }
+

@@ -1,28 +1,31 @@
 package backend;
 
+import backend.SModels.SPost;
 import backend.SModels.SProfile;
 import backend.SModels.SUser;
 import com.google.gson.Gson;
-import com.google.gson.internal.ObjectConstructor;
 import com.google.gson.reflect.TypeToken;
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import friendmanagment.FriendVM;
+import viewmodel.PostVM;
 import viewmodel.ProfileItem;
 import viewmodel.ProfileVM;
 import viewmodel.UserVM;
 
-import java.io.UnsupportedEncodingException;
+import javax.ws.rs.Path;
 import java.lang.reflect.Type;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by o_0 on 2016-11-23.
  */
 public class BackendFacade {
-    private static final String pathUserservice = "services/userservice/";
-    private static final String pathProfileervice = "services/profileservice/";
+    private static final String pathUserService = "services/userservice/";
+    private static final String pathProfileService = "services/profileservice/";
+    private static final String pathPostService = "services/postservice/";
     public static UserVM loginUser(String userName, String password) {
         System.out.println("BackendFacade::loginUser user:" + userName + " pass: " + password);
 
@@ -30,7 +33,7 @@ public class BackendFacade {
         parameters.put("email", userName);
         parameters.put("password", password);
 
-        String jsonResp = RestBackendLink.doRestParmPost(pathUserservice,"login", parameters);
+        String jsonResp = RestBackendLink.doRestParmPost(pathUserService,"login", parameters);
 
         if (jsonResp.equals("")) {
             System.out.println("loginUser wrong");
@@ -46,7 +49,7 @@ public class BackendFacade {
         Map<String,Object> parameters = new LinkedHashMap<String,Object>();
         parameters.put("userId", userId);
 
-        String jsonResp = RestBackendLink.doRestGet(pathProfileervice, "getProfile", parameters);
+        String jsonResp = RestBackendLink.doRestGet(pathProfileService, "getProfile", parameters);
         System.out.println("Json response: " + jsonResp);
         if (jsonResp.equals("")) {
             return null;
@@ -66,7 +69,7 @@ public class BackendFacade {
         parameters.put("relationshipStatus", profileInfo.getRelationshipStatus());
         parameters.put("age", profileInfo.getAge());
 
-        String jsonResp = RestBackendLink.doRestParmPost(pathProfileervice,"updateProfile", parameters);
+        String jsonResp = RestBackendLink.doRestParmPost(pathProfileService,"updateProfile", parameters);
 
         if (jsonResp.equals("")) {
             System.out.println("loginUser wrong");
@@ -88,7 +91,7 @@ public class BackendFacade {
         parameters.put("userId", userId);
 
         //getFriendsByUserId
-        String data = RestBackendLink.doRestGet(pathUserservice,"getFriendsByUserId",parameters);
+        String data = RestBackendLink.doRestGet(pathUserService,"getFriendsByUserId",parameters);
         Type type = new TypeToken<ArrayList<SUser>>(){}.getType();
         ArrayList<SUser> friends = RestBackendLink.parseJsonData(type, data);
         if (friends == null) {
@@ -100,5 +103,58 @@ public class BackendFacade {
         }
         return result;
     }
+
+    public static List<PostVM> loadFeed(int userId){
+        Map<String,Object> parameters = new LinkedHashMap<String,Object>();
+        parameters.put("userId", userId);
+
+        String jsonResp = RestBackendLink.doRestGet(pathPostService,"getFeed",parameters);
+        if (jsonResp.equals("[]"))
+            return null;
+
+
+        Type type = new TypeToken<ArrayList<SPost>>(){}.getType();
+        ArrayList<SPost> result = RestBackendLink.parseJsonData(type,jsonResp);
+        System.out.println("loaded feed: " + result.toString());
+
+
+        ArrayList<PostVM> feed = new ArrayList<PostVM>();
+        for (SPost p: result){
+            feed.add(new PostVM(
+                    p.getId(),
+                    p.getSubject(),
+                    p.getMessageBody(),
+                    p.getAuthorName(),
+                    p.getRecipientName(),
+                    p.getTimestamp(),
+                    p.getAuthorId(),
+                    p.getRecipientId(),
+                    p.isPrivate())
+            );
+        }
+
+        return feed;
+    }
+
+    public static UserVM registerUser(String email, String password){
+        Map<String,Object> parameters = new LinkedHashMap<String,Object>();
+        parameters.put("email", email);
+        parameters.put("password", password);
+
+        String jsonResp = RestBackendLink.doRestParmPost(pathUserService,"registerProfile", parameters);
+        System.out.println("registerUser response: "+jsonResp);
+        if (jsonResp.equals("null"))
+            return null;
+
+        Type type = new TypeToken<SUser>(){}.getType();
+        SUser user = RestBackendLink.parseJsonData(type, jsonResp);
+
+        UserVM result = new UserVM(user.getId(),user.getEmail());
+
+        return result;
+
+    }
+
+
 
 }

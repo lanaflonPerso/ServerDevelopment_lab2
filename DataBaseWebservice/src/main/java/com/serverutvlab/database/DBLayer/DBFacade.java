@@ -31,10 +31,12 @@ public class DBFacade {
         return result;
     }
 
-    static public boolean createNewUser(String email, String password) {
+    static public BUser createNewUser(String email, String password) {
         UserEntity user = new UserLogic().createNewAccount(email,password);
+        if (user == null)
+            return null;
 
-        return user != null && user.getId() != 0;
+        return new BUser(user.getId(),user.getEmail(),user.getPassword());
     }
 
     public static BUser authenticateUser(String e, String p) {
