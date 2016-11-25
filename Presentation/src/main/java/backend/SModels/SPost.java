@@ -1,5 +1,6 @@
 package backend.SModels;
 
+import backend.SModels.SProfile;
 
 import java.sql.Timestamp;
 
@@ -10,10 +11,26 @@ public class SPost {
     private int id;
     private String subject;
     private String messageBody;
+    private String authorName;
+    private String recipientName;
     private Timestamp timestamp;
     private int authorId;
     private int recipientId;
     private SProfile postedTo;
+    private boolean isPrivate;
+
+
+    public SPost(int id, String subject, String messageBody, String authorName, String recipientName, Timestamp timestamp, int authorId, int recipientId, boolean isPrivate) {
+        this.id = id;
+        this.subject = subject;
+        this.messageBody = messageBody;
+        this.authorName = authorName;
+        this.recipientName = recipientName;
+        this.timestamp = timestamp;
+        this.authorId = authorId;
+        this.recipientId = recipientId;
+        this.isPrivate = isPrivate;
+    }
 
     public SPost(int id, String subject, String messageBody, Timestamp timestamp, int authorId, int recipientId) {
         this.id = id;
@@ -72,15 +89,51 @@ public class SPost {
         this.postedTo = postedTo;
     }
 
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public String getRecipientName() {
+        return recipientName;
+    }
+
+    public void setRecipientName(String recipientName) {
+        this.recipientName = recipientName;
+    }
+
+    public int getRecipientId() {
+        return recipientId;
+    }
+
+    public void setRecipientId(int recipientId) {
+        this.recipientId = recipientId;
+    }
+
+    public boolean isPrivate() {
+        return isPrivate;
+    }
+
+    public void setPrivate(boolean aPrivate) {
+        isPrivate = aPrivate;
+    }
+
     @Override
     public String toString() {
         return "SPost{" +
                 "id=" + id +
                 ", subject='" + subject + '\'' +
                 ", messageBody='" + messageBody + '\'' +
+                ", authorName='" + authorName + '\'' +
+                ", recipientName='" + recipientName + '\'' +
                 ", timestamp=" + timestamp +
                 ", authorId=" + authorId +
+                ", recipientId=" + recipientId +
                 ", postedTo=" + postedTo +
+                ", isPrivate=" + isPrivate +
                 '}';
     }
 }

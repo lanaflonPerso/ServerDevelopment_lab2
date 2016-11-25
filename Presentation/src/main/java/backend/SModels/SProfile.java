@@ -7,6 +7,7 @@ import java.util.List;
 /**
  * Created by cj on 2016-11-18.
  */
+
 public class SProfile {
     private int id;
     private String name;

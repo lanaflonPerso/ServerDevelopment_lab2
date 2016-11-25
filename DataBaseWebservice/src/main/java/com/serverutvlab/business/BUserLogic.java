@@ -23,7 +23,7 @@ public class BUserLogic {
         return DBFacade.authenticateUser(email,password);
     }
 
-    public boolean createUser(String email, String password){
+    public BUser createUser(String email, String password){
         return DBFacade.createNewUser(email, password);
     }
 
