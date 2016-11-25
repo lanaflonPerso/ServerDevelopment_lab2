@@ -26,10 +26,14 @@ public class BPostLogic {
         for (BPost p: posts){
             if (p.isPrivate()){
                 if (activeUserProfile.getId() == p.getAuthorId() || activeUserProfile.getId() == p.getRecipientId()){
-                    result.add(p);
+                    if (!result.contains(p)){
+                        result.add(p);
+                    }
                 }
             } else {
-                result.add(p);
+                if (!result.contains(p)){
+                    result.add(p);
+                }
             }
         }
         Collections.sort(result);

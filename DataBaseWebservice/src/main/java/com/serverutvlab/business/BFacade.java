@@ -43,6 +43,7 @@ public class BFacade {
      */
     public static SUser getUserById(int id) {
         BUser user = new BUserLogic().getUserById(id);
+        System.out.println("BFacade:GetUserById: BUser = " + user.toString());
         if (user == null)
             return null;
         return new SUser(user.getId(), user.getProfileId(), user.getEmail());

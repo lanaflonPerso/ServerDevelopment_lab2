@@ -3,6 +3,7 @@ package view;
 import account.Account;
 import backend.BackendFacade;
 import backend.ProfileService;
+import viewmodel.PostVM;
 import viewmodel.ProfileItem;
 import viewmodel.ProfileVM;
 
@@ -10,7 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by o_0 on 2016-11-23.
@@ -24,7 +25,7 @@ public class ProfileView {
     private String info;
     private Integer age;
     private int relationshipStatus;
-
+    private List<PostVM> feed;
 
 
     @PostConstruct
@@ -131,6 +132,7 @@ public class ProfileView {
         this.info = profileService.getInfo();
         this.age = profileService.getAge();
         this.relationshipStatus = profileService.getRelationshipStatus();
+
     }
 
     private ProfileVM getProfileInfo() {
@@ -146,6 +148,15 @@ public class ProfileView {
 
     public void setResponseMessage(String responseMessage) {
         this.responseMessage = responseMessage;
+    }
+
+
+    public List<PostVM> getFeed() {
+        return profileService.getCurrentFeed();
+    }
+
+    public void setFeed(List<PostVM> feed) {
+        this.feed = feed;
     }
 
     public void saveUserProfile() {

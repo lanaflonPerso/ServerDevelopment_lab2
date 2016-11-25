@@ -11,6 +11,7 @@
 <!--<h:body>-->
 <h:body>
     <f:view>
+        <p:commandButton value="MyProfile" action="#{profileView.showMyProfile}" update="profileData"/>
         <h:panelGroup id="profileData">
             <ul>
                 <li>
@@ -34,7 +35,33 @@
                 </li>
             </ul>
         </h:panelGroup>
-        <p:commandButton value="MyProfile" action="#{profileView.showMyProfile}" update="profileData"/>
+
+        <p:dataList value="#{profileView.feed}" var="post" type="ordered">
+            <f:facet name="header">
+                Posts
+            </f:facet>
+            <ul>
+                <li>
+                    <h:outputLabel value="#{post.authorName}"/>
+                    <h:outputLabel value=" -> "/>
+                    <h:outputLabel value="#{post.recipientName}"/>
+                </li>
+
+                <li>
+                    <h:outputLabel value="Subject: "/>
+                    <h:outputText value="#{post.subject}"/>
+
+                </li>
+                <li>
+                    <h:outputLabel value="Meesage:  "/>
+                    <h:outputLabel value="#{post.messageBody}"/>
+                </li>
+                <li>
+                    <h:outputLabel value="#{post.timestamp}"/>
+                </li>
+            </ul>
+
+        </p:dataList>
     </f:view>
 </h:body>
 </html>

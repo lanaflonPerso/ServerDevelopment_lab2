@@ -334,7 +334,7 @@ public class BackendFacade {
 
         Type type = new TypeToken<ArrayList<SPost>>(){}.getType();
         ArrayList<SPost> result = RestBackendLink.parseJsonData(type,jsonResp);
-        System.out.println("loaded feed: " + result.toString());
+        System.out.println("loaded wallposts: " + result.toString());
 
 
         ArrayList<PostVM> wallPosts = new ArrayList<PostVM>();

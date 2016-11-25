@@ -1,19 +1,21 @@
 package backend;
 
 import account.Account;
+import viewmodel.PostVM;
 import viewmodel.ProfileItem;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import java.util.List;
 
 /**
  * Created by o_0 on 2016-11-24.
  */
 @ManagedBean(name = "profileService")
 @SessionScoped
-public class ProfileService implements ProfileItem{
+public class ProfileService implements ProfileItem {
 
     @ManagedProperty("#{account}")
     private Account userAccount;
@@ -31,9 +33,8 @@ public class ProfileService implements ProfileItem{
     private String info;
     private Integer age;
     private int relationshipStatus;
-
+    private List<PostVM> wallPosts;
     private int selectedUserId;
-
     private int profileId;
 
     public int getProfileId() {
@@ -96,7 +97,7 @@ public class ProfileService implements ProfileItem{
             // TODO: parse id to correct one
             success = BackendFacade.saveProfile(userAccount.getUserId(), this);
 
-        }else {
+        } else {
             System.out.println("not loggedin");
         }
         return success;
@@ -132,5 +133,11 @@ public class ProfileService implements ProfileItem{
         this.age = profile.getAge();
         this.profileId = profile.getProfileId();
         this.relationshipStatus = profile.getRelationshipStatus();
+    }
+
+    public List<PostVM> getCurrentFeed() {
+        System.out.println("getting current feed cuz i'm awesome");
+        wallPosts = BackendFacade.getPostForProfile(profileId, userAccount.getUserId());
+        return wallPosts;
     }
 }
