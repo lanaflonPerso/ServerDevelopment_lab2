@@ -1,13 +1,26 @@
 package viewmodel;
 
+import backend.SModels.SPost;
+
+import java.util.List;
+
 /**
  * Created by o_0 on 2016-11-23.
  */
 public class ProfileVM implements ProfileItem{
+    private int id;
     private String name;
     private String info;
     private Integer age;
     private int relationshipStatus;
+
+    public ProfileVM(int id, String name, String info, Integer age, int relationshipStatus) {
+        this.id = id;
+        this.name = name;
+        this.info = info;
+        this.age = age;
+        this.relationshipStatus = relationshipStatus;
+    }
 
     public ProfileVM(String name, String info, Integer age, int relationshipStatus) {
         this.name = name;
@@ -46,6 +59,14 @@ public class ProfileVM implements ProfileItem{
 
     public void setRelationshipStatus(int relationshipStatus) {
         this.relationshipStatus = relationshipStatus;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

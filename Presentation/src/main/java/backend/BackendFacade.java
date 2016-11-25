@@ -26,6 +26,20 @@ public class BackendFacade {
     private static final String pathUserService = "services/userservice/";
     private static final String pathProfileService = "services/profileservice/";
     private static final String pathPostService = "services/postservice/";
+
+
+    /**
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     * * * * * * *   USER SERVICE BACKEND CALLS!
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     */
+
+    /**
+     *
+     * @param userName
+     * @param password
+     * @return
+     */
     public static UserVM loginUser(String userName, String password) {
         System.out.println("BackendFacade::loginUser user:" + userName + " pass: " + password);
 
@@ -35,7 +49,7 @@ public class BackendFacade {
 
         String jsonResp = RestBackendLink.doRestParmPost(pathUserService,"login", parameters);
 
-        if (jsonResp.equals("")) {
+        if (jsonResp.equals("null")) {
             System.out.println("loginUser wrong");
             return null;
         }
@@ -44,6 +58,93 @@ public class BackendFacade {
         return new UserVM(sUser.getId(),sUser.getEmail());
     }
 
+    public static UserVM registerUser(String email, String password){
+        Map<String,Object> parameters = new LinkedHashMap<String,Object>();
+        parameters.put("email", email);
+        parameters.put("password", password);
+
+        String jsonResp = RestBackendLink.doRestParmPost(pathUserService,"registerProfile", parameters);
+        System.out.println("registerUser response: "+jsonResp);
+        if (jsonResp.equals("null"))
+            return null;
+
+        Type type = new TypeToken<SUser>(){}.getType();
+        SUser user = RestBackendLink.parseJsonData(type, jsonResp);
+
+        UserVM result = new UserVM(user.getId(),user.getEmail());
+
+        return result;
+
+    }
+
+
+    public static UserVM getUser(int userId){
+        Map<String,Object> parameters = new LinkedHashMap<String,Object>();
+        parameters.put("userId", userId);
+
+        String jsonResp = RestBackendLink.doRestGet(pathUserService,"userById", parameters);
+        if (jsonResp.equals("null"))
+            return null;
+
+        Type type = new TypeToken<SUser>(){}.getType();
+        SUser user = RestBackendLink.parseJsonData(type, jsonResp);
+
+        UserVM result = new UserVM(user.getId(),user.getEmail());
+
+        return result;
+
+    }
+
+    public static ArrayList<FriendVM> loadFriends(int userId) {
+        Map<String,Object> parameters = new LinkedHashMap<String,Object>();
+        parameters.put("userId", userId);
+
+        //getFriendsByUserId
+        String data = RestBackendLink.doRestGet(pathUserService,"getFriendsByUserId",parameters);
+        if (data.equals("null"))
+            return null;
+
+        Type type = new TypeToken<ArrayList<SUser>>(){}.getType();
+        ArrayList<SUser> friends = RestBackendLink.parseJsonData(type, data);
+        if (friends == null) {
+            return null;
+        }
+        ArrayList<FriendVM> result = new ArrayList<FriendVM>();
+        for (SUser u : friends) {
+            result.add(new FriendVM(u.getId(),u.getEmail()));
+        }
+        return result;
+    }
+
+    public static ArrayList<FriendVM> loadNonFriends(int userId){
+        Map<String,Object> parameters = new LinkedHashMap<String,Object>();
+        parameters.put("userId", userId);
+
+        //getFriendsByUserId
+        String data = RestBackendLink.doRestGet(pathUserService,"getNonFriends",parameters);
+        if (data.equals("null"))
+            return null;
+
+        Type type = new TypeToken<ArrayList<SUser>>(){}.getType();
+        ArrayList<SUser> friends = RestBackendLink.parseJsonData(type, data);
+        if (friends == null) {
+            return null;
+        }
+        ArrayList<FriendVM> result = new ArrayList<FriendVM>();
+        for (SUser u : friends) {
+            result.add(new FriendVM(u.getId(),u.getEmail()));
+        }
+        return result;
+
+    }
+
+
+    /**
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     * * * * * * *   PROFILE SERVICE BACKEND CALLS!
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     */
+
     public static ProfileItem loadProfile(int userId) {
         System.out.println("user id: " +userId );
         Map<String,Object> parameters = new LinkedHashMap<String,Object>();
@@ -51,7 +152,7 @@ public class BackendFacade {
 
         String jsonResp = RestBackendLink.doRestGet(pathProfileService, "getProfile", parameters);
         System.out.println("Json response: " + jsonResp);
-        if (jsonResp.equals("")) {
+        if (jsonResp.equals("null")) {
             return null;
         }
         SProfile sProfile = new Gson().fromJson(jsonResp, SProfile.class);
@@ -59,7 +160,7 @@ public class BackendFacade {
             return null;
         }
         System.out.println(sProfile.toString());
-        return new ProfileVM(sProfile.getName(),sProfile.getInfo(),sProfile.getAge(),sProfile.getRelationshipStatus());
+        return new ProfileVM(sProfile.getId(),sProfile.getName(),sProfile.getInfo(),sProfile.getAge(),sProfile.getRelationshipStatus());
     }
 
     public static boolean saveProfile(int userId, ProfileItem profileInfo) {
@@ -74,8 +175,7 @@ public class BackendFacade {
 
         String jsonResp = RestBackendLink.doRestParmPost(pathProfileService,"updateProfile", parameters);
 
-        if (jsonResp.equals("")) {
-            System.out.println("loginUser wrong");
+        if (jsonResp.equals("null")) {
             return false;
         }
 
@@ -84,28 +184,15 @@ public class BackendFacade {
         Type type = new TypeToken<Map<String, Boolean>>(){}.getType();
         Map<String, Boolean> res = RestBackendLink.parseJsonData(type, jsonResp);
 
-
-//        return new UserVM(sUser.getId(),sUser.getEmail());
-        return true;
+        return res.get("success");
     }
 
-    public static ArrayList<FriendVM> loadFriends(int userId) {
-        Map<String,Object> parameters = new LinkedHashMap<String,Object>();
-        parameters.put("userId", userId);
 
-        //getFriendsByUserId
-        String data = RestBackendLink.doRestGet(pathUserService,"getFriendsByUserId",parameters);
-        Type type = new TypeToken<ArrayList<SUser>>(){}.getType();
-        ArrayList<SUser> friends = RestBackendLink.parseJsonData(type, data);
-        if (friends == null) {
-            return null;
-        }
-        ArrayList<FriendVM> result = new ArrayList<FriendVM>();
-        for (SUser u : friends) {
-            result.add(new FriendVM(u.getId(),u.getEmail()));
-        }
-        return result;
-    }
+    /**
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     * * * * * * *   POST SERVICE BACKEND CALLS!
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     */
 
     public static List<PostVM> loadFeed(int userId){
         Map<String,Object> parameters = new LinkedHashMap<String,Object>();
@@ -139,27 +226,28 @@ public class BackendFacade {
         return feed;
     }
 
-    public static UserVM registerUser(String email, String password){
+
+    public static void postPost(int auhtoridId,int recipientId,String subject,String messageBody,boolean isPrivate){
         Map<String,Object> parameters = new LinkedHashMap<String,Object>();
-        parameters.put("email", email);
-        parameters.put("password", password);
+        parameters.put("authorId", auhtoridId );
+        parameters.put("recipientId", recipientId);
+        parameters.put("subject", subject);
+        parameters.put("messageBody", messageBody);
+        parameters.put("isPrivate", isPrivate);
 
-        String jsonResp = RestBackendLink.doRestParmPost(pathUserService,"registerUser", parameters);
-        System.out.println("registerUser response: "+jsonResp);
-        if (jsonResp.equals("null"))
-            return null;
+        String jsonResp = RestBackendLink.doRestGet(pathPostService,"postpostroprofile",parameters);
+        if (jsonResp.equals("[]")){
 
-        Type type = new TypeToken<SUser>(){}.getType();
-        SUser user = RestBackendLink.parseJsonData(type, jsonResp);
-        if (user == null) {
-            return null;
         }
+            //return null;
 
-        UserVM result = new UserVM(user.getId(),user.getEmail());
-
-        return result;
 
     }
+
+
+
+
+
 
 
 

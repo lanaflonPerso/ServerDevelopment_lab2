@@ -43,8 +43,14 @@ public class BUserLogic {
 
     public List<BUser> getNonFriendsByUser(int userId) {
         List<BUser> allUsers = DBFacade.getAllUsers();
+        if (allUsers == null)
+            return null;
+
         System.out.println("All users before: " + allUsers );
         List<BUser> friends = DBFacade.getFriendsByUserId(userId);
+        if (friends == null)
+            return null;
+
         List<BUser> results = new ArrayList<BUser>();
         for (BUser b: allUsers) {
             for (BUser f : friends) {
