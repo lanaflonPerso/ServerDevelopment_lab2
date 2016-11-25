@@ -7,13 +7,16 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import friendmanagment.FriendVM;
+import viewmodel.PostVM;
 import viewmodel.ProfileItem;
 import viewmodel.ProfileVM;
 import viewmodel.UserVM;
 
+import javax.ws.rs.Path;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -101,17 +104,36 @@ public class BackendFacade {
         return result;
     }
 
-    public static void loadFeed(int userId){
+    public static List<PostVM> loadFeed(int userId){
         Map<String,Object> parameters = new LinkedHashMap<String,Object>();
         parameters.put("userId", userId);
 
         String jsonResp = RestBackendLink.doRestGet(pathPostService,"getFeed",parameters);
+        if (jsonResp.equals("[]"))
+            return null;
+
 
         Type type = new TypeToken<ArrayList<SPost>>(){}.getType();
-        ArrayList<SPost> feed = RestBackendLink.parseJsonData(type,jsonResp);
+        ArrayList<SPost> result = RestBackendLink.parseJsonData(type,jsonResp);
+        System.out.println("loaded feed: " + result.toString());
 
-        System.out.println("loaded feed: " + feed.toString());
 
+        ArrayList<PostVM> feed = new ArrayList<PostVM>();
+        for (SPost p: result){
+            feed.add(new PostVM(
+                    p.getId(),
+                    p.getSubject(),
+                    p.getMessageBody(),
+                    p.getAuthorName(),
+                    p.getRecipientName(),
+                    p.getTimestamp(),
+                    p.getAuthorId(),
+                    p.getRecipientId(),
+                    p.isPrivate())
+            );
+        }
+
+        return feed;
     }
 
     public static UserVM registerUser(String email, String password){
@@ -121,13 +143,18 @@ public class BackendFacade {
 
         String jsonResp = RestBackendLink.doRestParmPost(pathUserService,"registerProfile", parameters);
         System.out.println("registerUser response: "+jsonResp);
+        if (jsonResp.equals("null"))
+            return null;
 
-        Type type = new TypeToken<Map<String, Boolean>>(){}.getType();
-        Map<String, Boolean> res = RestBackendLink.parseJsonData(type, jsonResp);
+        Type type = new TypeToken<SUser>(){}.getType();
+        SUser user = RestBackendLink.parseJsonData(type, jsonResp);
 
+        UserVM result = new UserVM(user.getId(),user.getEmail());
 
-        return res.get("success");
-        // return UserVM
+        return result;
+
     }
+
+
 
 }
