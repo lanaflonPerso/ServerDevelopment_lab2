@@ -27,9 +27,10 @@ public class PostService {
     @GET
     @Path("getprofileposts")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response getPostsByProfileId(@QueryParam("profileId") int profileId){
+    public Response getPostsByProfileId(@QueryParam("profileId") int profileId,
+                                        @QueryParam("activeUserId") int activeUserId){
 
-        List<SPost> posts = BFacade.getPostsByProfile(profileId);
+        List<SPost> posts = BFacade.getPostsByProfile(profileId, activeUserId);
 
         Gson gson = new Gson();
         String response = gson.toJson(posts);

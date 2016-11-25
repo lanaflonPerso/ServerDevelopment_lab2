@@ -39,6 +39,7 @@ public class PostLogic {
         post.setRecipientId(recipientId);
         post.setAuthorId(auhtoridId);
         post.setPostedTo(postedTo);
+        post.setTimestamp(new Timestamp(System.currentTimeMillis()));
         post.setAuthorName(postedFrom.getName());
         post.setRecipientName(postedTo.getName());
         post.setPrivate(isPrivate);

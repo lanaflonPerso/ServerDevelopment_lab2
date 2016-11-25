@@ -27,7 +27,7 @@ public class UserEntity implements Comparable<UserEntity> {
     }
 
     @Basic
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     public String getEmail() {
         return email;
     }
