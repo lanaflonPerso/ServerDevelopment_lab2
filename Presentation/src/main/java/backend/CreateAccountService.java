@@ -51,7 +51,7 @@ public class CreateAccountService {
 
     public boolean createAccount(String username, String password) {
         // TODO: hookup to backend
-        UserVM user = new UserVM(3,"d1");   /// BackendFacade.registrateUser(userName,password)
+        UserVM user = BackendFacade.registerUser(username,password);// new UserVM(3,"d1");   /// BackendFacade.registrateUser(userName,password)
         if (user != null) {
             userAccount.setUsername(user.getUsername());
             userAccount.setUserId(user.getUserId());

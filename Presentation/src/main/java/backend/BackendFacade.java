@@ -144,13 +144,16 @@ public class BackendFacade {
         parameters.put("email", email);
         parameters.put("password", password);
 
-        String jsonResp = RestBackendLink.doRestParmPost(pathUserService,"registerProfile", parameters);
+        String jsonResp = RestBackendLink.doRestParmPost(pathUserService,"registerUser", parameters);
         System.out.println("registerUser response: "+jsonResp);
         if (jsonResp.equals("null"))
             return null;
 
         Type type = new TypeToken<SUser>(){}.getType();
         SUser user = RestBackendLink.parseJsonData(type, jsonResp);
+        if (user == null) {
+            return null;
+        }
 
         UserVM result = new UserVM(user.getId(),user.getEmail());
 
