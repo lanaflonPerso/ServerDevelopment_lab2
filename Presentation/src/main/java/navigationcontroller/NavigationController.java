@@ -2,6 +2,7 @@ package navigationcontroller;
 
 import account.Account;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -13,6 +14,7 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class NavigationController {
 
+    private String currentPage = "index";
 
     public String moveToStart() {
         return "newHome";
@@ -33,6 +35,18 @@ public class NavigationController {
         this.userAccount = userAccount;
     }
 
+    @PostConstruct
+    public void init() {
+        this.currentPage = "index";
+    }
+
+    public String getPage() {
+        return currentPage;
+    }
+
+    public void setPage(String page) {
+        this.currentPage = page;
+    }
 
     public String moveToSelection(String id) {
         if (userAccount.isLoggedin()) {
@@ -56,6 +70,10 @@ public class NavigationController {
             return "index";
         }
         return "index";
+    }
+
+    public String getNotificationChannel() {
+        return "ch" + userAccount.getUserId();
     }
 
 

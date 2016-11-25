@@ -13,12 +13,12 @@
     <h:outputLabel value="Hello, world"/>
     <h:form id="makefriendform">
 
-        <p:remoteCommand name="updatefriend" update="makefriendform myfriends"/>
+        <p:remoteCommand name="updatefriendlist" update="makefriendform myfriends"/>
         <p:dataList value="#{searchForFriends.nonFriends}" var="mylist" type="ordered">
             <f:facet name="header">
                 My new Friends ?
             </f:facet>
-            <p:commandButton value="#{mylist.name}" action="#{searchForFriends.makeNewFriends(mylist.id)}" oncomplete="updatefriend()"/>
+            <p:commandButton value="#{mylist.name}" action="#{searchForFriends.makeNewFriends(mylist.id)}" oncomplete="updatefriendlist()"/>
 
 
         </p:dataList>

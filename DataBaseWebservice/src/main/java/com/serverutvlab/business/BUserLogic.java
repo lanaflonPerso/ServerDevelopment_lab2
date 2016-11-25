@@ -1,8 +1,10 @@
 package com.serverutvlab.business;
 
+import com.google.gson.Gson;
 import com.serverutvlab.business.BModels.BProfile;
 import com.serverutvlab.business.BModels.BUser;
 import com.serverutvlab.database.DBLayer.DBFacade;
+import com.serverutvlab.services.SModels.SNotification;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -54,7 +56,12 @@ public class BUserLogic {
     }
 
     public boolean addFriendToUser(int uId, int fId) {
-        return DBFacade.addFriendToUser(uId,fId);
+        boolean success = DBFacade.addFriendToUser(uId,fId);
+        if (success) {
+            String s = new Gson().toJson(new SNotification("test string"));
+            FrontendRestLink.sendNotification(fId,s);
+        }
+        return success;
     }
 
     public boolean removeFriend(int uId, int fId) {
