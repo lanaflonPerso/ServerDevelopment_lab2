@@ -72,6 +72,7 @@ public class UserLogic {
             user = new BUser(userEntity.getId(), userEntity.getEmail(), "");
         }
 
+        entityManager.close();
         return user;
     }
 
