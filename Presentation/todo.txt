@@ -1,0 +1,15 @@
+
+posta till folk,
+private och inte
+se feeds från
+
+wireup chat,
+make friend list clickable so we can travel between profiles
+profile page should also have a post input thing
+
+Add friends, should be implemented , and cleandup
+
+--- web interface
+when creating users and success then go to edit profile page.
+create profile pagen shoud redirect to startpage
+login should indicate if failed, and should redirect ot start page
