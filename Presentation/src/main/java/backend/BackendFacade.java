@@ -66,7 +66,7 @@ public class BackendFacade {
         parameters.put("email", email);
         parameters.put("password", password);
 
-        String jsonResp = RestBackendLink.doRestParmPost(pathUserService,"registerProfile", parameters);
+        String jsonResp = RestBackendLink.doRestParmPost(pathUserService,"registerUser", parameters);
         System.out.println("registerUser response: "+jsonResp);
         if (jsonResp.equals("null"))
             return null;

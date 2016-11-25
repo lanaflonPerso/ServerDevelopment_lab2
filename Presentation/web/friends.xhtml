@@ -17,7 +17,8 @@
         <f:facet name="header">
             MyFriends
         </f:facet>
-        id: #{mylist.id} , name: #{mylist.name}
+        <p:commandButton value="#{mylist.name}" action="#{profileView.setShowProfile(mylist.id)}" update=":mycontent" />
+
 
     </p:dataList>
 </h:form>
