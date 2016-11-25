@@ -14,6 +14,10 @@
 <body>
 <f:view>
 <p:layout style="min-width:400px;min-height:800px;">
+    <h:form>
+        <p:remoteCommand name="updateFriend" actionListener="#{friends.updateFriends}" update="myfriends"/>
+        <p:remoteCommand name="updateContent" update="mycontent"/>
+    </h:form>
     <p:layoutUnit position="north" size="50">
         Communitizer
     </p:layoutUnit>
@@ -22,11 +26,11 @@
             <h:form>
                 <f:ajax render=":mycontent" update=":mycontent">
                     <ul>
-                        <li><h:commandLink value="GetNewFriends" action="#{bean.setPage('GetNewFriends')}"/></li>
-                        <li><h:commandLink value="Page1" action="#{bean.setPage('Page1')}"/></li>
-                        <li><h:commandLink value="profile" action="#{bean.setPage('profile')}"/></li>
-                        <li><h:commandLink value="edit profile" action="#{bean.setPage('profileEdit')}"/></li>
-                        <li><h:commandLink value="Page2" action="#{bean.setPage('Page2')}"/></li>
+                        <li><h:commandLink value="GetNewFriends" action="#{navigationController.setPage('GetNewFriends')}"/></li>
+                        <li><h:commandLink value="Page1" action="#{navigationController.setPage('Page1')}"/></li>
+                        <li><h:commandLink value="profile" action="#{navigationController.setPage('profile')}"/></li>
+                        <li><h:commandLink value="edit profile" action="#{navigationController.setPage('profileEdit')}"/></li>
+                        <li><h:commandLink value="Page2" action="#{navigationController.setPage('Page2')}"/></li>
                     </ul>
                 </f:ajax>
             </h:form>
@@ -38,17 +42,24 @@
 
     <p:layoutUnit position="center" resizable="true">
         <h:panelGroup id="mycontent" layout="block">
-            <ui:include src="#{bean.page}.xhtml"/>
+            <ui:include src="#{navigationController.page}.xhtml"/>
         </h:panelGroup>
     </p:layoutUnit>
 
     <p:layoutUnit position="east" resizable="true" size="200">
         <h:panelGroup id="myfriends" layout="block">
-            <!--<ui:include src="#{bean.friendpage}.xhtml"/>-->
             <ui:include src="friends.xhtml"/>
         </h:panelGroup>
     </p:layoutUnit>
 </p:layout>
+    <p:socket onMessage="handleNotification" channel="/notify/#{navigationController.notificationChannel}" />
 </f:view>
+<script type="text/javascript">
+    function handleNotification(message) {
+        alert("yah" + message.message);
+        updateFriend();
+
+    }
+</script>
 </body>
 </html>

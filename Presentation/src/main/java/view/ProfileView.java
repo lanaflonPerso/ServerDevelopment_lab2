@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import java.util.ArrayList;
 
 /**
  * Created by o_0 on 2016-11-23.
@@ -105,6 +106,10 @@ public class ProfileView {
 
     public String getShowProfile() {
         return showProfile;
+    }
+
+    public void showMyProfile() {
+        setShowProfile(""+userAccount.getUserId());
     }
 
     public void setShowProfile(String showProfile) {

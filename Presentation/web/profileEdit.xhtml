@@ -35,7 +35,7 @@
                         <h:inputText value="#{profileView.relationshipStatus}"/>
                     </li>
                 </ul>
-                <p:commandButton value="saveProfile" action="#{profileView.saveUserProfile}" oncomplete="profileEditUpdate()"/>
+                <p:commandButton value="saveProfile" actionListener="#{profileView.saveUserProfile}" oncomplete="profileEditUpdate()"/>
 
             </h:panelGroup>
             <h:panelGroup id="saveProfileResult">

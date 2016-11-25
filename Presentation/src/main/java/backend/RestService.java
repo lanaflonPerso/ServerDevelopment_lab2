@@ -1,5 +1,6 @@
 package backend;
 
+import backend.SModels.SChannelNotification;
 import chat.ChatChannelRelay;
 import com.google.gson.Gson;
 
@@ -12,7 +13,7 @@ import java.util.Map;
 /**
  * Created by o_0 on 2016-11-14.
  */
-@Path("chatService")
+@Path("channelService")
 public class RestService {
 
     @GET
@@ -24,13 +25,32 @@ public class RestService {
 
 
     @POST
-    @Path("channelMessage")
+    @Path("chatMessage")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     public Response channelMessage(String messageJson) {
         Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
         System.out.println("ChatService::sendMessage: " + messageJson);
         boolean result = new ChatChannelRelay().channelRelay(messageJson);
+
+        resultMap.put("success", result);
+
+        Gson gson = new Gson();
+        String response = gson.toJson(resultMap);
+
+        return Response.ok(response).build();
+    }
+
+    @POST
+    @Path("channelNotification")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response channelNotification(String messageJson) {
+        Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
+        System.out.println("ChatService::sendMessage: " + messageJson);
+        SChannelNotification channelInfo = new Gson().fromJson(messageJson, SChannelNotification.class);
+
+        boolean result = new ChannelRelay().channelRelay(channelInfo.getTargetChannel(),channelInfo.getJsonObject());
 
         resultMap.put("success", result);
 

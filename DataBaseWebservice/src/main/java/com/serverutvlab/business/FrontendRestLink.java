@@ -3,6 +3,7 @@ package com.serverutvlab.business;
 import javax.ws.rs.core.MediaType;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.serverutvlab.services.SModels.SChannelNotification;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -66,4 +67,17 @@ public class FrontendRestLink {
         String data = resp.getEntity(String.class);
         return data;
     }
+
+    public static void sendNotification(int userId,String jsonObject) {
+        System.out.printf("FrontendRestLink::sendNotification");
+        SChannelNotification notification = new SChannelNotification("ch" + userId, jsonObject);
+        String json = new Gson().toJson(notification);
+        for (String addr : getFrontendAddresses()) {
+            FrontendRestLink.doRestPost(addr, "backend/channelService/", "channelNotification", json);
+        }
+
+        System.out.printf("FrontendRestLink::sendNotification");
+
+    }
+
 }

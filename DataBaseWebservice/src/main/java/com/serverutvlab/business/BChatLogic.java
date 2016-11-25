@@ -16,7 +16,7 @@ public class BChatLogic {
         String[] frontendAddresses = FrontendRestLink.getFrontendAddresses();
         String json = new Gson().toJson(chatMessageVM);
         for (String addr : frontendAddresses) {
-            FrontendRestLink.doRestPost(addr, "backend/chatService/", "channelMessage", json);
+            FrontendRestLink.doRestPost(addr, "backend/channelService/", "chatMessage", json);
         }
 
         System.out.printf("BChatLogic::broadcastMessage");
