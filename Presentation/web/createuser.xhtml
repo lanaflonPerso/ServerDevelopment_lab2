@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>tt</h:head>
+<!--<h:body>-->
+<h:body>
+    <f:view>
+
+
+        <h:form id="createUserForm">
+            <p:remoteCommand name="updatecommand" update=":createUserForm:regResult"/>
+            <h:outputLabel id="regResult" value="#{createAccount.createStatus}"/>
+            <!--<p:remoteCommand name="updateList" update="mytest" process="@this" />-->
+            <h:panelGroup>
+                <h:outputLabel value="Enter username"/>
+                <p:inputText value="#{createAccount.userName}"/>
+                <h:outputLabel value="Enter password"/>
+                <p:inputText value="#{createAccount.password}"/>
+                <p:commandButton value="tt" action="#{createAccount.createUser}" oncomplete="updatecommand()"/>
+            </h:panelGroup>
+
+        </h:form>
+        <h:form>
+            <h:panelGroup>
+                <h:commandButton action="#{navigationController.moveToSelection(0)}" value="back" />
+            </h:panelGroup>
+        </h:form>
+        <h:form>
+            <h:panelGroup>
+                <h:commandButton action="#{navigationController.moveToSelection(6)}" value="go to profile" />
+            </h:panelGroup>
+        </h:form>
+
+
+    </f:view>
+</h:body>
+</html>

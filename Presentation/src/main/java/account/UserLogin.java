@@ -73,6 +73,8 @@ public class UserLogin {
             userAccount.setUsername(userVM.getUsername());
             userAccount.setLoggedin(true);
 
+        }else {
+            System.out.println("user failed to loggedin: ");
         }
         System.out.println("user have loggedin: " + chatSession.toString());
         return true;

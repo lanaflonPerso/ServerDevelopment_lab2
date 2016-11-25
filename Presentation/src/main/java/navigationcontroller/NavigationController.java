@@ -12,6 +12,8 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 public class NavigationController {
+
+
     public String moveToStart() {
         return "newHome";
     }
@@ -46,6 +48,8 @@ public class NavigationController {
         }
         if(id.equals("5")){
             return "login";
+        }else if(id.equals("8")){
+            return "createuser";
         } else if(id.equals("0")){
             return "index";
         }

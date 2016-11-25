@@ -55,6 +55,9 @@ public class BackendFacade {
             return null;
         }
         SProfile sProfile = new Gson().fromJson(jsonResp, SProfile.class);
+        if (sProfile == null) {
+            return null;
+        }
         System.out.println(sProfile.toString());
         return new ProfileVM(sProfile.getName(),sProfile.getInfo(),sProfile.getAge(),sProfile.getRelationshipStatus());
     }
@@ -141,13 +144,16 @@ public class BackendFacade {
         parameters.put("email", email);
         parameters.put("password", password);
 
-        String jsonResp = RestBackendLink.doRestParmPost(pathUserService,"registerProfile", parameters);
+        String jsonResp = RestBackendLink.doRestParmPost(pathUserService,"registerUser", parameters);
         System.out.println("registerUser response: "+jsonResp);
         if (jsonResp.equals("null"))
             return null;
 
         Type type = new TypeToken<SUser>(){}.getType();
         SUser user = RestBackendLink.parseJsonData(type, jsonResp);
+        if (user == null) {
+            return null;
+        }
 
         UserVM result = new UserVM(user.getId(),user.getEmail());
 

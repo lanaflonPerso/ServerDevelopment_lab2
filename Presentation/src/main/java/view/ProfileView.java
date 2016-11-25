@@ -29,6 +29,10 @@ public class ProfileView {
     @PostConstruct
     public void init() {
         System.out.println("ProfileView::init");
+        this.name ="";
+        this.info = "";
+        this.age = 0;
+        this.relationshipStatus = 0;
         if (userAccount == null) {
             System.out.println("inint error (userAccount == null) ");
             return;
@@ -39,6 +43,7 @@ public class ProfileView {
         //ProfileVM profileVM = BackendFacade.loadProfile(userAccount.getUserId());
         System.out.println("ProfileView namn: " + userAccount);
         this.responseMessage = "";
+        updateProfileInfo();
         //updateProfileInfo(profileVM);
     }
 
@@ -116,11 +121,11 @@ public class ProfileView {
         profileService.selectProfile(userId);
     }
 
-    private void updateProfileInfo(ProfileItem profile) {
-        this.name = profile.getName();
-        this.info = profile.getInfo();
-        this.age = profile.getAge();
-        this.relationshipStatus = profile.getRelationshipStatus();
+    private void updateProfileInfo() {
+        this.name = profileService.getName();
+        this.info = profileService.getInfo();
+        this.age = profileService.getAge();
+        this.relationshipStatus = profileService.getRelationshipStatus();
     }
 
     private ProfileVM getProfileInfo() {
