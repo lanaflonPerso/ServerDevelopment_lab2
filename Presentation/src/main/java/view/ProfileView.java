@@ -25,7 +25,7 @@ public class ProfileView {
     private String info;
     private Integer age;
     private int relationshipStatus;
-    private List<PostVM> feed;
+    //private List<PostVM> feed;
 
 
     @PostConstruct
@@ -109,8 +109,20 @@ public class ProfileView {
         return showProfile;
     }
 
-    public void showMyProfile() {
-        setShowProfile(""+userAccount.getUserId());
+    public void showMyProfile(boolean updateWall) {
+        profileService.selectProfile(userAccount.getUserId());
+        System.out.println("showMyProfile:updateWall = " + updateWall);
+        if (updateWall) {
+            profileService.updateFeed();
+        }
+    }
+
+    public void changeProfileView(String userId,boolean updateWall) {
+        setShowProfile(userId);
+        System.out.println("changeProfileView:updateWall = " + updateWall);
+        if (updateWall) {
+            profileService.updateFeed();
+        }
     }
 
     public void setShowProfile(String showProfile) {
@@ -152,12 +164,14 @@ public class ProfileView {
 
 
     public List<PostVM> getFeed() {
+        System.out.println("getFeed");
         return profileService.getCurrentFeed();
     }
 
-    public void setFeed(List<PostVM> feed) {
-        this.feed = feed;
-    }
+//    public void setFeed(List<PostVM> feed) {
+//        System.out.println("setFeed");
+//        this.feed = feed;
+//    }
 
     public void saveUserProfile() {
         System.out.println("ProfileView::saveUserProfile");

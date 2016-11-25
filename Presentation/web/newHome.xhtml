@@ -24,7 +24,7 @@
     <p:layoutUnit position="west" resizable="true" size="200" minSize="100" maxSize="200">
         <h:panelGroup id="menu" layout="block">
             <h:form>
-                <f:ajax render=":mycontent" update=":mycontent">
+                <f:ajax render=":mycontent" update="updateFriend() updateContent()">
                     <ul>
                         <li><h:commandLink value="GetNewFriends" action="#{navigationController.setPage('GetNewFriends')}"/></li>
                         <li><h:commandLink value="Page1" action="#{navigationController.setPage('Page1')}"/></li>

@@ -7,11 +7,12 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<h:head></h:head>
+<!--<h:head></h:head>-->
 <!--<h:body>-->
 <h:body>
     <f:view>
-        <p:commandButton value="MyProfile" action="#{profileView.showMyProfile}" update="profileData"/>
+        <h:form>
+        <p:commandButton value="MyProfile" action="#{profileView.showMyProfile(true)}" update=":mycontent" />
         <h:panelGroup id="profileData">
             <ul>
                 <li>
@@ -35,7 +36,8 @@
                 </li>
             </ul>
         </h:panelGroup>
-
+        </h:form>
+        <h:form>
         <p:dataList value="#{profileView.feed}" var="post" type="ordered">
             <f:facet name="header">
                 Posts
@@ -62,7 +64,7 @@
             </ul>
 
         </p:dataList>
-
+        </h:form>
         <h:form>
             <ul>
                 <li>
@@ -84,7 +86,7 @@
                 </li>
 
                 <li>
-                    <p:commandButton value="post" actionListener="#{postView.sendPost}"/>
+                    <p:commandButton value="post" actionListener="#{postView.sendPost}" oncomplete="updateContent()"/>
                 </li>
             </ul>
         </h:form>

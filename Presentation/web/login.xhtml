@@ -18,7 +18,7 @@
         <h:panelGroup>
             <h:outputLabel value="Username"/>
             <p:inputText value="#{userLogin.userName}"/>
-            <p:inputText value="#{userLogin.password}"/>
+            <p:password value="#{userLogin.password}"/>
             <p:commandButton value="tt" action="#{userLogin.login}" update=":loginForm"/>
         </h:panelGroup>
 

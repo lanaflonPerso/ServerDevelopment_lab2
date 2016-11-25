@@ -334,10 +334,15 @@ public class BackendFacade {
 
         Type type = new TypeToken<ArrayList<SPost>>(){}.getType();
         ArrayList<SPost> result = RestBackendLink.parseJsonData(type,jsonResp);
+        ArrayList<PostVM> wallPosts = new ArrayList<PostVM>();
+        if (result == null) {
+            System.out.println("loaded wallposts: null result");
+            return wallPosts;
+        }
         System.out.println("loaded wallposts: " + result.toString());
 
 
-        ArrayList<PostVM> wallPosts = new ArrayList<PostVM>();
+
         for (SPost p: result){
             wallPosts.add(new PostVM(
                     p.getId(),

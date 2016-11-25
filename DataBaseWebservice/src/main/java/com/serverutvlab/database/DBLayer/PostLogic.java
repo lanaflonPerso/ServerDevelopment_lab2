@@ -15,16 +15,23 @@ import java.util.List;
 public class PostLogic {
 
     public List<PostEntity> getPostsByProfileId(int id){
-        EntityManager entityManager = DBManager.getInstance().createEntityManager();
-        Query q = entityManager.createQuery("from PostEntity post where  post.recipientId = ?1");
-        q.setParameter(1, id);
-        List<PostEntity> resultList = q.getResultList();
+        EntityManager entityManager = null;
+        List<PostEntity> resultList = null;
+        try {
+            entityManager = DBManager.getInstance().createEntityManager();
+            Query q = entityManager.createQuery("from PostEntity post where  post.recipientId = ?1");
+            q.setParameter(1, id);
+            resultList = q.getResultList();
 
-        Query q2 = entityManager.createQuery("from PostEntity post where  post.authorId = ?1");
-        q2.setParameter(1, id);
+            Query q2 = entityManager.createQuery("from PostEntity post where  post.authorId = ?1");
+            q2.setParameter(1, id);
 
-        resultList.addAll(q2.getResultList());
-
+            resultList.addAll(q2.getResultList());
+        }finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+        }
         System.out.println("PostLogic::getPostsByProfileId list = " + resultList);
         System.out.println("PostLogic::getPostsByProfileId list count = " + resultList.size());
 

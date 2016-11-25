@@ -13,3 +13,8 @@ Add friends, should be implemented , and cleandup
 when creating users and success then go to edit profile page.
 create profile pagen shoud redirect to startpage
 login should indicate if failed, and should redirect ot start page
+
+--
+
+kolla
+https://www.javacodegeeks.com/2014/01/primefaces-datatable-lazy-loading-with-pagination-filtering-and-sorting-using-jpa-criteria-viewscoped.html

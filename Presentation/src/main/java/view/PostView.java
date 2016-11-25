@@ -3,6 +3,7 @@ package view;
 import account.Account;
 import backend.BackendFacade;
 import backend.ProfileService;
+import viewmodel.PostVM;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -87,7 +88,8 @@ public class PostView {
 
     public void sendPost() {
         if (userAccount.isLoggedin()) {
-            BackendFacade.postPost(userAccount.getProfileId(),profileService.getProfileId(),subject,messageBody, privatePost);
+            PostVM postVM = BackendFacade.postPost(userAccount.getProfileId(), profileService.getProfileId(), subject, messageBody, privatePost);
+            profileService.posted(postVM);
         }
     }
 }

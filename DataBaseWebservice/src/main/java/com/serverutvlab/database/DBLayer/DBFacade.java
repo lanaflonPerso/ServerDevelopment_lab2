@@ -126,7 +126,7 @@ public class DBFacade {
             return null;
 
         PostEntity p = new PostLogic().createPost(autoridId,recipientId,subject,messageBody,postedTo, postedFrom, isPrivate);
-        System.out.println("Post returning from PostLogic: " + p);
+        System.out.println("Post returning from PostLogic: " + p.toString());
         return p != null? new BPost(p.getId(),p.getSubject(),p.getMessageBody(),p.getAuthorName(),p.getRecipientName(),p.getTimestamp(),p.getAuthorId(),p.getRecipientId(),p.isPrivate()) : null;
     }
 }

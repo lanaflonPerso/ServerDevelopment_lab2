@@ -17,7 +17,7 @@
         <f:facet name="header">
             MyFriends
         </f:facet>
-        <p:commandButton value="#{mylist.name}" action="#{profileView.setShowProfile(mylist.id)}" update=":mycontent" />
+        <p:commandButton value="#{mylist.name}" action="#{profileView.changeProfileView(mylist.id, true)}" oncomplete="updateContent()" />
 
 
     </p:dataList>

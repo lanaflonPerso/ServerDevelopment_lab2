@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,6 +48,7 @@ public class ProfileService implements ProfileItem {
             System.out.println("inint error (userAccount == null) ");
             return;
         }
+        this.wallPosts  = new ArrayList<PostVM>();
         this.selectedUserId = -1;
         this.profileId = -1;
         this.name = "";
@@ -135,9 +137,27 @@ public class ProfileService implements ProfileItem {
         this.relationshipStatus = profile.getRelationshipStatus();
     }
 
+    public void posted(PostVM post) {
+        if (wallPosts == null) {
+            wallPosts = new ArrayList<PostVM>();
+        }
+        if (post != null) {
+            wallPosts.add(post);
+        }
+    }
+
+    public List<PostVM> updateFeed() {
+        System.out.println("ProfileService:updateFeed");
+        List<PostVM> postForProfile = BackendFacade.getPostForProfile(profileId, userAccount.getUserId());
+        if (postForProfile != null) {
+            wallPosts = postForProfile;
+        }
+        return wallPosts;
+    }
+
     public List<PostVM> getCurrentFeed() {
-        System.out.println("getting current feed cuz i'm awesome");
-        wallPosts = BackendFacade.getPostForProfile(profileId, userAccount.getUserId());
+        System.out.println("ProfileService:getCurrentFeed");
+        //wallPosts = BackendFacade.getPostForProfile(profileId, userAccount.getUserId());
         return wallPosts;
     }
 }
