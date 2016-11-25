@@ -65,8 +65,12 @@ public class BFacade {
      * @param password password
      * @return true if registration was a success, false otherwise
      */
-    public static boolean registerUser(String email, String password) {
-        return new BUserLogic().createUser(email, password);
+    public static SUser registerUser(String email, String password) {
+        BUser u = new BUserLogic().createUser(email, password);
+        if (u == null)
+            return null;
+
+        return new SUser(u.getId(),u.getEmail());
     }
 
     public static List<SUser> getFriendsByUserId(int id) {

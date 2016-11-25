@@ -39,17 +39,14 @@ public class UserService {
     //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
     public Response registerUser(@QueryParam("email") String email, @QueryParam("password") String password) {
-        Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
 
         //System.out.println("Login attempt:Email = " + email);
         //System.out.println("Login attempt:Password = " + password);
 
-        boolean result = BFacade.registerUser(email,password);
-
-        resultMap.put("success", result);
+        SUser result = BFacade.registerUser(email,password);
 
         Gson gson = new Gson();
-        String response = gson.toJson(resultMap);
+        String response = gson.toJson(result);
 
         return Response.ok(response).build();
     }
