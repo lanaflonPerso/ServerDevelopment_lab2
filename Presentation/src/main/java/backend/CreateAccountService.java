@@ -55,6 +55,7 @@ public class CreateAccountService {
         if (user != null) {
             userAccount.setUsername(user.getUsername());
             userAccount.setUserId(user.getUserId());
+            //userAccount.setProfileId(user.getProfileId());
             userAccount.setLoggedin(true);
             profileService.selectProfile(user.getUserId());
             return true;

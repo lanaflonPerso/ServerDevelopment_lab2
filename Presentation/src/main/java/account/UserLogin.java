@@ -69,8 +69,12 @@ public class UserLogin {
             chatSession.setUserName(userName);
             chatSession.setDestinationName(userName);
             chatSession.setLoggedin(true);
-            userAccount.setUserId(userVM.getUserId());
-            userAccount.setUsername(userVM.getUsername());
+
+            userAccount.fillAccount(userVM);
+//            userAccount.setUserId(userVM.getUserId());
+//            userAccount.setUsername(userVM.getUsername());
+//            userAccount.setProfileId(0);    // TODO: set profile id
+//
             userAccount.setLoggedin(true);
 
         }else {

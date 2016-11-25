@@ -15,6 +15,7 @@ import java.util.List;
 public class BPostLogic {
     public List<BPost> getPostsByProfile(int profileId) {
         List<BPost> posts = DBFacade.getPostsForProfile(profileId);
+
         return posts;
     }
 

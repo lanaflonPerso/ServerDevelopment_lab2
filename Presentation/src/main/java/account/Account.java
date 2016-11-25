@@ -1,5 +1,7 @@
 package account;
 
+import viewmodel.UserVM;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -12,6 +14,7 @@ import javax.faces.bean.SessionScoped;
 public class Account {
     private int userId;
     private String username;
+    private int profileId;
     private boolean loggedin;
 
     @PostConstruct
@@ -19,6 +22,7 @@ public class Account {
         this.loggedin = false;
         this.username = "none";
         this.userId = 0;
+        this.profileId = 0;
 
     }
 
@@ -36,6 +40,20 @@ public class Account {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public int getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(int profileId) {
+        this.profileId = profileId;
+    }
+
+    public void fillAccount(UserVM user) {
+        this.username = user.getUsername();
+        this.userId = user.getUserId();
+        this.profileId = 0;
     }
 
     public boolean isLoggedin() {
