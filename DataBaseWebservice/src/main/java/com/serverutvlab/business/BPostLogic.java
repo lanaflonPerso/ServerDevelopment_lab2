@@ -7,6 +7,7 @@ import com.serverutvlab.database.DBLayer.DBFacade;
 import com.serverutvlab.services.SModels.SPost;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -31,6 +32,7 @@ public class BPostLogic {
                 result.add(p);
             }
         }
+        Collections.sort(result);
 
         return result;
     }
@@ -56,6 +58,8 @@ public class BPostLogic {
         }
 
         System.out.println("Feed count after adding friends posts: " + feed.size());
+
+        Collections.sort(feed);
 
         return feed;
     }

@@ -149,7 +149,9 @@ public class BPost implements Comparable<BPost> {
     }
 
     public int compareTo(BPost o) {
-        return this.id - o.getId();
+
+        return o.timestamp.compareTo(this.timestamp);
+        //this.timestamp.compareTo(o.getTimestamp());
     }
 
     @Override
