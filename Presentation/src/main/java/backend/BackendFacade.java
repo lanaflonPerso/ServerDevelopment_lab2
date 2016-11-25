@@ -66,7 +66,7 @@ public class BackendFacade {
         parameters.put("email", email);
         parameters.put("password", password);
 
-        String jsonResp = RestBackendLink.doRestParmPost(pathUserService,"registerProfile", parameters);
+        String jsonResp = RestBackendLink.doRestParmPost(pathUserService,"registerUser", parameters);
         System.out.println("registerUser response: "+jsonResp);
         if (jsonResp.equals("null"))
             return null;
@@ -114,7 +114,7 @@ public class BackendFacade {
         parameters.put("userId", userId);
         parameters.put("friendId", friendId);
 
-        String jsonResp = RestBackendLink.doRestParmPost(pathProfileService,"addFriendToUser", parameters);
+        String jsonResp = RestBackendLink.doRestParmPost(pathUserService,"addFriendToUser", parameters);
 
         if (jsonResp.equals("null")) {
             return false;
@@ -140,7 +140,7 @@ public class BackendFacade {
         parameters.put("userId", userId);
         parameters.put("friendId", friendId);
 
-        String jsonResp = RestBackendLink.doRestParmPost(pathProfileService,"removeFriend", parameters);
+        String jsonResp = RestBackendLink.doRestParmPost(pathUserService,"removeFriend", parameters);
 
         if (jsonResp.equals("null")) {
             return false;
