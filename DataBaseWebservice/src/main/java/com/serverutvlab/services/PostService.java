@@ -45,7 +45,7 @@ public class PostService {
                              @QueryParam("recipientId") int recipientId,
                              @QueryParam("subject") String subject,
                              @QueryParam("messageBody") String messageBody,
-                             @QueryParam("messageBody") boolean isPrivate){
+                             @QueryParam("isPrivate") boolean isPrivate){
 
         SPost post = BFacade.postPost(autoridId,recipientId,subject,messageBody,isPrivate);
 

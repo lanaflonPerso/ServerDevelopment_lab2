@@ -45,12 +45,17 @@ public class DBFacade {
 
     public static BUser getUserById(int id) {
         UserEntity user = new UserLogic().getUserById(id);
+        if (user == null)
+            return null;
         return new BUser(user.getId(),user.getEmail(),user.getPassword());
     }
 
     public static List<BUser> getFriendsByUserId(int id) {
         List<BUser> friends = new ArrayList<BUser>();
         List<UserEntity> friendsByUserId = new UserLogic().getFriendsByUserId(id);
+        if (friendsByUserId == null)
+            return null;
+
         for(UserEntity u: friendsByUserId ){
             friends.add(new BUser(u.getId(),u.getEmail(),u.getPassword()));
         }

@@ -6,7 +6,9 @@ import com.serverutvlab.database.DBModels.UserEntity;
 import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,10 +35,10 @@ public class UserLogic {
 
             entityManager.getTransaction().commit();
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             entityManager.getTransaction().rollback();
             return null;
-        }finally {
+        } finally {
             entityManager.close();
         }
 
@@ -53,8 +55,7 @@ public class UserLogic {
     }
 
 
-
-    public BUser authenticateUser(String e, String p){
+    public BUser authenticateUser(String e, String p) {
         //List<UserEntity> resultList = entityManager.createQuery("from UserEntity where email=" + e + " and password ="+ p).getResultList();
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
         Query q = entityManager.createQuery("from UserEntity user where user.email = ?1 and user.password = ?2");
@@ -66,9 +67,9 @@ public class UserLogic {
         System.out.println("UserLogic::authenticateUser list = " + resultList);
         System.out.println("UserLogic::authenticateUser list count = " + resultList.size());
         BUser user = null;
-        if (resultList.size() == 1){
+        if (resultList.size() == 1) {
             UserEntity userEntity = resultList.get(0);
-            user = new BUser(userEntity.getId(),userEntity.getEmail(),"");
+            user = new BUser(userEntity.getId(), userEntity.getEmail(), "");
         }
 
         return user;
@@ -76,15 +77,27 @@ public class UserLogic {
 
     public UserEntity getUserById(int id) {
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
-        Query q = entityManager.createQuery("from UserEntity user where user.id = ?1");
-        q.setParameter(1, id);
+        UserEntity userEntity = null;
+        try {
 
-        return (UserEntity) q.getSingleResult();
+            Query q = entityManager.createQuery("from UserEntity user where user.id = ?1");
+            q.setParameter(1, id);
+            userEntity = (UserEntity) q.getSingleResult();
+
+
+        } catch (NoResultException e) {
+            System.out.println("no result for query");
+            return null;
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+        return userEntity;
     }
 
-    public boolean addFriendToUser(int userId, int friendId){
+    public boolean addFriendToUser(int userId, int friendId) {
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
-            System.out.println("Adding friend to user, uId = "+userId+ ", fId = "+ friendId);
+        System.out.println("Adding friend to user, uId = " + userId + ", fId = " + friendId);
         try {
             entityManager.getTransaction().begin();
 
@@ -94,7 +107,7 @@ public class UserLogic {
             UserEntity user = (UserEntity) q.getSingleResult();
 
             Query q2 = entityManager.createQuery("from UserEntity user where user.id = ?1");
-            q2.setParameter(1,friendId);
+            q2.setParameter(1, friendId);
 
             UserEntity friend = (UserEntity) q2.getSingleResult();
 
@@ -102,7 +115,7 @@ public class UserLogic {
             System.out.println("Friend: " + friend);
 
 
-            if (friend == null){
+            if (friend == null) {
                 System.out.println("friend not found, returning false");
                 return false;
             }
@@ -115,12 +128,12 @@ public class UserLogic {
 
             entityManager.getTransaction().commit();
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Exeption: " + e.getMessage());
             e.printStackTrace();
             entityManager.getTransaction().rollback();
             return false;
-        }finally {
+        } finally {
             entityManager.close();
         }
         return true;
@@ -128,11 +141,29 @@ public class UserLogic {
 
     public List<UserEntity> getFriendsByUserId(int id) {
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
-        Query q = entityManager.createQuery("from UserEntity user where user.id = ?1");
-        q.setParameter(1, id);
-        UserEntity user = (UserEntity) q.getSingleResult();
+        UserEntity user = null;
+        List<UserEntity> resultList = new ArrayList<UserEntity>();
 
-        return user.getFriends();
+        try {
+            Query q = entityManager.createQuery("from UserEntity user where user.id = ?1");
+            q.setParameter(1, id);
+            user = (UserEntity) q.getSingleResult();
+            if (user == null)
+                return null;
+
+            for (UserEntity friend : user.getFriends() ){
+                resultList.add(friend);
+            }
+
+        } catch (NoResultException e) {
+            System.out.println("No result for query");
+            return null;
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+        return resultList;
     }
 
     public boolean removeFriend(int userId, int friendId) {
@@ -147,7 +178,7 @@ public class UserLogic {
             UserEntity user = (UserEntity) q.getSingleResult();
 
             Query q2 = entityManager.createQuery("from UserEntity user where user.id = ?1");
-            q2.setParameter(1,friendId);
+            q2.setParameter(1, friendId);
 
 
             UserEntity friend = (UserEntity) q2.getSingleResult();
@@ -155,7 +186,7 @@ public class UserLogic {
             System.out.println("Friend: " + friend);
 
 
-            if (friend == null){
+            if (friend == null) {
                 System.out.println("friend not found, returning false");
                 return false;
             }
@@ -175,11 +206,11 @@ public class UserLogic {
 
             entityManager.getTransaction().commit();
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             entityManager.getTransaction().rollback();
             return false;
-        }finally {
+        } finally {
             entityManager.close();
         }
         return true;

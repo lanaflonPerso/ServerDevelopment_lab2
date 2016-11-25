@@ -109,12 +109,15 @@ public class RestBackendLink {
         ClientResponse resp =  webRes.type(MediaType.TEXT_PLAIN).post(ClientResponse.class);
 
         int status = resp.getStatus();
-        if (status != 200) {
-            System.out.println("Warning; DataConn.RestBackendLink::doRestGet:: status code: " +status );
-            return "";
+        switch (status){
+            case 200:
+                return resp.getEntity(String.class);
+            case 401:
+                return "null"; // Unauthorized
+            default:
+                System.out.println("Warning; DataConn.RestBackendLink::doRestGet:: status code: " +status );
+                return "null"; // Bad request
         }
-        String data = resp.getEntity(String.class);
-        return data;
     }
 
     /**

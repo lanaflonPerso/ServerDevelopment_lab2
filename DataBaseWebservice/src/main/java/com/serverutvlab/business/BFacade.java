@@ -43,6 +43,8 @@ public class BFacade {
      */
     public static SUser getUserById(int id) {
         BUser user = new BUserLogic().getUserById(id);
+        if (user == null)
+            return null;
         return new SUser(user.getId(), user.getEmail());
     }
 
@@ -55,6 +57,9 @@ public class BFacade {
      */
     public static SUser authenticateUser(String email, String password) {
         BUser user = new BUserLogic().authenticateUser(email, password);
+        if (user == null)
+            return null;
+
         return new SUser(user.getId(),user.getEmail());
     }
 
@@ -75,7 +80,11 @@ public class BFacade {
 
     public static List<SUser> getFriendsByUserId(int id) {
         List<SUser> friends = new ArrayList<SUser>();
-        for(BUser u: new BUserLogic().getFriendsByUserId(id)){
+        List<BUser> users = new BUserLogic().getFriendsByUserId(id);
+        if (users == null)
+            return null;
+
+        for(BUser u: users){
             friends.add(new SUser(u.getId(),u.getEmail()));
         }
         return friends;
@@ -90,7 +99,11 @@ public class BFacade {
 
     public static List<SUser> getNonFriendsByUserId(int userId) {
         List<SUser> result = new ArrayList<SUser>();
-        for(BUser u: new BUserLogic().getNonFriendsByUser(userId))
+        List<BUser> users = new BUserLogic().getNonFriendsByUser(userId);
+        if (users == null)
+            return null;
+
+        for(BUser u: users)
             result.add(new SUser(u.getId(),u.getEmail()));
 
         return result;
