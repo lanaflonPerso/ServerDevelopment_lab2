@@ -76,6 +76,7 @@ public class BUserLogic {
                     results.add(b);
                 }
             }
+
         }
 
         System.out.println("All users after: " + results);
