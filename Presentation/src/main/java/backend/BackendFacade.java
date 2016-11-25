@@ -156,6 +156,9 @@ public class BackendFacade {
             return null;
         }
         SProfile sProfile = new Gson().fromJson(jsonResp, SProfile.class);
+        if (sProfile == null) {
+            return null;
+        }
         System.out.println(sProfile.toString());
         return new ProfileVM(sProfile.getId(),sProfile.getName(),sProfile.getInfo(),sProfile.getAge(),sProfile.getRelationshipStatus());
     }

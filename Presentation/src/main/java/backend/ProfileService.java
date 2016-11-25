@@ -45,6 +45,10 @@ public class ProfileService implements ProfileItem{
             return;
         }
         this.profileUserId = -1;
+        this.name = "";
+        this.info = "";
+        this.age = -1;
+        this.relationshipStatus = -1;
         selectProfile(userAccount.getUserId());
     }
 
@@ -108,6 +112,9 @@ public class ProfileService implements ProfileItem{
 
     public boolean loadUserProfile() {
         System.out.println("ProfileService::loadUserProfile = " + this.profileUserId);
+        if (this.profileUserId < 0) {
+            return false;
+        }
         ProfileItem profileItem = BackendFacade.loadProfile(this.profileUserId);
         if (profileItem == null) {
             return false;
