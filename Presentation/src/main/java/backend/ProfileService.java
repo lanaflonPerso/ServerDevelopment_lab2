@@ -1,13 +1,9 @@
 package backend;
 
 import account.Account;
-import backend.SModels.SProfile;
-import com.google.gson.Gson;
 import viewmodel.ProfileItem;
-import viewmodel.ProfileVM;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -36,7 +32,13 @@ public class ProfileService implements ProfileItem{
     private Integer age;
     private int relationshipStatus;
 
-    private int profileUserId;
+    private int selectedUserId;
+
+    private int profileId;
+
+    public int getProfileId() {
+        return profileId;
+    }
 
     @PostConstruct
     public void init() {
@@ -44,7 +46,8 @@ public class ProfileService implements ProfileItem{
             System.out.println("inint error (userAccount == null) ");
             return;
         }
-        this.profileUserId = -1;
+        this.selectedUserId = -1;
+        this.profileId = -1;
         this.name = "";
         this.info = "";
         this.age = -1;
@@ -102,8 +105,8 @@ public class ProfileService implements ProfileItem{
     public boolean selectProfile(int userId) {
         // TODO: check friend status
         boolean ret = false;
-        if (this.profileUserId != userId) {
-            this.profileUserId = userId;
+        if (this.selectedUserId != userId) {
+            this.selectedUserId = userId;
             ret = loadUserProfile();
         }
 
@@ -111,11 +114,11 @@ public class ProfileService implements ProfileItem{
     }
 
     public boolean loadUserProfile() {
-        System.out.println("ProfileService::loadUserProfile = " + this.profileUserId);
-        if (this.profileUserId < 0) {
+        System.out.println("ProfileService::loadUserProfile = " + this.selectedUserId);
+        if (this.selectedUserId < 0) {
             return false;
         }
-        ProfileItem profileItem = BackendFacade.loadProfile(this.profileUserId);
+        ProfileItem profileItem = BackendFacade.loadProfile(this.selectedUserId);
         if (profileItem == null) {
             return false;
         }
@@ -127,6 +130,7 @@ public class ProfileService implements ProfileItem{
         this.name = profile.getName();
         this.info = profile.getInfo();
         this.age = profile.getAge();
+        this.profileId = profile.getProfileId();
         this.relationshipStatus = profile.getRelationshipStatus();
     }
 }

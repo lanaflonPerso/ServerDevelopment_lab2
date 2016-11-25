@@ -8,14 +8,14 @@ import java.util.List;
  * Created by o_0 on 2016-11-23.
  */
 public class ProfileVM implements ProfileItem{
-    private int id;
+    private int profileId;
     private String name;
     private String info;
     private Integer age;
     private int relationshipStatus;
 
-    public ProfileVM(int id, String name, String info, Integer age, int relationshipStatus) {
-        this.id = id;
+    public ProfileVM(int profileId, String name, String info, Integer age, int relationshipStatus) {
+        this.profileId = profileId;
         this.name = name;
         this.info = info;
         this.age = age;
@@ -27,6 +27,10 @@ public class ProfileVM implements ProfileItem{
         this.info = info;
         this.age = age;
         this.relationshipStatus = relationshipStatus;
+    }
+
+    public int getProfileId() {
+        return profileId;
     }
 
     public String getName() {
@@ -61,13 +65,6 @@ public class ProfileVM implements ProfileItem{
         this.relationshipStatus = relationshipStatus;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @Override
     public String toString() {

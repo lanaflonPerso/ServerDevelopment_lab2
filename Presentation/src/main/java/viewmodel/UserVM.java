@@ -6,10 +6,20 @@ package viewmodel;
 public class UserVM {
     private int userId;
     private String username;
+    private int profileId;
 
-    public UserVM(int userId, String username) {
+    public int getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(int profileId) {
+        this.profileId = profileId;
+    }
+
+    public UserVM(int userId, String username,int profileId) {
         this.userId = userId;
         this.username = username;
+        this.profileId = profileId;
     }
 
     public int getUserId() {

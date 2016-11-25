@@ -53,9 +53,7 @@ public class CreateAccountService {
         // TODO: hookup to backend
         UserVM user = BackendFacade.registerUser(username,password);// new UserVM(3,"d1");   /// BackendFacade.registrateUser(userName,password)
         if (user != null) {
-            userAccount.setUsername(user.getUsername());
-            userAccount.setUserId(user.getUserId());
-            //userAccount.setProfileId(user.getProfileId());
+            userAccount.fillAccount(user);
             userAccount.setLoggedin(true);
             profileService.selectProfile(user.getUserId());
             return true;

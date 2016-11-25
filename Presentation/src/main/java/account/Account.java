@@ -53,7 +53,7 @@ public class Account {
     public void fillAccount(UserVM user) {
         this.username = user.getUsername();
         this.userId = user.getUserId();
-        this.profileId = 0;
+        this.profileId = user.getProfileId();
     }
 
     public boolean isLoggedin() {
