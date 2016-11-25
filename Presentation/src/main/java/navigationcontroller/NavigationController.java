@@ -50,6 +50,8 @@ public class NavigationController {
             return "login";
         }else if(id.equals("8")){
             return "createuser";
+        }else if(id.equals("9")){
+            return "notifytest";
         } else if(id.equals("0")){
             return "index";
         }
