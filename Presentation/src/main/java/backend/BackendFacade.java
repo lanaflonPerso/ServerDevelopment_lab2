@@ -227,7 +227,7 @@ public class BackendFacade {
     }
 
 
-    public static void postPost(int auhtoridId,int recipientId,String subject,String messageBody,boolean isPrivate){
+    public static PostVM postPost(int auhtoridId,int recipientId,String subject,String messageBody,boolean isPrivate){
         Map<String,Object> parameters = new LinkedHashMap<String,Object>();
         parameters.put("authorId", auhtoridId );
         parameters.put("recipientId", recipientId);
@@ -236,11 +236,12 @@ public class BackendFacade {
         parameters.put("isPrivate", isPrivate);
 
         String jsonResp = RestBackendLink.doRestGet(pathPostService,"postpostroprofile",parameters);
-        if (jsonResp.equals("[]")){
-
+        if (jsonResp.equals("null")){
+            return null;
         }
-            //return null;
 
+
+        return null;
 
     }
 

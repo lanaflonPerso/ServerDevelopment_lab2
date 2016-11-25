@@ -1,5 +1,6 @@
 package com.serverutvlab.business;
 
+import com.serverutvlab.business.BModels.BProfile;
 import com.serverutvlab.business.BModels.BUser;
 import com.serverutvlab.database.DBLayer.DBFacade;
 
@@ -16,11 +17,26 @@ public class BUserLogic {
     }
 
     public BUser getUserById(int id) {
-        return DBFacade.getUserById(id);
+        BUser user = DBFacade.getUserById(id);
+        if (user == null)
+            return null;
+        BProfile profile = DBFacade.getProfileForUserId(id);
+        if (profile == null)
+            return null;
+        user.setProfileId(profile.getId());
+        return user;
     }
 
     public BUser authenticateUser(String email, String password) {
-        return DBFacade.authenticateUser(email,password);
+        BUser user = DBFacade.authenticateUser(email,password);
+        if (user == null)
+            return null;
+        BProfile profile = DBFacade.getProfileForUserId(user.getId());
+        if (profile == null)
+            return null;
+        user.setProfileId(profile.getId());
+        return user;
+
     }
 
     public BUser createUser(String email, String password){
@@ -28,6 +44,8 @@ public class BUserLogic {
     }
 
     public List<BUser> getFriendsByUserId(int id) {
+
+
 
         return DBFacade.getFriendsByUserId(id);
 

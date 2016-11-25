@@ -7,12 +7,23 @@ import java.util.List;
  */
 public class SUser {
     private int id;
+    private int profileId;
     private String email;
     private List<SUser> friends;
 
-    public SUser(int id, String email) {
+    public SUser(int id,int profileId, String email) {
         this.id = id;
+        this.profileId = id;
         this.email = email;
+
+    }
+
+    public int getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(int profileId) {
+        this.profileId = profileId;
     }
 
     public int getId() {
