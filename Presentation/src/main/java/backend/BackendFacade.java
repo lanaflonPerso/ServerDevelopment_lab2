@@ -55,7 +55,7 @@ public class BackendFacade {
         }
         SUser sUser = new Gson().fromJson(jsonResp, SUser.class);
 
-        return new UserVM(sUser.getId(),sUser.getEmail());
+        return new UserVM(sUser.getId(),sUser.getEmail(),sUser.getProfileId());
     }
 
     public static UserVM registerUser(String email, String password){
@@ -71,7 +71,7 @@ public class BackendFacade {
         Type type = new TypeToken<SUser>(){}.getType();
         SUser user = RestBackendLink.parseJsonData(type, jsonResp);
 
-        UserVM result = new UserVM(user.getId(),user.getEmail());
+        UserVM result = new UserVM(user.getId(),user.getEmail(),user.getProfileId());
 
         return result;
 
@@ -89,7 +89,7 @@ public class BackendFacade {
         Type type = new TypeToken<SUser>(){}.getType();
         SUser user = RestBackendLink.parseJsonData(type, jsonResp);
 
-        UserVM result = new UserVM(user.getId(),user.getEmail());
+        UserVM result = new UserVM(user.getId(),user.getEmail(),user.getProfileId());
 
         return result;
 
