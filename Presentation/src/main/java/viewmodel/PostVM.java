@@ -124,7 +124,7 @@ public class PostVM {
                 ", timestamp=" + timestamp +
                 ", authorId=" + authorId +
                 ", recipientId=" + recipientId +
-                ", isPrivate=" + isPrivate +
+                ", isPrivatePost=" + isPrivate +
                 '}';
     }
 }

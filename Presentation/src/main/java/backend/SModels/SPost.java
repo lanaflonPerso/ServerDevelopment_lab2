@@ -133,7 +133,7 @@ public class SPost {
                 ", authorId=" + authorId +
                 ", recipientId=" + recipientId +
                 ", postedTo=" + postedTo +
-                ", isPrivate=" + isPrivate +
+                ", isPrivatePost=" + isPrivate +
                 '}';
     }
 }

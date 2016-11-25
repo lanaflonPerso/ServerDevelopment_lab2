@@ -62,6 +62,32 @@
             </ul>
 
         </p:dataList>
+
+        <h:form>
+            <ul>
+                <li>
+                    <h:outputLabel value="#{postView.recipientName}"/>
+                </li>
+
+                <li>
+                    <h:outputLabel value="Subject: "/>
+                    <h:inputText value="#{postView.subject}"/>
+
+                </li>
+                <li>
+                    <h:outputLabel value="Meesage:  "/>
+                    <h:inputText value="#{postView.messageBody}"/>
+                </li>
+                <li>
+                    <h:outputLabel value="is private:  "/>
+                    <h:selectBooleanCheckbox value="#{postView.privatePost}"/>
+                </li>
+
+                <li>
+                    <p:commandButton value="post" actionListener="#{postView.sendPost}"/>
+                </li>
+            </ul>
+        </h:form>
     </f:view>
 </h:body>
 </html>
