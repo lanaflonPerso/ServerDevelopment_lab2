@@ -83,4 +83,14 @@ public class UserLogin {
         System.out.println("user have loggedin: " + chatSession.toString());
         return true;
     }
+
+    public void logout() {
+        if (userAccount != null && userAccount.isLoggedin() == false) {
+            userAccount.setUserId(-1);
+            setUserName("");
+            userAccount.setLoggedin(false);
+        } else {
+            System.out.println("user already loggedout");
+        }
+    }
 }

@@ -12,7 +12,7 @@
 <h:body>
     <f:view>
         <h:form>
-        <p:commandButton value="MyProfile" action="#{profileView.showMyProfile(true)}" update=":mycontent" />
+        <p:commandButton value="MyProfile" actionListener="#{profileView.showMyProfile(true)}" update=":mycontent" />
         <h:panelGroup id="profileData">
             <ul>
                 <li>
