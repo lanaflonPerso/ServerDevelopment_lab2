@@ -13,7 +13,7 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 public class NavigationController {
-
+    private static final String indexPage = "index";
     private String currentPage = "index";
 
     public String moveToStart() {
@@ -74,6 +74,11 @@ public class NavigationController {
 
     public String getNotificationChannel() {
         return "ch" + userAccount.getUserId();
+    }
+
+    public String goToStart() {
+        return indexPage;
+
     }
 
 

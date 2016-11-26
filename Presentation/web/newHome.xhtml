@@ -33,6 +33,7 @@
                         <li><h:commandLink value="Page2" action="#{navigationController.setPage('Page2')}"/></li>
                     </ul>
                 </f:ajax>
+                <h:commandButton value="Logout" action="#{navigationController.goToStart}"/>
             </h:form>
         </h:panelGroup>
         <!--<h:panelGroup id="content" layout="block">-->
@@ -56,7 +57,6 @@
 </f:view>
 <script type="text/javascript">
     function handleNotification(message) {
-        alert("yah" + message.message);
         updateFriend();
 
     }
