@@ -1,0 +1,122 @@
+Fixa tomcat på boxarna:
+
+sudo yum install java-1.8.0-openjdk-devel
+sudo useradd -M -s /bin/nologin -g tomcat -d /opt/tomcat tomcat
+cd ~
+
+wget http://apache.mirrors.spacedump.net/tomcat/tomcat-8/v8.5.8/bin/apache-tomcat-8.5.8.tar.gz
+
+sudo mkdir /opt/tomcat
+sudo tar xvf apache-tomcat-8*tar.gz -C /opt/tomcat --strip-components=1
+
+cd /opt/tomcat
+
+sudo chgrp -R tomcat conf
+
+sudo chmod g+rwx conf
+sudo chmod g+r conf/ *
+
+sudo chown -R tomcat webapps/ work/ temp/ logs/
+
+tror man behöver ??
+chgrp -R tomcat bin
+chmod g+rwx bin
+chmod g+r bin/ *
+
+sudo nano /etc/systemd/system/tomcat.service
+
+klistra in detta:
+
+------------------- från raden under -------------------
+# Systemd unit file for tomcat
+[Unit]
+Description=Apache Tomcat Web Application Container
+After=syslog.target network.target
+
+[Service]
+Type=forking
+
+Environment=JAVA_HOME=/usr/lib/jvm/jre
+Environment=CATALINA_PID=/opt/tomcat/temp/tomcat.pid
+Environment=CATALINA_HOME=/opt/tomcat
+Environment=CATALINA_BASE=/opt/tomcat
+# Environment='CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC'
+Environment='JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom'
+
+ExecStart=/opt/tomcat/bin/startup.sh
+ExecStop=/bin/kill -15 $MAINPID
+
+User=tomcat
+Group=tomcat
+
+[Install]
+WantedBy=multi-user.target
+
+------------------- till raden över -------------------
+
+cd /opt && sudo chown -R tomcat tomcat/
+
+sudo systemctl daemon-reload
+
+sudo systemctl start tomcat
+
+sudo systemctl enable tomcat
+
+// nu enligth dom så ska http://localhost:8080 visa standard tomcat sidan
+
+allafall:
+
+sudo nano /opt/tomcat/conf/tomcat-users.xml
+
+klistra in: 
+    <user username="serverutv" password="!Qaz2wsx" roles="manager-gui,admin-gui"/>
+
+mellan
+
+<tomcat-users>
+...
+</tomcat-users>
+
+
+sudo systemctl restart tomcat
+
+
+Nu är tomcat redo att användas, gå in till länken:
+
+http://localhost:8080/manager/html
+
+sedan finns en section som heter war file to deploy:
+där browsar du och väljer den compilerade *.war filen från vårt project:
+
+/////// steg 2 skapa war filen i intellij på di lokala mac...
+Först build->build artifacts, och sen typ database war service eller något
+
+då ska det skapas en out folder som inehåller
+artifact -> namnet_war_exploded -> meta-inf : MANIFEST.MF
+
+efter detta:
+file->prodject structure -> artifact
+tryck på plus tecknet och välj: webapplication archive -> från den existerande
+sedan popar det upp någo som frågar efter en existerande MANIFEST.MF
+välj den som du genererade i outputen out->artifact -> namnet_war_exploded -> meta-inf : MANIFEST.MF
+
+
+sedan applay och ok typ,
+
+menyn, build->build artifact-> och välj nu den som är archive
+
+nu skapas en  ny folder i out som innehåller namn.war ,
+den skickar du till vår server, (jag använde typ dropbox för det)
+sedan i sidan: 
+http://localhost:8080/manager/html
+valjer du war filen som du har, och deployar
+
+
+addressen kommer sendan vara i mitt fall:
+http://localhost:8080/Presentation_war/index.xhtml
+
+
+
+
+ 
+
