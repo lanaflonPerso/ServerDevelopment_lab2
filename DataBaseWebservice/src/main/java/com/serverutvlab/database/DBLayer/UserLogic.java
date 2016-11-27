@@ -23,6 +23,7 @@ public class UserLogic {
 
         user.setEmail(email);
         user.setPassword(password);
+        profile.setName(email);
 
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
         try {

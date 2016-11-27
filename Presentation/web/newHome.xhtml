@@ -26,6 +26,7 @@
             <h:form>
                 <f:ajax render=":mycontent" update="updateFriend() updateContent()">
                     <ul>
+                        <li><h:commandLink value="Feed" action="#{navigationController.setPage('Feed')}"/></li>
                         <li><h:commandLink value="GetNewFriends" action="#{navigationController.setPage('GetNewFriends')}"/></li>
                         <li><h:commandLink value="Page1" action="#{navigationController.setPage('Page1')}"/></li>
                         <li><h:commandLink value="profile" action="#{navigationController.setPage('profile')}"/></li>

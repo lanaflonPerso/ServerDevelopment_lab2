@@ -58,6 +58,8 @@ public class NavigationController {
                 return "chatwindow";
             }else if(id.equals("6")){
                 return "profileEdit";
+            }else if(id.equals("42")){
+                return "newHome";
             }
         }
         if(id.equals("5")){
