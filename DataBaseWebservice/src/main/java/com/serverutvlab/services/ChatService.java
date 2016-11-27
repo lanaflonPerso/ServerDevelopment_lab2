@@ -24,7 +24,11 @@ public class ChatService {
         return "Name: chatService";
     }
 
-
+    /**
+     * sends a message to another user
+     * @param messageJson
+     * @return
+     */
     @POST
     @Path("sendmessage")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -43,6 +47,7 @@ public class ChatService {
 
         return Response.ok(response).build();
     }
+
 
     @POST
     @Path("chatRequest")

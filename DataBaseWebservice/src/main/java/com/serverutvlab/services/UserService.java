@@ -16,6 +16,10 @@ import java.util.Map;
 @Path("userservice")
 public class UserService {
 
+    /**
+     * servericename
+     * @return service name
+     */
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getServiceName()
@@ -23,6 +27,10 @@ public class UserService {
        return "Name: UserService";
     }
 
+    /**
+     * returning users
+     * @return
+     */
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @Path("users")
@@ -34,6 +42,12 @@ public class UserService {
         return json;
     }
 
+    /**
+     * register a user
+     * @param email
+     * @param password
+     * @return
+     */
     @POST
     @Path("registerUser")
     //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -51,7 +65,12 @@ public class UserService {
         return Response.ok(response).build();
     }
 
-
+    /**
+     * authenticates user
+     * @param email
+     * @param password
+     * @return
+     */
     @POST
     @Path("login")
     //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -72,6 +91,11 @@ public class UserService {
         return Response.ok(response).build();
     }
 
+    /**
+     * get user by id
+     * @param id
+     * @return
+     */
     @POST
     @Path("userById")
     //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -87,6 +111,11 @@ public class UserService {
         return Response.ok(response).build();
     }
 
+    /**
+     * get friends by user id
+     * @param id
+     * @return
+     */
     @GET
     @Path("getFriendsByUserId")
     //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -101,6 +130,12 @@ public class UserService {
         return Response.ok(response).build();
     }
 
+    /**
+     * adding a friendship between id's
+     * @param uId
+     * @param fId
+     * @return
+     */
     @POST
     @Path("addFriendToUser")
     //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -118,6 +153,12 @@ public class UserService {
 
         return Response.ok(response).build();
     }
+    /**
+     * removing a friendship between id's
+     * @param uId
+     * @param fId
+     * @return
+     */
     @POST
     @Path("removeFriend")
     //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -134,6 +175,11 @@ public class UserService {
         return Response.ok(response).build();
     }
 
+    /**
+     * get non friends
+     * @param userId
+     * @return might return all users if you are forever lonely
+     */
     @GET
     @Path("getNonFriends")
     @Produces(MediaType.TEXT_PLAIN)

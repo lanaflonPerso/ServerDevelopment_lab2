@@ -79,6 +79,11 @@ public class BFacade {
         return new SUser(u.getId(),u.getProfileId(),u.getEmail());
     }
 
+    /**
+     * get all friends by a user id
+     * @param id
+     * @return
+     */
     public static List<SUser> getFriendsByUserId(int id) {
         List<SUser> friends = new ArrayList<SUser>();
         List<BUser> users = new BUserLogic().getFriendsByUserId(id);
@@ -91,13 +96,32 @@ public class BFacade {
         return friends;
     }
 
+    /**
+     * adding friendship between id's
+     * @param uId
+     * @param fId
+     * @return
+     */
     public static boolean addFriendToUser(int uId, int fId) {
         return new BUserLogic().addFriendToUser(uId,fId);
     }
+
+    /**
+     * removing friendship between id's
+     * @param uId
+     * @param fId
+     * @return
+     */
     public static boolean removeFriendToUser(int uId, int fId) {
         return new BUserLogic().removeFriend(uId,fId);
     }
 
+
+    /**
+     * get non friends by user id
+     * @param userId
+     * @return
+     */
     public static List<SUser> getNonFriendsByUserId(int userId) {
         List<SUser> result = new ArrayList<SUser>();
         List<BUser> users = new BUserLogic().getNonFriendsByUser(userId);
@@ -144,6 +168,16 @@ public class BFacade {
                 posts
         );
     }
+
+    /**
+     * update a profile by including these parameters and prey to god it will work
+     * @param userId
+     * @param username
+     * @param info
+     * @param relationshipStatus
+     * @param age
+     * @return
+     */
     public static boolean updateProfile(int userId, String username, String info, int relationshipStatus, int age) {
         return new BProfileLogic().updateProfile(userId,username,info,relationshipStatus,age);
 
@@ -156,6 +190,12 @@ public class BFacade {
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
      */
 
+    /**
+     * get posts by profile id and returning allowed post according to visitors id
+     * @param profileId
+     * @param activeUserId
+     * @return
+     */
     public static List<SPost> getPostsByProfile(int profileId, int activeUserId) {
         List<SPost> posts = new ArrayList<SPost>();
         for (BPost b : new BPostLogic().getPostsByProfile(profileId,activeUserId)) {
@@ -165,12 +205,25 @@ public class BFacade {
         return posts;
     }
 
+    /**
+     * post post
+     * @param autoridId
+     * @param recipientId
+     * @param subject
+     * @param messageBody
+     * @param isPrivate
+     * @return
+     */
     public static SPost postPost(int autoridId, int recipientId, String subject, String messageBody,boolean isPrivate) {
         BPost p = new BPostLogic().postPost(autoridId,recipientId,subject,messageBody, isPrivate);
         return p != null? new SPost(p.getId(),p.getSubject(),p.getMessageBody(),p.getAuthorName(),p.getRecipientName(),p.getTimestamp(),p.getAuthorId(),p.getRecipientId(),p.isPrivate()) : null;
     }
 
-
+    /**
+     * get post feed by user id
+     * @param userId
+     * @return
+     */
     public static List<SPost> getFeedByUser(int userId) {
         List<SPost> feed = new ArrayList<SPost>();
         List<BPost> posts = new BPostLogic().getFeedForUser(userId);
@@ -186,10 +239,20 @@ public class BFacade {
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
      */
 
+    /**
+     * sends a chattmessage
+     * @param chatMessageVM
+     * @return
+     */
     public static boolean sendMessage(ChatMessageVM chatMessageVM) {
         return BChatLogic.broadcastMessage(chatMessageVM);
     }
 
+    /**
+     * sends a chat response
+     * @param chatRequest
+     * @return
+     */
     public static boolean sendChatRequest(ChatMessageVM chatRequest) {
         int senderId = 0;
         int targetId = 0;

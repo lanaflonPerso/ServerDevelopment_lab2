@@ -12,6 +12,11 @@ import java.util.List;
  * Created by o_0 on 2016-11-10.
  */
 public class ProfileLogic {
+    /**
+     * call to get profile for userid
+     * @param userId
+     * @return
+     */
     public ProfileEntity getProfileByUserId(int userId) {
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
         ProfileEntity profile= null;
@@ -33,26 +38,11 @@ public class ProfileLogic {
         return profile;
     }
 
-
-    public ProfileEntity createProfile(int id) {
-        ProfileEntity profile = new ProfileEntity();
-        profile.setUserId(id);
-
-        EntityManager entityManager = DBManager.getInstance().createEntityManager();
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(profile);
-            entityManager.getTransaction().commit();
-
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            return null;
-        } finally {
-            entityManager.close();
-        }
-        return profile;
-    }
-
+    /**
+     * get profile for user
+     * @param recipientId
+     * @return
+     */
     public ProfileEntity getProfileById(int recipientId) {
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
         ProfileEntity profile= null;
@@ -75,6 +65,15 @@ public class ProfileLogic {
 
     }
 
+    /**
+     * call to update profile things
+     * @param userId
+     * @param username
+     * @param info
+     * @param relationshipStatus
+     * @param age
+     * @return
+     */
     public boolean updateProfile(int userId, String username, String info, int relationshipStatus, int age) {
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
 

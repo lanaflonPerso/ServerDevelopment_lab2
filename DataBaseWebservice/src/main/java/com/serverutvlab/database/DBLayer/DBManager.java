@@ -8,8 +8,11 @@ import java.util.List;
 
 /**
  * Created by o_0 on 2016-11-10.
+ *
+ * This is our DBManager that manages the DB
  */
 public class DBManager {
+
     private static volatile DBManager db = null;
     private EntityManagerFactory emf;
     private DBManager(){

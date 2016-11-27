@@ -16,6 +16,12 @@ import java.util.List;
  */
 public class BPostLogic {
 
+    /**
+     * get posts for profile,
+     * @param profileId
+     * @param activeUserId
+     * @return returning only posts that the visiting user are allowed to se
+     */
     public List<BPost> getPostsByProfile(int profileId, int activeUserId) {
         List<BPost> result = new ArrayList<BPost>();
         List<BPost> posts = DBFacade.getPostsForProfile(profileId);
@@ -45,11 +51,25 @@ public class BPostLogic {
         return result;
     }
 
+    /**
+     * posts a post
+     * @param autoridId
+     * @param recipientId
+     * @param subject
+     * @param messageBody
+     * @param isPrivate
+     * @return
+     */
     public BPost postPost(int autoridId, int recipientId, String subject, String messageBody, boolean isPrivate) {
         BPost p = DBFacade.postPost(autoridId,recipientId,subject,messageBody,isPrivate);
         return p;
     }
 
+    /**
+     * get post feed for a user
+     * @param userId
+     * @return returning all the posts that the user is allowed to se
+     */
     public List<BPost> getFeedForUser(int userId) {
         List<BPost> feed = new ArrayList<BPost>();
         BProfile profile = DBFacade.getProfileForUserId(userId);

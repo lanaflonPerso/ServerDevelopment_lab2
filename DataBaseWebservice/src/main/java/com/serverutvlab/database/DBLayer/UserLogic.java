@@ -16,7 +16,13 @@ import java.util.List;
  * Created by o_0 on 2016-11-10.
  */
 public class UserLogic {
-    //private EntityManagerFactory emf = Persistence.createEntityManagerFactory("NewPersistenceUnit");
+
+    /**
+     * creating user account
+     * @param email
+     * @param password
+     * @return returning the created account
+     */
     public UserEntity createNewAccount(String email, String password) {
         UserEntity user = new UserEntity();
         ProfileEntity profile = new ProfileEntity();
@@ -46,6 +52,10 @@ public class UserLogic {
         return user;
     }
 
+    /**
+     * Call to return all users in db
+     * @return
+     */
     public List<UserEntity> getAllUsers() {
 
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
@@ -63,7 +73,12 @@ public class UserLogic {
         return resultList;
     }
 
-
+    /**
+     * authenticates credentials
+     * @param e
+     * @param p
+     * @return user if success
+     */
     public BUser authenticateUser(String e, String p) {
         //List<UserEntity> resultList = entityManager.createQuery("from UserEntity where email=" + e + " and password ="+ p).getResultList();
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
@@ -90,6 +105,11 @@ public class UserLogic {
         return user;
     }
 
+    /**
+     * returning user matched by this id
+     * @param id
+     * @return user
+     */
     public UserEntity getUserById(int id) {
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
         UserEntity userEntity = null;
@@ -114,6 +134,12 @@ public class UserLogic {
         return userEntity;
     }
 
+    /**
+     * adding a friend relation between these two id's
+     * @param userId
+     * @param friendId
+     * @return
+     */
     public boolean addFriendToUser(int userId, int friendId) {
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
         System.out.println("Adding friend to user, uId = " + userId + ", fId = " + friendId);
@@ -158,6 +184,11 @@ public class UserLogic {
         return true;
     }
 
+    /**
+     * get friends for a user
+     * @param id
+     * @return friends
+     */
     public List<UserEntity> getFriendsByUserId(int id) {
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
         UserEntity user = null;
@@ -189,6 +220,12 @@ public class UserLogic {
         return resultList;
     }
 
+    /**
+     * removes friend relation between id's
+     * @param userId
+     * @param friendId
+     * @return success
+     */
     public boolean removeFriend(int userId, int friendId) {
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
         System.out.println("Removing friend from user ");

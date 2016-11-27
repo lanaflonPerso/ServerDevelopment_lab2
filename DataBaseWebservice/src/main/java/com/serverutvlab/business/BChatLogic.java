@@ -9,6 +9,11 @@ import com.serverutvlab.services.SModels.ChatMessageVM;
 public class BChatLogic {
 
 
+    /**
+     * broadcast message
+     * @param chatMessageVM
+     * @return
+     */
     // TODO: check so that they are actually friends that tries to talk
     public static boolean broadcastMessage(ChatMessageVM chatMessageVM) {
         System.out.printf("BChatLogic::broadcastMessage: " + chatMessageVM.toString());

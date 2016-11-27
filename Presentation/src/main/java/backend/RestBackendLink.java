@@ -168,12 +168,25 @@ public class RestBackendLink {
         return data;
     }
 
+
+    /**
+     * parsing json to the type given
+     * @param type
+     * @param data
+     * @param <T>
+     * @return
+     */
     public static <T> T parseJsonData(Type type, String data) {
         Gson gson = new Gson();
         T result = gson.fromJson(data, type);
         return result;
     }
 
+    /**
+     * prepares the parameters in the Map and concatenates the parameters into a long line
+     * @param parameters
+     * @return
+     */
     public static String prepareParams(Map<String,Object> parameters){
         StringBuilder params = new StringBuilder();
         try{
