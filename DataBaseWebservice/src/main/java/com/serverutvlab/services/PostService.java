@@ -23,6 +23,12 @@ public class PostService {
     }
 
 
+    /**
+     * get all the posts by profile that active user is allowed to se
+     * @param profileId
+     * @param activeUserId
+     * @return
+     */
     // TODO: 2016-11-21 authenticated call
     @GET
     @Path("getprofileposts")
@@ -38,6 +44,15 @@ public class PostService {
         return Response.ok(response).build();
     }
 
+    /**
+     * post post
+     * @param autoridId
+     * @param recipientId
+     * @param subject
+     * @param messageBody
+     * @param isPrivate
+     * @return
+     */
     // TODO: 2016-11-21 authenticated call
     @POST
     @Path("postposttoprofile")
@@ -56,6 +71,11 @@ public class PostService {
         return Response.ok(response).build();
     }
 
+    /**
+     * get post feed by user id
+     * @param userId
+     * @return
+     */
     @GET
     @Path("getFeed")
     @Produces(MediaType.TEXT_PLAIN)

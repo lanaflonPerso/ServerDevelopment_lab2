@@ -23,6 +23,10 @@ public class DBFacade {
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
      */
 
+    /**
+     * get all users
+     * @return all users
+     */
     static public List<BUser> getAllUsers() {
         List<UserEntity> entities = new UserLogic().getAllUsers();
         List<BUser> result = new ArrayList<BUser>();
@@ -31,6 +35,12 @@ public class DBFacade {
         return result;
     }
 
+    /**
+     * create a new user with email and password
+     * @param email
+     * @param password
+     * @return user or null
+     */
     static public BUser createNewUser(String email, String password) {
         UserEntity user = new UserLogic().createNewAccount(email,password);
         if (user == null)
@@ -39,10 +49,21 @@ public class DBFacade {
         return new BUser(user.getId(),user.getEmail(),user.getPassword());
     }
 
+    /**
+     * authenticates user
+     * @param e = email
+     * @param p = password
+     * @return user or null
+     */
     public static BUser authenticateUser(String e, String p) {
         return new UserLogic().authenticateUser(e, p);
     }
 
+    /**
+     * gets user by id
+     * @param id
+     * @return user
+     */
     public static BUser getUserById(int id) {
         UserEntity user = new UserLogic().getUserById(id);
         if (user == null)
@@ -50,6 +71,11 @@ public class DBFacade {
         return new BUser(user.getId(),user.getEmail(),user.getPassword());
     }
 
+    /**
+     * get friends by user
+     * @param id
+     * @return friends
+     */
     public static List<BUser> getFriendsByUserId(int id) {
         List<BUser> friends = new ArrayList<BUser>();
         List<UserEntity> friendsByUserId = new UserLogic().getFriendsByUserId(id);
@@ -61,11 +87,23 @@ public class DBFacade {
         }
         return friends;
     }
+
+    /**
+     * add friendship between id's
+     * @param uId
+     * @param fId
+     * @return
+     */
     public static boolean addFriendToUser(int uId, int fId) {
         return new UserLogic().addFriendToUser(uId,fId);
     }
 
-
+    /**
+     * remove friendship between id's
+     * @param uId
+     * @param fId
+     * @return
+     */
     public static boolean removeFriend(int uId, int fId) {
         return new UserLogic().removeFriend(uId,fId);
     }
@@ -75,6 +113,11 @@ public class DBFacade {
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
      */
 
+    /**
+     * get the profile by user Id
+     * @param userId
+     * @return profile
+     */
     static public BProfile getProfileForUserId(int userId) {
         ProfileEntity profile = new ProfileLogic().getProfileByUserId(userId);
         List<BPost> posts = new ArrayList<BPost>();
@@ -95,6 +138,16 @@ public class DBFacade {
                 posts
                 );
     }
+
+    /**
+     * updates profile
+     * @param userId
+     * @param username
+     * @param info
+     * @param relationshipStatus
+     * @param age
+     * @return success
+     */
     public static boolean updateProfile(int userId, String username, String info, int relationshipStatus, int age) {
         return new ProfileLogic().updateProfile(userId,username,info,relationshipStatus,age);
     }
@@ -105,10 +158,11 @@ public class DBFacade {
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
      */
 
-    static public PostEntity getPostWithId(int id) {
-        return null;
-    }
-
+    /**
+     * get poosts for a profile,
+     * @param profileId the profile id
+     * @return list of posts
+     */
     public static List<BPost> getPostsForProfile(int profileId) {
         List<BPost> posts = new ArrayList<BPost>();
         for(PostEntity e : new PostLogic().getPostsByProfileId(profileId)){
@@ -117,25 +171,25 @@ public class DBFacade {
         return posts;
     }
 
-    public static BPost postPost(int autoridId, int recipientId, String subject, String messageBody, boolean isPrivate) {
-        ProfileEntity postedFrom = new ProfileLogic().getProfileById(autoridId);
+    /**
+     * call to post a post
+     * @param authorId
+     * @param recipientId
+     * @param subject
+     * @param messageBody
+     * @param isPrivate
+     * @return the created post
+     */
+    public static BPost postPost(int authorId, int recipientId, String subject, String messageBody, boolean isPrivate) {
+        ProfileEntity postedFrom = new ProfileLogic().getProfileById(authorId);
         if (postedFrom == null)
             return null;
         ProfileEntity postedTo = new ProfileLogic().getProfileById(recipientId);
         if (postedTo == null)
             return null;
 
-        PostEntity p = new PostLogic().createPost(autoridId,recipientId,subject,messageBody,postedTo, postedFrom, isPrivate);
+        PostEntity p = new PostLogic().createPost(authorId,recipientId,subject,messageBody,postedTo, postedFrom, isPrivate);
         System.out.println("Post returning from PostLogic: " + p.toString());
         return p != null? new BPost(p.getId(),p.getSubject(),p.getMessageBody(),p.getAuthorName(),p.getRecipientName(),p.getTimestamp(),p.getAuthorId(),p.getRecipientId(),p.isPrivate()) : null;
-    }
-
-    public static List<BPost> getAllPost() {
-        List<BPost> posts = new ArrayList<BPost>();
-        for(PostEntity e : new PostLogic().getAllPosts()){
-            posts.add(new BPost(e.getId(),e.getSubject(),e.getMessageBody(),e.getAuthorName(),e.getRecipientName(),e.getTimestamp(),e.getAuthorId(),e.getRecipientId(),e.isPrivate()));
-        }
-
-        return posts;
     }
 }

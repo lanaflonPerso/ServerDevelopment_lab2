@@ -154,14 +154,7 @@ public class ProfileService implements ProfileItem {
         }
         return wallPosts;
     }
-    public List<PostVM> updateNewsFeed() {
-        System.out.println("ProfileService:updateFeed");
-        List<PostVM> postForProfile = BackendFacade.getPostForProfile(profileId, userAccount.getUserId());
-        if (postForProfile != null) {
-            wallPosts = postForProfile;
-        }
-        return wallPosts;
-    }
+
 
     public List<PostVM> getCurrentFeed() {
         System.out.println("ProfileService:getCurrentFeed");

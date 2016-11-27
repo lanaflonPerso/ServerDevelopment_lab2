@@ -2,6 +2,7 @@ package account;
 
 import backend.BackendFacade;
 import chat.ChatSession;
+import navigationcontroller.NavigationController;
 import viewmodel.UserVM;
 
 import javax.annotation.PostConstruct;

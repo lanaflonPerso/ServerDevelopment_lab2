@@ -14,6 +14,12 @@ import java.util.List;
  */
 public class PostLogic {
 
+
+    /**
+     * get posts by profile id
+     * @param id
+     * @return
+     */
     public List<PostEntity> getPostsByProfileId(int id){
         EntityManager entityManager = null;
         List<PostEntity> resultList = null;
@@ -38,8 +44,11 @@ public class PostLogic {
         return resultList == null? new ArrayList<PostEntity>() : resultList;
     }
 
-
-    public List<PostEntity> getAllPosts(){
+    /**
+     * get all the posts
+     * @return
+     */
+    public List<PostEntity> getAllPosts() {
         EntityManager entityManager = null;
         List<PostEntity> resultList = null;
         try {
@@ -47,7 +56,7 @@ public class PostLogic {
             Query q = entityManager.createQuery("from PostEntity");
             resultList = q.getResultList();
 
-        }finally {
+        } finally {
             if (entityManager != null) {
                 entityManager.close();
             }
@@ -55,6 +64,17 @@ public class PostLogic {
         return resultList;
     }
 
+    /**
+     * create and inserting a post into database
+     * @param auhtoridId
+     * @param recipientId
+     * @param subject
+     * @param messageBody
+     * @param postedTo
+     * @param postedFrom
+     * @param isPrivate
+     * @return
+     */
     public PostEntity createPost(int auhtoridId, int recipientId, String subject, String messageBody, ProfileEntity postedTo, ProfileEntity postedFrom, boolean isPrivate) {
 
         PostEntity post = new PostEntity();

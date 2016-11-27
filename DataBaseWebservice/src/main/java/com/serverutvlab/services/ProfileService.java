@@ -23,7 +23,11 @@ public class ProfileService {
         return "Name: ProfileService";
     }
 
-
+    /**
+     * get profile by user id
+     * @param userId
+     * @return
+     */
     @GET
     @Path("getProfile")
     //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -38,6 +42,16 @@ public class ProfileService {
         return Response.ok(response).build();
 
     }
+
+    /**
+     * updates profile
+     * @param userId
+     * @param username
+     * @param info
+     * @param relationshipStatus
+     * @param age
+     * @return
+     */
     @POST
     @Path("updateProfile")
     //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
