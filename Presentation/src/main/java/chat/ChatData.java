@@ -1,5 +1,6 @@
 package chat;
 
+import frontendcoder.MessageCoder;
 import org.primefaces.push.EventBus;
 import org.primefaces.push.RemoteEndpoint;
 import org.primefaces.push.annotation.*;

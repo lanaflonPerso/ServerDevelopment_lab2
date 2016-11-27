@@ -1,8 +1,9 @@
-package viewmodel;
+package frontendcoder;
 
 import com.google.gson.Gson;
 import org.primefaces.push.Decoder;
 import org.primefaces.push.Encoder;
+import viewmodel.NotificationVM;
 
 
 public class NotificationCoder implements Decoder<String, NotificationVM>, Encoder<NotificationVM,String> {

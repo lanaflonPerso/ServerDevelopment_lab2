@@ -1,5 +1,6 @@
-package chat;
+package frontendcoder;
 
+import chat.ChatMessageVM;
 import com.google.gson.Gson;
 import org.primefaces.push.Decoder;
 import org.primefaces.push.Encoder;

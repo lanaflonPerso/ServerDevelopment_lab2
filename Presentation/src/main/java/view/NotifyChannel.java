@@ -1,11 +1,11 @@
 package view;
 
 import chat.ChatMessageVM;
-import chat.MessageCoder;
+import frontendcoder.MessageCoder;
 import org.primefaces.push.annotation.OnMessage;
 import org.primefaces.push.annotation.PathParam;
 import org.primefaces.push.annotation.PushEndpoint;
-import viewmodel.NotificationCoder;
+import frontendcoder.NotificationCoder;
 import viewmodel.NotificationVM;
 
 /**
