@@ -43,13 +43,17 @@
 
     <p:layoutUnit position="center" resizable="true">
         <h:panelGroup id="mycontent" layout="block">
-            <ui:include src="#{navigationController.page}.xhtml"/>
+            <h:panelGroup rendered="#{navigationController.renderContent}">
+                <ui:include src="#{navigationController.page}.xhtml"/>
+            </h:panelGroup>
         </h:panelGroup>
     </p:layoutUnit>
 
     <p:layoutUnit position="east" resizable="true" size="200">
         <h:panelGroup id="myfriends" layout="block">
-            <ui:include src="friends.xhtml"/>
+            <h:panelGroup rendered="#{navigationController.renderContent}">
+                <ui:include src="friends.xhtml"/>
+            </h:panelGroup>
         </h:panelGroup>
     </p:layoutUnit>
 </p:layout>

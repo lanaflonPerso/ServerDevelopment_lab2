@@ -76,11 +76,12 @@ public class UserLogin {
 //            userAccount.setProfileId(0);    // TODO: set profile id
 //
             userAccount.setLoggedin(true);
+            System.out.println("user have loggedin: " + userAccount.toString());
 
         }else {
             System.out.println("user failed to loggedin: ");
         }
-        System.out.println("user have loggedin: " + chatSession.toString());
+        System.out.println("chat have loggedin: " + chatSession.toString());
         return true;
     }
 

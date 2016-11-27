@@ -69,6 +69,7 @@ public class Account {
         return "Account{" +
                 "userId=" + userId +
                 ", username='" + username + '\'' +
+                ", profileId=" + profileId +
                 ", loggedin=" + loggedin +
                 '}';
     }

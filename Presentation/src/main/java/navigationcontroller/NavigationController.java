@@ -13,6 +13,30 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 public class NavigationController {
+
+    private boolean renderContent;
+    private boolean renderFriend;
+
+    public boolean isRenderContent() {
+        boolean tmp = renderContent;
+        //renderContent = false;
+        return tmp;
+    }
+
+    public void setRenderContent(boolean renderContent) {
+        this.renderContent = renderContent;
+    }
+
+    public boolean isRenderFriend() {
+        boolean tmp = renderFriend;
+        //renderFriend = false;
+        return tmp;
+    }
+
+    public void setRenderFriend(boolean renderFriend) {
+        this.renderFriend = renderFriend;
+    }
+
     private static final String indexPage = "index";
     private String currentPage = "index";
 
@@ -38,6 +62,8 @@ public class NavigationController {
     @PostConstruct
     public void init() {
         this.currentPage = "index";
+        this.renderContent = true;
+        this.renderFriend = true;
     }
 
     public String getPage() {
@@ -46,6 +72,7 @@ public class NavigationController {
 
     public void setPage(String page) {
         this.currentPage = page;
+        //this.renderContent = true;
     }
 
     public String moveToSelection(String id) {

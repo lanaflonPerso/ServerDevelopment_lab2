@@ -24,6 +24,9 @@ public class BPostLogic {
             return result;
 
         for (BPost p: posts){
+//            if ((p.getAuthorId() == profileId || p.getId() == activeUserProfile.getId()) == false ){
+//                continue;
+//            }
             if (p.isPrivate()){
                 if (activeUserProfile.getId() == p.getAuthorId() || activeUserProfile.getId() == p.getRecipientId()){
                     if (!result.contains(p)){

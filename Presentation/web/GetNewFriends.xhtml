@@ -18,7 +18,7 @@
             <f:facet name="header">
                 My new Friends ?
             </f:facet>
-            <p:commandButton value="#{mylist.name}" actionListener="#{searchForFriends.makeNewFriends(mylist.id)}" update="updatefriendlist()" oncomplete="updateFriend()"/>
+            <p:commandButton value="#{mylist.name}" actionListener="#{searchForFriends.makeNewFriends(mylist.id)}" oncomplete="updateFriend()"/>
 
 
         </p:dataList>
