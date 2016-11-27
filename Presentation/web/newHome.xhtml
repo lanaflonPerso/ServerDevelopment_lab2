@@ -24,16 +24,16 @@
     <p:layoutUnit position="west" resizable="true" size="200" minSize="100" maxSize="200">
         <h:panelGroup id="menu" layout="block">
             <h:form>
-                <f:ajax render=":mycontent" update="updateFriend() updateContent()">
+                <!--<f:ajax render=":mycontent" update="updateFriend() updateContent()">-->
                     <ul>
-                        <li><h:commandLink value="Feed" action="#{navigationController.setPage('Feed')}"/></li>
-                        <li><h:commandLink value="GetNewFriends" action="#{navigationController.setPage('GetNewFriends')}"/></li>
-                        <li><h:commandLink value="Page1" action="#{navigationController.setPage('Page1')}"/></li>
-                        <li><h:commandLink value="profile" action="#{navigationController.setPage('profile')}"/></li>
-                        <li><h:commandLink value="edit profile" action="#{navigationController.setPage('profileEdit')}"/></li>
-                        <li><h:commandLink value="Page2" action="#{navigationController.setPage('Page2')}"/></li>
+                        <li><p:commandLink value="Feed" actionListener="#{navigationController.setPage('Feed')}" oncomplete="updateContent()"/></li>
+                        <li><p:commandLink value="GetNewFriends" actionListener="#{navigationController.setPage('GetNewFriends')}" oncomplete="updateContent()"/></li>
+                        <li><p:commandLink value="Page1" actionListener="#{navigationController.setPage('Page1')}" oncomplete="updateContent()"/></li>
+                        <li><p:commandLink value="profile" actionListener="#{navigationController.setPage('profile')}" oncomplete="updateContent()"/></li>
+                        <li><p:commandLink value="edit profile" actionListener="#{navigationController.setPage('profileEdit')}" oncomplete="updateContent()"/></li>
+                        <li><p:commandLink value="Page2" actionListener="#{navigationController.setPage('Page2')}" oncomplete="updateContent()"/></li>
                     </ul>
-                </f:ajax>
+                <!--</f:ajax>-->
                 <h:commandButton value="Logout" action="#{navigationController.goToStart}"/>
             </h:form>
         </h:panelGroup>
