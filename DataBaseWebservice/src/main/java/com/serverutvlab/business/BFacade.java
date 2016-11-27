@@ -170,10 +170,6 @@ public class BFacade {
         return p != null? new SPost(p.getId(),p.getSubject(),p.getMessageBody(),p.getAuthorName(),p.getRecipientName(),p.getTimestamp(),p.getAuthorId(),p.getRecipientId(),p.isPrivate()) : null;
     }
 
-    public static boolean sendMessage(ChatMessageVM chatMessageVM) {
-        return BChatLogic.broadcastMessage(chatMessageVM);
-    }
-
 
     public static List<SPost> getFeedByUser(int userId) {
         List<SPost> feed = new ArrayList<SPost>();
@@ -182,5 +178,32 @@ public class BFacade {
             feed.add(new SPost(p.getId(),p.getSubject(),p.getMessageBody(),p.getAuthorName(),p.getRecipientName(),p.getTimestamp(),p.getAuthorId(),p.getRecipientId(),p.isPrivate()));
 
         return feed;
+    }
+
+    /**
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     * Chat SERVICE CALLS
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     */
+
+    public static boolean sendMessage(ChatMessageVM chatMessageVM) {
+        return BChatLogic.broadcastMessage(chatMessageVM);
+    }
+
+    public static boolean sendChatRequest(ChatMessageVM chatRequest) {
+        int senderId = 0;
+        int targetId = 0;
+
+        try {
+            senderId = Integer.parseInt(chatRequest.getFromUser());
+            targetId = Integer.parseInt(chatRequest.getToUser());
+
+        }  catch (NumberFormatException ex) {
+            System.out.println("sendChatRequest: format exeption");
+            return false;
+        }
+        NotificationHandler.chatRequestNotification(senderId,targetId);
+
+        return true;
     }
 }

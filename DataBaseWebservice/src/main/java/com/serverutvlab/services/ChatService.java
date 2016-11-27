@@ -44,6 +44,24 @@ public class ChatService {
         return Response.ok(response).build();
     }
 
+    @POST
+    @Path("chatRequest")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response chatRequest(String messageJson) {
+        Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
+        System.out.println("ChatService::chatRequest: " + messageJson);
+        ChatMessageVM chatMessageVM = new Gson().fromJson(messageJson, ChatMessageVM.class);
+        //BFacade.registerUser(email,password);
+        boolean result = BFacade.sendMessage(chatMessageVM);
+
+        resultMap.put("success", result);
+
+        Gson gson = new Gson();
+        String response = gson.toJson(resultMap);
+
+        return Response.ok(response).build();
+    }
 
 
 

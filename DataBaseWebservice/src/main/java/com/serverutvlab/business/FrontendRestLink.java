@@ -68,9 +68,9 @@ public class FrontendRestLink {
         return data;
     }
 
-    public static void sendNotification(int userId,String jsonObject) {
+    public static void sendNotification(int userId,String what,String jsonObject) {
         System.out.printf("FrontendRestLink::sendNotification");
-        SChannelNotification notification = new SChannelNotification("ch" + userId, jsonObject);
+        SChannelNotification notification = new SChannelNotification("ch" + userId,what, jsonObject);
         String json = new Gson().toJson(notification);
         for (String addr : getFrontendAddresses()) {
             FrontendRestLink.doRestPost(addr, "backend/channelService/", "channelNotification", json);
@@ -79,5 +79,6 @@ public class FrontendRestLink {
         System.out.printf("FrontendRestLink::sendNotification");
 
     }
+
 
 }
