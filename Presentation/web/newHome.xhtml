@@ -17,6 +17,7 @@
     <h:form>
         <p:remoteCommand name="updateFriend" actionListener="#{friends.updateFriends}" update="myfriends"/>
         <p:remoteCommand name="updateContent" update="mycontent"/>
+        <p:remoteCommand name="updateChatAccept" update="chatReq"/>
     </h:form>
     <p:layoutUnit position="north" size="50">
         Communitizer
@@ -60,12 +61,13 @@
 
     <h:form id="chatRemote">
         <h:inputHidden id="remoteuserid" value="#{chatView.destinationId}"/>
-        <p:remoteCommand name="updateChatReq" actionListener="#{chatView.startChat}"/>
+        <p:remoteCommand name="updateChatReq" actionListener="#{navigationController.setRenderChatReq(true)}" oncomplete="updateChatAccept()"/>
     </h:form>
 
     <p:layoutUnit position="south" resizable="true" size="200">
         <h:panelGroup id="chatReq" layout="block">
-            <h:panelGroup rendered="#{navigationController.renderContent}">
+            <h:panelGroup rendered="#{navigationController.renderChatReq}">
+                <p:commandButton value="Chat" actionListener="#{chatView.startChat}" action="#{navigationController.setPage('chatbox')}" oncomplete="updateContent()"/>
 
             </h:panelGroup>
         </h:panelGroup>

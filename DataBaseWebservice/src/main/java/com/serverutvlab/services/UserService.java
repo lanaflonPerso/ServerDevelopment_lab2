@@ -107,7 +107,7 @@ public class UserService {
 
         Gson gson = new Gson();
         String response = gson.toJson(result);
-
+        System.out.println("getUserById: " + id + " suser: "  + result );
         return Response.ok(response).build();
     }
 

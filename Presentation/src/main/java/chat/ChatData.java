@@ -8,10 +8,10 @@ import org.primefaces.push.annotation.*;
 /**
  * Created by o_0 on 2016-11-21.
  */
-@PushEndpoint("/{room}/{user}")
+@PushEndpoint("/chat/{room}/{user}")
 @Singleton
 public class ChatData {
-
+    private static final String CHANNEL = "/chat/";
     @PathParam("room")
     private  String theRoom;
 
@@ -22,18 +22,18 @@ public class ChatData {
     public void onOpen(RemoteEndpoint r, EventBus eventBus)
     {
         System.out.println("ChatData::onOpen theRoom = " + theRoom + " the user = " + theUser);
-        eventBus.publish(theRoom + "/*",new ChatMessageVM("onOpen","user 1","user2"));
+        eventBus.publish(CHANNEL + theRoom + "/" + theUser,new ChatMessageVM("onOpen",theUser,theRoom));
     }
     @OnClose
     public void onClose(RemoteEndpoint r, EventBus eventBus)
     {
         System.out.println("ChatData::onClose theRoom = " + theRoom + " the user = " + theUser);
-        eventBus.publish(theRoom + "/*",new ChatMessageVM("onClose","user 1","user2"));
+        eventBus.publish(CHANNEL + theRoom + "/" + theUser,new ChatMessageVM("onClose",theUser,theRoom));
     }
 
     @OnMessage(decoders = {MessageCoder.class}, encoders = {MessageCoder.class})
     public ChatMessageVM onMessage(ChatMessageVM message) {
-        System.out.println("ChatData::onMessage");
+        System.out.println("ChatData::onMessage" + theRoom + " : " + theUser);
         return message;
     }
 }

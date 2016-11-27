@@ -55,12 +55,13 @@ public class ProfileService implements ProfileItem {
         }
         this.wallPosts  = new ArrayList<PostVM>();
         this.selectedUserId = -1;
-        this.profileId = -1;
-        this.name = "";
+        this.profileId = userAccount.getProfileId();
+        this.name = userAccount.getUsername();
         this.info = "";
         this.age = -1;
         this.relationshipStatus = -1;
         selectProfile(userAccount.getUserId());
+        this.selectedUserId = userAccount.getUserId();
     }
 
     public String getName() {

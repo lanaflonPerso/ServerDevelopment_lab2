@@ -16,6 +16,8 @@ public class NavigationController {
 
     private boolean renderContent;
     private boolean renderFriend;
+    private boolean renderChatReq;
+
 
     public boolean isRenderContent() {
         boolean tmp = renderContent;
@@ -31,6 +33,13 @@ public class NavigationController {
         boolean tmp = renderFriend;
         //renderFriend = false;
         return tmp;
+    }
+    public boolean isRenderChatReq() {
+        return renderChatReq;
+    }
+
+    public void setRenderChatReq(boolean renderChatReq) {
+        this.renderChatReq = renderChatReq;
     }
 
     public void setRenderFriend(boolean renderFriend) {
@@ -63,6 +72,7 @@ public class NavigationController {
     public void init() {
         this.renderContent = true;
         this.renderFriend = true;
+        this.renderChatReq = false;
         this.currentPage = "feed";
     }
 

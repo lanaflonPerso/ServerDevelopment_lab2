@@ -87,14 +87,18 @@ public class BackendFacade {
      */
     public static UserVM getUser(int userId){
         Map<String,Object> parameters = new LinkedHashMap<String,Object>();
-        parameters.put("userId", userId);
+        parameters.put("id", userId);
 
-        String jsonResp = RestBackendLink.doRestGet(pathUserService,"userById", parameters);
+        String jsonResp = RestBackendLink.doRestParmPost(pathUserService,"userById", parameters);
         if (jsonResp.equals("null"))
             return null;
 
         Type type = new TypeToken<SUser>(){}.getType();
         SUser user = RestBackendLink.parseJsonData(type, jsonResp);
+        if (user == null) {
+            System.out.println("getUser returned null");
+            return null;
+        }
 
         UserVM result = new UserVM(user.getId(),user.getEmail(),user.getProfileId());
 
