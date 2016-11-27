@@ -1,5 +1,9 @@
 package chat;
 
+import backend.RestBackendLink;
+import org.primefaces.push.EventBus;
+import org.primefaces.push.EventBusFactory;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -10,17 +14,17 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 public class ChatSession {
-
-    private String userName;
+    private final EventBus eventBus = EventBusFactory.getDefault().eventBus();
+    private int destinatinoId;
     private String destinationName;
+    private boolean chatActive;
 
-    public String getUserName() {
-        return userName;
+    public int getDestinatinoId() {
+        return destinatinoId;
     }
 
-    public void setUserName(String userName) {
-        System.out.println("ChatSession::setUserName" + userName);
-        this.userName = userName;
+    public void setDestinatinoId(int destinatinoId) {
+        this.destinatinoId = destinatinoId;
     }
 
     public String getDestinationName() {
@@ -28,33 +32,24 @@ public class ChatSession {
     }
 
     public void setDestinationName(String destinationName) {
-        System.out.println("ChatSession::setDestinationName" + destinationName);
         this.destinationName = destinationName;
     }
 
-    @PostConstruct
-    public void init() {
-        this.userName = "";
-        this.destinationName = "";
-        this.loggedin = false;
+    public boolean isChatActive() {
+        return chatActive;
     }
 
-    private boolean loggedin;
-
-    public boolean isLoggedin() {
-        return loggedin;
+    public void setChatActive(boolean chatActive) {
+        this.chatActive = chatActive;
     }
 
-    public void setLoggedin(boolean loggedin) {
-        this.loggedin = loggedin;
+    public boolean sendChatMessage(int userId,String message) {
+        if (chatActive == false) {
+            System.out.println("sendChatMessage:chat is not active");
+            return false;
+        }
+        boolean b = RestBackendLink.sendChatMessage(new ChatMessageVM(message, "" + userId, "" + destinatinoId));
+        return b;
     }
 
-    @Override
-    public String toString() {
-        return "ChatSession{" +
-                "userName='" + userName + '\'' +
-                ", destinationName='" + destinationName + '\'' +
-                ", loggedin=" + loggedin +
-                '}';
-    }
 }
