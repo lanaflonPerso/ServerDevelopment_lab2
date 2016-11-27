@@ -37,7 +37,7 @@ public class NavigationController {
 
     @PostConstruct
     public void init() {
-        this.currentPage = "index";
+        this.currentPage = "feed";
     }
 
     public String getPage() {
@@ -71,6 +71,7 @@ public class NavigationController {
         } else if(id.equals("0")){
             return "index";
         }
+
         return "index";
     }
 
