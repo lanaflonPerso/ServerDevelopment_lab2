@@ -5,14 +5,24 @@ package com.serverutvlab.services.SModels;
  */
 public class SChannelNotification {
     private String targetChannel;
+    private String what;
     private String jsonObject;
 
     public SChannelNotification() {
     }
 
-    public SChannelNotification(String targetChannel, String jsonObject) {
+    public SChannelNotification(String targetChannel, String what, String jsonObject) {
         this.targetChannel = targetChannel;
+        this.what = what;
         this.jsonObject = jsonObject;
+    }
+
+    public String getWhat() {
+        return what;
+    }
+
+    public void setWhat(String what) {
+        this.what = what;
     }
 
     public String getTargetChannel() {

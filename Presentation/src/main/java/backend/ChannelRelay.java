@@ -5,6 +5,7 @@ import chat.ChatMessageVM;
 import com.google.gson.Gson;
 import org.primefaces.push.EventBus;
 import org.primefaces.push.EventBusFactory;
+import viewmodel.NotificationVM;
 
 /**
  * Created by o_0 on 2016-11-25.
@@ -17,10 +18,33 @@ public class ChannelRelay {
         if (chNotifaction == null) {
             return false;
         }
-        return channelRelay(chNotifaction.getTargetChannel(),chNotifaction.getJsonObject());
+        String what = chNotifaction.getWhat();
+        if (what.equals("newfriend") ){
+            return channelRelay(chNotifaction.getTargetChannel(),new NotificationVM(chNotifaction.getJsonObject(),what));
+
+        } else if (what.equals("chatRequest") ){
+            return channelRelay(chNotifaction.getTargetChannel(),new NotificationVM(chNotifaction.getJsonObject(),what));
+
+        }else {
+            System.out.println("channeöNotification  failed what = " + what);
+        }
+
+        return channelRelayJson(chNotifaction.getTargetChannel(),chNotifaction.getJsonObject());
     }
 
-    public boolean channelRelay(String channel,String json) {
+    public boolean channelRelay(String channel, NotificationVM notication) {
+
+        if (eventBus == null) {
+            System.out.println("ChatChannelRelay::channelRelay failed eventbus == null");
+            return false;
+        }else {
+//            eventBus.publish(CHANNEL + "", "message text");
+            eventBus.publish(CHANNEL + channel,notication);
+        }
+        return true;
+    }
+
+    public boolean channelRelayJson(String channel,String json) {
 
         if (eventBus == null) {
             System.out.println("ChatChannelRelay::channelRelay failed eventbus == null");

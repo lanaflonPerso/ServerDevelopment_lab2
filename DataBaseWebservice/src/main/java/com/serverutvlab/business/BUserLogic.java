@@ -66,8 +66,9 @@ public class BUserLogic {
     public boolean addFriendToUser(int uId, int fId) {
         boolean success = DBFacade.addFriendToUser(uId,fId);
         if (success) {
-            String s = new Gson().toJson(new SNotification("test string"));
-            FrontendRestLink.sendNotification(fId,s);
+            NotificationHandler.newFriendNotification(fId,"friend");
+//            String s = new Gson().toJson(new SNotification("test string"));
+//            FrontendRestLink.sendNotification(fId,s);
         }
         return success;
     }
