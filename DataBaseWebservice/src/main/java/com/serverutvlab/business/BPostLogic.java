@@ -4,6 +4,7 @@ import com.serverutvlab.business.BModels.BPost;
 import com.serverutvlab.business.BModels.BProfile;
 import com.serverutvlab.business.BModels.BUser;
 import com.serverutvlab.database.DBLayer.DBFacade;
+import com.serverutvlab.database.DBModels.ProfileEntity;
 import com.serverutvlab.services.SModels.SPost;
 
 import java.util.ArrayList;
@@ -51,14 +52,18 @@ public class BPostLogic {
 
     public List<BPost> getFeedForUser(int userId) {
         List<BPost> feed = new ArrayList<BPost>();
-        feed.addAll(DBFacade.getProfileForUserId(userId).getWallPosts());
+        BProfile profile = DBFacade.getProfileForUserId(userId);
+        feed.addAll(DBFacade.getPostsForProfile(profile.getId()));
         System.out.println("Feed count after adding own posts: " + feed.size());
 
         List<BUser> friends = DBFacade.getFriendsByUserId(userId);
 
+
+
+
         for (BUser f: friends){
             BProfile p = DBFacade.getProfileForUserId(f.getId());
-            for (BPost post:DBFacade.getPostsForProfile(p.getId())) {
+            for (BPost post: DBFacade.getPostsForProfile(p.getId())) {
                 if (!feed.contains(post) && !post.isPrivate())
                     feed.add(post);
             }

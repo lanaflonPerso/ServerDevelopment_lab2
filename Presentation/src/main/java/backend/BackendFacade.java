@@ -375,7 +375,7 @@ public class BackendFacade {
         parameters.put("recipientId", recipientId);
         parameters.put("subject", subject);
         parameters.put("messageBody", messageBody);
-        parameters.put("isPrivatePost", isPrivate);
+        parameters.put("isPrivate", isPrivate);
 
         String jsonResp = RestBackendLink.doRestParmPost(pathPostService,"postposttoprofile",parameters);
         if (jsonResp.equals("null")){

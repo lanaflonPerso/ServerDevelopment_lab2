@@ -129,4 +129,13 @@ public class DBFacade {
         System.out.println("Post returning from PostLogic: " + p.toString());
         return p != null? new BPost(p.getId(),p.getSubject(),p.getMessageBody(),p.getAuthorName(),p.getRecipientName(),p.getTimestamp(),p.getAuthorId(),p.getRecipientId(),p.isPrivate()) : null;
     }
+
+    public static List<BPost> getAllPost() {
+        List<BPost> posts = new ArrayList<BPost>();
+        for(PostEntity e : new PostLogic().getAllPosts()){
+            posts.add(new BPost(e.getId(),e.getSubject(),e.getMessageBody(),e.getAuthorName(),e.getRecipientName(),e.getTimestamp(),e.getAuthorId(),e.getRecipientId(),e.isPrivate()));
+        }
+
+        return posts;
+    }
 }
