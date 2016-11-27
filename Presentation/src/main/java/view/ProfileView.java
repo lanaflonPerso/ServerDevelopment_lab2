@@ -203,4 +203,8 @@ public class ProfileView {
             System.out.println("not loggedin");
         }
     }
+
+    public void removeFriend(){
+        profileService.removeFriend();
+    }
 }
