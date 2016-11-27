@@ -56,6 +56,7 @@ public class Account {
         this.profileId = user.getProfileId();
     }
 
+
     public boolean isLoggedin() {
         return loggedin;
     }

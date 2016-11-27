@@ -61,9 +61,9 @@ public class NavigationController {
 
     @PostConstruct
     public void init() {
-        this.currentPage = "index";
         this.renderContent = true;
         this.renderFriend = true;
+        this.currentPage = "feed";
     }
 
     public String getPage() {
@@ -85,6 +85,8 @@ public class NavigationController {
                 return "chatwindow";
             }else if(id.equals("6")){
                 return "profileEdit";
+            }else if(id.equals("42")){
+                return "newHome";
             }
         }
         if(id.equals("5")){
@@ -96,6 +98,7 @@ public class NavigationController {
         } else if(id.equals("0")){
             return "index";
         }
+
         return "index";
     }
 

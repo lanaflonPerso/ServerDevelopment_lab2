@@ -44,7 +44,15 @@ public class BUserLogic {
     }
 
     public BUser createUser(String email, String password){
-        return DBFacade.createNewUser(email, password);
+
+        BUser user = DBFacade.createNewUser(email, password);
+        if (user == null)
+            return null;
+        BProfile profile = DBFacade.getProfileForUserId(user.getId());
+        if (profile == null)
+            return null;
+        user.setProfileId(profile.getId());
+        return user;
     }
 
     public List<BUser> getFriendsByUserId(int id) {
