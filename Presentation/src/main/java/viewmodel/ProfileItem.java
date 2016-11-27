@@ -4,6 +4,7 @@ package viewmodel;
  * Created by o_0 on 2016-11-24.
  */
 public interface ProfileItem {
+
     public int getProfileId();
 
     public String getName();

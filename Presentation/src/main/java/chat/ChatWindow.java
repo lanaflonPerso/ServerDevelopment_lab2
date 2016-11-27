@@ -68,7 +68,7 @@ public class ChatWindow implements Serializable {
     }
     private  void startChat() {
         System.out.println("ChatWindow::startChat");
-        RequestContext.getCurrentInstance().execute("PF('subscriber').connect('/" + chatSession.getUserName() + "')");
+        RequestContext.getCurrentInstance().execute("PF('subscriber').connect('/" + chatSession.getDestinationName() + "')");
         isLoggedin = true;
     }
 
@@ -77,7 +77,7 @@ public class ChatWindow implements Serializable {
         System.out.println("ChatWindow::login prev chatsession: " + chatSession.toString());
         currentUser = (currentUser == null) ? "unknownUser" : currentUser;
         currentUser = (toUser == null) ? "unknowntoUser" : toUser;
-        chatSession.setUserName(currentUser);
+        //chatSession.setUserName(currentUser);
         chatSession.setDestinationName(toUser);
         System.out.println("ChatWindow::login: " + chatSession);
         // this starts the socket connection command in the page,
@@ -98,7 +98,7 @@ public class ChatWindow implements Serializable {
     private ArrayList<String> textLists = new ArrayList<String>();
 
     public void postMsg() {
-        if (chatSession.isLoggedin() == false) {
+        if (chatSession.isChatActive() == false) {
             System.out.println("Not loggedin");
             return;
         }
@@ -113,7 +113,7 @@ public class ChatWindow implements Serializable {
         }else {
             toUser = (toUser == null) ? "unknownUser" : toUser;
 //            RestBackendLink.sendChatMessage(new ChatMessageVM(theMessage,currentUser,toUser));
-            RestBackendLink.sendChatMessage(new ChatMessageVM(theMessage,chatSession.getUserName(),chatSession.getDestinationName()));
+            RestBackendLink.sendChatMessage(new ChatMessageVM(theMessage,"username_tmp",chatSession.getDestinationName()));
         }
         //FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get();
         //eventBus.publish()

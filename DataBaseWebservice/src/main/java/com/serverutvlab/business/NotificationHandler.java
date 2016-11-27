@@ -14,7 +14,8 @@ public class NotificationHandler {
     }
 
     public static void chatRequestNotification(int senderId,int targetId) {
-        String s = new Gson().toJson(new SNotification(""+senderId));
+        //String s = new Gson().toJson(new SNotification(""+senderId));
+        String s = "" + senderId;
         FrontendRestLink.sendNotification(targetId,"chatRequest",s);
     }
 }

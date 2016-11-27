@@ -4,23 +4,23 @@ package viewmodel;
  * Created by o_0 on 2016-11-27.
  */
 public class NotificationVM {
-    private String message;
+    private String data;
     private String what;
 
     public NotificationVM() {
     }
 
-    public NotificationVM(String message, String what) {
-        this.message = message;
+    public NotificationVM(String data, String what) {
+        this.data = data;
         this.what = what;
     }
 
-    public String getMessage() {
-        return message;
+    public String getData() {
+        return data;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setData(String data) {
+        this.data = data;
     }
 
     public String getWhat() {
@@ -34,7 +34,7 @@ public class NotificationVM {
     @Override
     public String toString() {
         return "NotificationVM{" +
-                "message='" + message + '\'' +
+                "data='" + data + '\'' +
                 ", what='" + what + '\'' +
                 '}';
     }

@@ -38,6 +38,11 @@ public class ProfileService implements ProfileItem {
     private int selectedUserId;
     private int profileId;
 
+    public int getSelectedUserId() {
+        return selectedUserId;
+    }
+
+
     public int getProfileId() {
         return profileId;
     }

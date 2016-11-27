@@ -12,63 +12,64 @@
 <h:body>
     <f:view>
         <h:form>
-        <p:commandButton value="MyProfile" actionListener="#{profileView.showMyProfile(true)}" update=":mycontent" />
-        <p:commandButton value="UnFriend this person"
-                         actionListener="#{profileView.removeFriend()}" update=":mycontent"
-                         oncomplete="updateFriend()"
+            <p:commandButton value="MyProfile" actionListener="#{profileView.showMyProfile(true)}" update=":mycontent"/>
+            <p:commandButton value="Chat" actionListener="#{chatView.sendChatRequest(profileView.selectedUserId)}" update=":mycontent"/>
+            <p:commandButton value="UnFriend this person"
+                             actionListener="#{profileView.removeFriend()}" update=":mycontent"
+                             oncomplete="updateFriend()"
 
-        />
-        <h:panelGroup id="profileData">
-            <ul>
-                <li>
-                    <h:outputLabel value="Name: "/>
-                    <h:outputLabel value="#{profileView.name}"/>
-                </li>
+            />
+            <h:panelGroup id="profileData">
+                <ul>
+                    <li>
+                        <h:outputLabel value="Name: "/>
+                        <h:outputLabel value="#{profileView.name}"/>
+                    </li>
 
-                <li>
-                    <h:outputLabel value="info: "/>
-                    <h:outputText value="#{profileView.info}"/>
+                    <li>
+                        <h:outputLabel value="info: "/>
+                        <h:outputText value="#{profileView.info}"/>
 
-                </li>
-                <li>
-                    <h:outputLabel value="age: "/>
-                    <h:outputLabel value="#{profileView.age}"/>
-                </li>
-                <li>
+                    </li>
+                    <li>
+                        <h:outputLabel value="age: "/>
+                        <h:outputLabel value="#{profileView.age}"/>
+                    </li>
+                    <li>
 
-                    <h:outputLabel value="relationshipStatus: "/>
-                    <h:outputLabel value="#{profileView.relationshipStatus}"/>
-                </li>
-            </ul>
-        </h:panelGroup>
+                        <h:outputLabel value="relationshipStatus: "/>
+                        <h:outputLabel value="#{profileView.relationshipStatus}"/>
+                    </li>
+                </ul>
+            </h:panelGroup>
         </h:form>
         <h:form>
-        <p:dataList value="#{profileView.feed}" var="post" type="ordered">
-            <f:facet name="header">
-                Posts
-            </f:facet>
-            <ul>
-                <li>
-                    <h:outputLabel value="#{post.authorName}"/>
-                    <h:outputLabel value=" -> "/>
-                    <h:outputLabel value="#{post.recipientName}"/>
-                </li>
+            <p:dataList value="#{profileView.feed}" var="post" type="ordered">
+                <f:facet name="header">
+                    Posts
+                </f:facet>
+                <ul>
+                    <li>
+                        <h:outputLabel value="#{post.authorName}"/>
+                        <h:outputLabel value=" -> "/>
+                        <h:outputLabel value="#{post.recipientName}"/>
+                    </li>
 
-                <li>
-                    <h:outputLabel value="Subject: "/>
-                    <h:outputText value="#{post.subject}"/>
+                    <li>
+                        <h:outputLabel value="Subject: "/>
+                        <h:outputText value="#{post.subject}"/>
 
-                </li>
-                <li>
-                    <h:outputLabel value="Meesage:  "/>
-                    <h:outputLabel value="#{post.messageBody}"/>
-                </li>
-                <li>
-                    <h:outputLabel value="#{post.timestamp}"/>
-                </li>
-            </ul>
+                    </li>
+                    <li>
+                        <h:outputLabel value="Meesage:  "/>
+                        <h:outputLabel value="#{post.messageBody}"/>
+                    </li>
+                    <li>
+                        <h:outputLabel value="#{post.timestamp}"/>
+                    </li>
+                </ul>
 
-        </p:dataList>
+            </p:dataList>
         </h:form>
         <h:form>
             <ul>

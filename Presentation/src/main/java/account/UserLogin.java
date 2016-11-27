@@ -16,8 +16,8 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 public class UserLogin {
-    @ManagedProperty("#{chatSession}")
-    private ChatSession chatSession;
+//    @ManagedProperty("#{chatSession}")
+//    private ChatSession chatSession;
 
     @ManagedProperty("#{account}")
     private Account userAccount;
@@ -29,14 +29,14 @@ public class UserLogin {
     public void setUserAccount(Account userAccount) {
         this.userAccount = userAccount;
     }
-
-    public ChatSession getChatSession() {
-        return chatSession;
-    }
-
-    public void setChatSession(ChatSession chatSession) {
-        this.chatSession = chatSession;
-    }
+//
+//    public ChatSession getChatSession() {
+//        return chatSession;
+//    }
+//
+//    public void setChatSession(ChatSession chatSession) {
+//        this.chatSession = chatSession;
+//    }
 
     private String userName = null;
     private String password = null;
@@ -67,9 +67,9 @@ public class UserLogin {
         System.out.println("user: " + userName + " pass: " + password);
         UserVM userVM = BackendFacade.loginUser(userName, password);
         if (userVM != null) {
-            chatSession.setUserName(userName);
-            chatSession.setDestinationName(userName);
-            chatSession.setLoggedin(true);
+//            chatSession.setUserName(userName);
+//            chatSession.setDestinationName(userName);
+//            chatSession.setLoggedin(true);
 
             userAccount.fillAccount(userVM);
 //            userAccount.setUserId(userVM.getUserId());
@@ -82,7 +82,7 @@ public class UserLogin {
         }else {
             System.out.println("user failed to loggedin: ");
         }
-        System.out.println("chat have loggedin: " + chatSession.toString());
+        System.out.println("chat have loggedin: " );
         return true;
     }
 

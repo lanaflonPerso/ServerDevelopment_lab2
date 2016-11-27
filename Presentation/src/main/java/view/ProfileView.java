@@ -71,6 +71,8 @@ public class ProfileView {
         this.profileService = profileService;
     }
 
+    public int getSelectedUserId() {return profileService.getSelectedUserId();}
+
     public String getName() {
         return profileService.getName();
     }

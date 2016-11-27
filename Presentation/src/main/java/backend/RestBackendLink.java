@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 public class RestBackendLink {
-    private final static String backendAddress = "http://localhost:8690/";
+    private final static String backendAddress = "http://localhost:8090/";
 
     public static boolean sendChatMessage(ChatMessageVM chatMessageVM) {
         System.out.println("RestBackendLink::sendChatMessage");
@@ -26,6 +26,17 @@ public class RestBackendLink {
         System.out.println("Sending json string: " + s);
 
         String s1 = RestBackendLink.doRestJsonPost("services/chatService/","sendmessage",s);
+        System.out.println("Response is: " + s1);
+        return true;
+    }
+
+    public static boolean sendChatRequest(ChatMessageVM chatMessageVM) {
+        System.out.println("RestBackendLink::sendChatRequest");
+        //ChatMessageVM chatMessageVM = new ChatMessageVM("the message", "this is me", "recive it dude");
+        String s = new Gson().toJson(chatMessageVM, ChatMessageVM.class);
+        System.out.println("Sending json string: " + s);
+
+        String s1 = RestBackendLink.doRestJsonPost("services/chatService/","chatRequest",s);
         System.out.println("Response is: " + s1);
         return true;
     }

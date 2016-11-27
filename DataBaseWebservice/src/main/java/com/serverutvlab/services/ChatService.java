@@ -58,7 +58,7 @@ public class ChatService {
         System.out.println("ChatService::chatRequest: " + messageJson);
         ChatMessageVM chatMessageVM = new Gson().fromJson(messageJson, ChatMessageVM.class);
         //BFacade.registerUser(email,password);
-        boolean result = BFacade.sendMessage(chatMessageVM);
+        boolean result = BFacade.sendChatRequest(chatMessageVM);
 
         resultMap.put("success", result);
 

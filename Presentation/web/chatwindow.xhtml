@@ -14,7 +14,7 @@
 
     <h:outputLabel value="Hello, world"/>
 
-    <h:form id="chatform">
+    <h:form id="chatddform">
         <p:remoteCommand name="updateList" update="mytest" process="@this" />
 
         <h:panelGroup>
@@ -40,10 +40,10 @@
 </f:view>
 <script type="text/javascript">
     function handleMessage(chatMessageVM) {
-        alert("char msg" +  chatMessageVM.fromUser + ':' + chatMessageVM.toUser + ':' + chatMessageVM.message);
+        alert("char msg" +  chatMessageVM.fromUser + ':' + chatMessageVM.toUser + ':' + chatMessageVM.data);
 
         var dat = $(PrimeFaces.escapeClientId('chatform:msgout'));
-        var text = chatMessageVM.fromUser + ':' + chatMessageVM.toUser + ':' + chatMessageVM.message;
+        var text = chatMessageVM.fromUser + ':' + chatMessageVM.toUser + ':' + chatMessageVM.data;
 
         dat.append(text + '<br />');
 

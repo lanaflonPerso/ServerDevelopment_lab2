@@ -52,4 +52,14 @@ public class ChatSession {
         return b;
     }
 
+    public boolean sendChatRequest(int userId,String message) {
+//        if (chatActive == false) {
+//            System.out.println("sendChatMessage:chat is not active");
+//            return false;
+//        }
+        System.out.println("sendChatRequest");
+        boolean b = RestBackendLink.sendChatRequest(new ChatMessageVM(message, "" + userId, "" + destinatinoId));
+        return b;
+    }
+
 }

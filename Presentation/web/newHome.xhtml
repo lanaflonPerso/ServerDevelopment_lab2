@@ -59,23 +59,36 @@
     </p:layoutUnit>
 
     <h:form id="chatRemote">
-        <p:remoteCommand name="updateContent" update="mycontent"/>
+        <h:inputHidden id="remoteuserid" value="#{chatView.destinationId}"/>
+        <p:remoteCommand name="updateChatReq" actionListener="#{chatView.startChat}"/>
     </h:form>
 
     <p:layoutUnit position="north" resizable="true" size="200">
         <h:panelGroup id="chatReq" layout="block">
             <h:panelGroup rendered="#{navigationController.renderContent}">
-                <ui:include src="friends.xhtml"/>
+
             </h:panelGroup>
         </h:panelGroup>
     </p:layoutUnit>
 </p:layout>
+
     <p:socket onMessage="handleNotification" channel="/notify/#{navigationController.notificationChannel}" />
 </f:view>
 <script type="text/javascript">
-    function handleNotification(message) {
-        alert("messag: " + message.what + " : " + message.message);
-        updateFriend();
+    function handleNotification(data) {
+
+        if (data.what == "newfriend") {
+            alert("messag: " + data.what + " : " + data.data);
+            updateFriend();
+        }
+        if (data.what == "chatRequest") {
+
+            alert("what: " + data.what + " data.data.message: " + data.data);
+            document.getElementById('chatRemote:remoteuserid').value = data.data;
+            updateChatReq();
+        }
+
+
 
     }
 </script>

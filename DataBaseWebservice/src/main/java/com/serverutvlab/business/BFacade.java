@@ -265,6 +265,7 @@ public class BFacade {
             System.out.println("sendChatRequest: format exeption");
             return false;
         }
+        System.out.println("BFacade:sendChatRequest: " + senderId + " targetId: " + targetId );
         NotificationHandler.chatRequestNotification(senderId,targetId);
 
         return true;

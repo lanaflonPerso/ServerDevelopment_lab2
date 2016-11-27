@@ -1,8 +1,10 @@
 package view;
 
 import account.Account;
+import backend.BackendFacade;
 import chat.ChatSession;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -36,7 +38,14 @@ public class ChatView {
     }
 
     private String message;
+    private String destinationId;
 
+
+    @PostConstruct
+    public void init() {
+        this.message = "";
+        this.destinationId = "";
+    }
     public String getMessage() {
         return message;
     }
@@ -45,7 +54,22 @@ public class ChatView {
         this.message = message;
     }
 
+    public String getDestinationId() {
+        return destinationId;
+    }
+
+    public void setDestinationId(String destinationId) {
+        this.destinationId = destinationId;
+    }
+
     public void startChat() {
-        System.out.println("chat started: To user: " + chatSession.getDestinationName() + "  from: " + userAccount.getUsername());
+        System.out.println("chat started: To user: " + chatSession.getDestinationName() + "  from: " + userAccount.getUsername() + " destIdHidden:" + destinationId);
+    }
+
+    public void sendChatRequest(int destId) {
+        this.destinationId = "" + destId;
+        chatSession.setDestinatinoId(destId);
+        chatSession.sendChatRequest(userAccount.getUserId(),"chat");
+
     }
 }

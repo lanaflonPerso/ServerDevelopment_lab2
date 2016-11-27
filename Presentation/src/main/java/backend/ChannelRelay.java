@@ -14,7 +14,7 @@ public class ChannelRelay {
     private final EventBus eventBus = EventBusFactory.getDefault().eventBus();
     private static final String CHANNEL = "/notify/";
 
-    public boolean channeöNotification(SChannelNotification chNotifaction) {
+    public boolean channelNotification(SChannelNotification chNotifaction) {
         if (chNotifaction == null) {
             return false;
         }
@@ -23,10 +23,11 @@ public class ChannelRelay {
             return channelRelay(chNotifaction.getTargetChannel(),new NotificationVM(chNotifaction.getJsonObject(),what));
 
         } else if (what.equals("chatRequest") ){
+            System.out.println("channelNotification:chatRequest -> json: " + chNotifaction.getJsonObject() );
             return channelRelay(chNotifaction.getTargetChannel(),new NotificationVM(chNotifaction.getJsonObject(),what));
 
         }else {
-            System.out.println("channeöNotification  failed what = " + what);
+            System.out.println("channelNotification  failed what = " + what);
         }
 
         return channelRelayJson(chNotifaction.getTargetChannel(),chNotifaction.getJsonObject());
@@ -39,6 +40,7 @@ public class ChannelRelay {
             return false;
         }else {
 //            eventBus.publish(CHANNEL + "", "message text");
+            System.out.println("channelRelay: eventbus: channel: " + CHANNEL + channel + " notif: " + notication.toString());
             eventBus.publish(CHANNEL + channel,notication);
         }
         return true;
