@@ -8,7 +8,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <!--<h:head><title>testtest</title></h:head>-->
 
-<h:head></h:head>
+<!--<h:head></h:head>-->
 <f:view>
     <h:outputLabel value="Hello, world"/>
     <h:form id="makefriendform">
@@ -18,7 +18,7 @@
             <f:facet name="header">
                 My new Friends ?
             </f:facet>
-            <p:commandButton value="#{mylist.name}" action="#{searchForFriends.makeNewFriends(mylist.id)}" oncomplete="updateFriend()"/>
+            <p:commandButton value="#{mylist.name}" actionListener="#{searchForFriends.makeNewFriends(mylist.id)}" update="updatefriendlist()" oncomplete="updateFriend()"/>
 
 
         </p:dataList>

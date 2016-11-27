@@ -35,6 +35,9 @@ public class SearchForFriends implements Serializable {
     @PostConstruct
     public void init() {
         this.nonFriends = friendService.loadNonFriends();
+        if (this.nonFriends == null) {
+            this.nonFriends = new ArrayList<FriendVM>();
+        }
 
     }
 
@@ -49,6 +52,11 @@ public class SearchForFriends implements Serializable {
     public void makeNewFriends(int friendId) {
         if(friendService.makeFriend(friendId)) {
             nonFriends = friendService.getNonFriendList();
+        }else {
+            System.out.println("SearchForFriends::makeNewFriends failed");
+        }
+        if (this.nonFriends == null) {
+            this.nonFriends = new ArrayList<FriendVM>();
         }
     }
 

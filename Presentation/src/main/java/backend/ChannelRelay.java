@@ -1,5 +1,6 @@
 package backend;
 
+import backend.SModels.SChannelNotification;
 import chat.ChatMessageVM;
 import com.google.gson.Gson;
 import org.primefaces.push.EventBus;
@@ -11,6 +12,13 @@ import org.primefaces.push.EventBusFactory;
 public class ChannelRelay {
     private final EventBus eventBus = EventBusFactory.getDefault().eventBus();
     private static final String CHANNEL = "/notify/";
+
+    public boolean channeöNotification(SChannelNotification chNotifaction) {
+        if (chNotifaction == null) {
+            return false;
+        }
+        return channelRelay(chNotifaction.getTargetChannel(),chNotifaction.getJsonObject());
+    }
 
     public boolean channelRelay(String channel,String json) {
 

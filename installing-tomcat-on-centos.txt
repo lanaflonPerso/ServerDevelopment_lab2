@@ -1,6 +1,7 @@
 Fixa tomcat på boxarna:
 
 sudo yum install java-1.8.0-openjdk-devel
+sudo groupadd tomcat
 sudo useradd -M -s /bin/nologin -g tomcat -d /opt/tomcat tomcat
 cd ~
 
@@ -19,9 +20,9 @@ sudo chmod g+r conf/ *
 sudo chown -R tomcat webapps/ work/ temp/ logs/
 
 tror man behöver ??
-chgrp -R tomcat bin
-chmod g+rwx bin
-chmod g+r bin/ *
+sudo chgrp -R tomcat bin
+sudo chmod g+rwx bin
+sudo chmod g+r bin/ *
 
 sudo nano /etc/systemd/system/tomcat.service
 

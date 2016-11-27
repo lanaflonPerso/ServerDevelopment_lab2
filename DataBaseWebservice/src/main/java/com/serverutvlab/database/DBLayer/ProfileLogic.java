@@ -24,6 +24,10 @@ public class ProfileLogic {
         } catch (NoResultException e) {
             System.out.println(" no result for query");
             return null;
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
         }
 
         return profile;
@@ -61,6 +65,10 @@ public class ProfileLogic {
         } catch (NoResultException e) {
             System.out.println(" no result for query");
             return null;
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
         }
 
         return profile;

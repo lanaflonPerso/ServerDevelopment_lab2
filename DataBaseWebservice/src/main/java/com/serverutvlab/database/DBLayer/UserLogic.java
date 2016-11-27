@@ -48,9 +48,17 @@ public class UserLogic {
     public List<UserEntity> getAllUsers() {
 
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
-        List<UserEntity> resultList = entityManager.createQuery("from UserEntity ").getResultList();
-        System.out.println("UserLogic::getAllUsers list count = " + resultList.size());
-        entityManager.close();
+        List<UserEntity> resultList = null;
+        try {
+            resultList = entityManager.createQuery("from UserEntity ").getResultList();
+            System.out.println("UserLogic::getAllUsers list count = " + resultList.size());
+
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+        }
+
         return resultList;
     }
 
@@ -58,21 +66,26 @@ public class UserLogic {
     public BUser authenticateUser(String e, String p) {
         //List<UserEntity> resultList = entityManager.createQuery("from UserEntity where email=" + e + " and password ="+ p).getResultList();
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
-        Query q = entityManager.createQuery("from UserEntity user where user.email = ?1 and user.password = ?2");
-        q.setParameter(1, e);
-        q.setParameter(2, p);
-        List<UserEntity> resultList = q.getResultList();
-
-
-        System.out.println("UserLogic::authenticateUser list = " + resultList);
-        System.out.println("UserLogic::authenticateUser list count = " + resultList.size());
         BUser user = null;
-        if (resultList.size() == 1) {
-            UserEntity userEntity = resultList.get(0);
-            user = new BUser(userEntity.getId(), userEntity.getEmail(), "");
-        }
+        try {
+            Query q = entityManager.createQuery("from UserEntity user where user.email = ?1 and user.password = ?2");
+            q.setParameter(1, e);
+            q.setParameter(2, p);
+            List<UserEntity> resultList = q.getResultList();
 
-        entityManager.close();
+
+            System.out.println("UserLogic::authenticateUser list = " + resultList);
+            System.out.println("UserLogic::authenticateUser list count = " + resultList.size());
+
+            if (resultList.size() == 1) {
+                UserEntity userEntity = resultList.get(0);
+                user = new BUser(userEntity.getId(), userEntity.getEmail(), "");
+            }
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+        }
         return user;
     }
 
@@ -92,6 +105,10 @@ public class UserLogic {
         } catch (Exception e){
             e.printStackTrace();
             return null;
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
         }
         return userEntity;
     }
@@ -162,6 +179,10 @@ public class UserLogic {
         } catch (Exception e){
             e.printStackTrace();
             return null;
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
         }
 
         return resultList;

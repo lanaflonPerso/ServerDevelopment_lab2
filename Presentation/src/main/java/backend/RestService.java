@@ -50,7 +50,8 @@ public class RestService {
         System.out.println("ChatService::sendMessage: " + messageJson);
         SChannelNotification channelInfo = new Gson().fromJson(messageJson, SChannelNotification.class);
 
-        boolean result = new ChannelRelay().channelRelay(channelInfo.getTargetChannel(),channelInfo.getJsonObject());
+//        boolean result = new ChannelRelay().channelRelay(channelInfo.getTargetChannel(),channelInfo.getJsonObject());
+        boolean result = new ChannelRelay().channeöNotification(channelInfo);
 
         resultMap.put("success", result);
 
