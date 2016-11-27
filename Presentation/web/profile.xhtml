@@ -13,6 +13,11 @@
     <f:view>
         <h:form>
         <p:commandButton value="MyProfile" actionListener="#{profileView.showMyProfile(true)}" update=":mycontent" />
+        <p:commandButton value="UnFriend this person"
+                         actionListener="#{profileView.removeFriend()}" update=":mycontent"
+                         oncomplete="updateFriend()"
+
+        />
         <h:panelGroup id="profileData">
             <ul>
                 <li>

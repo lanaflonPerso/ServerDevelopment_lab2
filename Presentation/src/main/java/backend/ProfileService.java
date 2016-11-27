@@ -168,4 +168,9 @@ public class ProfileService implements ProfileItem {
         //wallPosts = BackendFacade.getPostForProfile(profileId, userAccount.getUserId());
         return updateFeed();//wallPosts;
     }
+
+    public void removeFriend(){
+        if (userAccount.getUserId() != selectedUserId)
+            BackendFacade.removeFriend(userAccount.getUserId(),selectedUserId);
+    }
 }

@@ -38,6 +38,23 @@ public class PostLogic {
         return resultList == null? new ArrayList<PostEntity>() : resultList;
     }
 
+
+    public List<PostEntity> getAllPosts(){
+        EntityManager entityManager = null;
+        List<PostEntity> resultList = null;
+        try {
+            entityManager = DBManager.getInstance().createEntityManager();
+            Query q = entityManager.createQuery("from PostEntity");
+            resultList = q.getResultList();
+
+        }finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+        }
+        return resultList;
+    }
+
     public PostEntity createPost(int auhtoridId, int recipientId, String subject, String messageBody, ProfileEntity postedTo, ProfileEntity postedFrom, boolean isPrivate) {
 
         PostEntity post = new PostEntity();
@@ -50,6 +67,7 @@ public class PostLogic {
         post.setAuthorName(postedFrom.getName());
         post.setRecipientName(postedTo.getName());
         post.setPrivate(isPrivate);
+        System.out.println("Inserting post: "+post.toString());
 
         EntityManager entityManager = DBManager.getInstance().createEntityManager();
         try {

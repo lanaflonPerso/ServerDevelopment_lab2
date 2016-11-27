@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 public class RestBackendLink {
-    private final static String backendAddress = "http://localhost:8090/";
+    private final static String backendAddress = "http://localhost:8690/";
 
     public static boolean sendChatMessage(ChatMessageVM chatMessageVM) {
         System.out.println("RestBackendLink::sendChatMessage");

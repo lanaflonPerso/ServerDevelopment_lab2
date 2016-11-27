@@ -145,4 +145,20 @@ public class PostEntity {
     public void setPostedTo(ProfileEntity postedTo) {
         this.postedTo = postedTo;
     }
+
+    @Override
+    public String toString() {
+        return "PostEntity{" +
+                "id=" + id +
+                ", subject='" + subject + '\'' +
+                ", messageBody='" + messageBody + '\'' +
+                ", timestamp=" + timestamp +
+                ", authorName='" + authorName + '\'' +
+                ", recipientName='" + recipientName + '\'' +
+                ", authorId=" + authorId +
+                ", recipientId=" + recipientId +
+                ", postedTo=" + postedTo +
+                ", isPrivate=" + isPrivate +
+                '}';
+    }
 }
