@@ -85,6 +85,11 @@ public class NavigationController {
         //this.renderContent = true;
     }
 
+    public void setChatBoxPage() {
+        this.renderChatReq = false;
+        this.currentPage = "chatbox";
+    }
+
     public String moveToSelection(String id) {
         if (userAccount.isLoggedin()) {
             if(id.equals("1")) {

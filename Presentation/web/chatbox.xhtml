@@ -10,6 +10,10 @@
 
 <body>
 <f:view>
+    <h:form>
+
+        <p:commandButton value="start chat" actionListener="#{chatView.startChat}"/>
+    </h:form>
     <h:form id="chatinput">
         <h:inputHidden id="chatsenderMsg" value="#{chatView.incomingMsg}"/>
         <p:remoteCommand name="updateChatinput" actionListener="#{chatView.updateChatBox}" update=":msgboard"/>
@@ -36,17 +40,12 @@
 
         <h:outputLabel value="Message: "/>
         <p:inputText value="#{chatView.message}"/>
-        <p:commandButton value="Send" actionListener="#{chatView.se}" oncomplete="updateContent()" />
+        <p:commandButton value="Send" actionListener="#{chatView.sendChatMessage}" oncomplete="updateContent()" />
+        <p:commandButton value="end chat" actionListener="#{chatView.endChat}" action="#{navigationController.setPage('profile')}" oncomplete="updateContent()"/>
     </h:form>
 
-    <p:socket onMessage="handleChatMessage" channel="/#{chatView.chatRoom}" autoConnect="false" widgetVar='subscriber' />
+
 </f:view>
-<script type="text/javascript">
-    function handleChatMessage(chatMessageVM) {
-        alert("char msg" +  chatMessageVM.fromUser + ':' + chatMessageVM.toUser + ':' + chatMessageVM.message);
-        document.getElementById('chatinput:chatsenderMsg').value = chatMessageVM.message;
-        updateChatinput();
-    }
-</script>
+
 </body>
 </html>

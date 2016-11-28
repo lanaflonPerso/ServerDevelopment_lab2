@@ -13,68 +13,86 @@
 </h:head>
 <body>
 <f:view>
-<p:layout style="min-width:400px;min-height:800px;">
-    <h:form>
-        <p:remoteCommand name="updateFriend" actionListener="#{friends.updateFriends}" update="myfriends"/>
-        <p:remoteCommand name="updateContent" update="mycontent"/>
-        <p:remoteCommand name="updateChatAccept" update="chatReq"/>
-    </h:form>
-    <p:layoutUnit position="north" size="50">
-        Communitizer
-    </p:layoutUnit>
-    <p:layoutUnit position="west" resizable="true" size="200" minSize="100" maxSize="200">
-        <h:panelGroup id="menu" layout="block">
-            <h:form>
-                <!--<f:ajax render=":mycontent" update="updateFriend() updateContent()">-->
+    <p:layout style="min-width:400px;min-height:800px;">
+        <h:form>
+            <p:remoteCommand name="updateNewFriends" actionListener="#{friends.updateFriends}" update="mycontent myfriends"/>
+            <p:remoteCommand name="updateFriend" actionListener="#{friends.updateFriends}" update="myfriends"/>
+            <p:remoteCommand name="updateContent" update="mycontent"/>
+            <p:remoteCommand name="updateChatAccept" update="chatReq"/>
+        </h:form>
+        <p:layoutUnit position="north" size="50">
+            Communitizer
+        </p:layoutUnit>
+        <p:layoutUnit position="west" resizable="true" size="200" minSize="100" maxSize="200">
+            <h:panelGroup id="menu" layout="block">
+                <h:form>
+                    <!--<f:ajax render=":mycontent" update="updateFriend() updateContent()">-->
                     <ul>
-                        <li><p:commandLink value="Feed" actionListener="#{navigationController.setPage('Feed')}" oncomplete="updateContent()"/></li>
-                        <li><p:commandLink value="GetNewFriends" actionListener="#{navigationController.setPage('GetNewFriends')}" oncomplete="updateContent()"/></li>
-                        <li><p:commandLink value="Page1" actionListener="#{navigationController.setPage('Page1')}" oncomplete="updateContent()"/></li>
-                        <li><p:commandLink value="profile" actionListener="#{navigationController.setPage('profile')}" oncomplete="updateContent()"/></li>
-                        <li><p:commandLink value="edit profile" actionListener="#{navigationController.setPage('profileEdit')}" oncomplete="updateContent()"/></li>
-                        <li><p:commandLink value="Page2" actionListener="#{navigationController.setPage('Page2')}" oncomplete="updateContent()"/></li>
+                        <li><p:commandLink value="Feed" actionListener="#{navigationController.setPage('Feed')}"
+                                           oncomplete="updateContent()"/></li>
+                        <li><p:commandLink value="GetNewFriends"
+                                           actionListener="#{navigationController.setPage('GetNewFriends')}"
+                                           oncomplete="updateContent()"/></li>
+                        <li><p:commandLink value="Page1" actionListener="#{navigationController.setPage('Page1')}"
+                                           oncomplete="updateContent()"/></li>
+                        <li><p:commandLink value="profile" actionListener="#{navigationController.setPage('profile')}"
+                                           oncomplete="updateContent()"/></li>
+                        <li><p:commandLink value="edit profile"
+                                           actionListener="#{navigationController.setPage('profileEdit')}"
+                                           oncomplete="updateContent()"/></li>
+                        <li><p:commandLink value="Page2" actionListener="#{navigationController.setPage('Page2')}"
+                                           oncomplete="updateContent()"/></li>
                     </ul>
-                <!--</f:ajax>-->
-                <h:commandButton value="Logout" action="#{navigationController.goToStart}"/>
-            </h:form>
-        </h:panelGroup>
-        <!--<h:panelGroup id="content" layout="block">-->
+                    <!--</f:ajax>-->
+                    <h:commandButton value="Logout" action="#{navigationController.goToStart}"/>
+                </h:form>
+            </h:panelGroup>
+            <!--<h:panelGroup id="content" layout="block">-->
             <!--<ui:include src="#{bean.page}.xhtml"/>-->
-        <!--</h:panelGroup>-->
-    </p:layoutUnit>
+            <!--</h:panelGroup>-->
+            <h:panelGroup id="chatReq" layout="block">
+                <h:panelGroup rendered="#{navigationController.renderChatReq}">
+                    <h:form>
 
-    <p:layoutUnit position="center" resizable="true">
-        <h:panelGroup id="mycontent" layout="block">
-            <h:panelGroup rendered="#{navigationController.renderContent}">
-                <ui:include src="#{navigationController.page}.xhtml"/>
+                        <p:commandButton value="Chat"
+                                         actionListener="#{chatView.acceptChatRequest}"
+                                         action="#{navigationController.setChatBoxPage}" update=":mycontent"/>
+                    </h:form>
+
+                </h:panelGroup>
             </h:panelGroup>
-        </h:panelGroup>
-    </p:layoutUnit>
 
-    <p:layoutUnit position="east" resizable="true" size="200">
-        <h:panelGroup id="myfriends" layout="block">
-            <h:panelGroup rendered="#{navigationController.renderContent}">
-                <ui:include src="friends.xhtml"/>
+        </p:layoutUnit>
+
+        <p:layoutUnit position="center" resizable="true">
+            <h:panelGroup id="mycontent" layout="block">
+                <h:panelGroup rendered="#{navigationController.renderContent}">
+                    <ui:include src="#{navigationController.page}.xhtml"/>
+                </h:panelGroup>
             </h:panelGroup>
-        </h:panelGroup>
-    </p:layoutUnit>
+        </p:layoutUnit>
 
-    <h:form id="chatRemote">
-        <h:inputHidden id="remoteuserid" value="#{chatView.destinationId}"/>
-        <p:remoteCommand name="updateChatReq" actionListener="#{navigationController.setRenderChatReq(true)}" oncomplete="updateChatAccept()"/>
-    </h:form>
-
-    <p:layoutUnit position="south" resizable="true" size="200">
-        <h:panelGroup id="chatReq" layout="block">
-            <h:panelGroup rendered="#{navigationController.renderChatReq}">
-                <p:commandButton value="Chat" actionListener="#{chatView.startChat}" action="#{navigationController.setPage('chatbox')}" oncomplete="updateContent()"/>
-
+        <p:layoutUnit position="east" resizable="true" size="200">
+            <h:panelGroup id="myfriends" layout="block">
+                <h:panelGroup rendered="#{navigationController.renderContent}">
+                    <ui:include src="friends.xhtml"/>
+                </h:panelGroup>
             </h:panelGroup>
-        </h:panelGroup>
-    </p:layoutUnit>
-</p:layout>
+        </p:layoutUnit>
 
-    <p:socket onMessage="handleNotification" channel="/notify/#{navigationController.notificationChannel}" />
+        <h:form id="chatRemote">
+            <h:inputHidden id="remoteuserid" value="#{chatView.destinationId}"/>
+            <p:remoteCommand name="updateChatReq" actionListener="#{navigationController.setRenderChatReq(true)}"
+                             oncomplete="updateChatAccept()"/>
+        </h:form>
+
+        <p:layoutUnit position="south" resizable="true" size="200">
+
+        </p:layoutUnit>
+    </p:layout>
+
+    <p:socket onMessage="handleNotification" channel="/notify/#{navigationController.notificationChannel}"/>
+    <p:socket onMessage="handleChatMessage" channel="/chat/#{chatView.chatRoom}" widgetVar='subscriber'/>
 </f:view>
 <script type="text/javascript">
     function handleNotification(data) {
@@ -90,9 +108,14 @@
             updateChatReq();
         }
 
-
-
     }
+
+    function handleChatMessage(chatMessageVM) {
+        alert("char msg" + chatMessageVM.fromUser + ':' + chatMessageVM.toUser + ':' + chatMessageVM.message);
+        document.getElementById('chatinput:chatsenderMsg').value = chatMessageVM.message;
+        updateChatinput();
+    }
+
 </script>
 </body>
 </html>

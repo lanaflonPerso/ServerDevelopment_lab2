@@ -31,7 +31,7 @@ public class RestService {
     @Produces(MediaType.TEXT_PLAIN)
     public Response channelMessage(String messageJson) {
         Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
-        System.out.println("ChatService::sendMessage: " + messageJson);
+        System.out.println("ChatService::chatMessage incoming: " + messageJson);
         boolean result = new ChatChannelRelay().channelRelay(messageJson);
 
         resultMap.put("success", result);

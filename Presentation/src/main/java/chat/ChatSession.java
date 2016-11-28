@@ -1,5 +1,6 @@
 package chat;
 
+import account.Account;
 import backend.BackendFacade;
 import backend.RestBackendLink;
 import org.primefaces.push.EventBus;
@@ -8,18 +9,38 @@ import viewmodel.UserVM;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 /**
  * Created by o_0 on 2016-11-23.
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class ChatSession {
     private final EventBus eventBus = EventBusFactory.getDefault().eventBus();
+//    private String userName;
     private int destinatinoId;
     private String destinationName;
     private boolean chatActive;
+
+    @ManagedProperty("#{account}")
+    private Account userAccount;
+
+    public Account getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(Account userAccount) {
+        this.userAccount = userAccount;
+    }
+
+
+    public String getUserName() {
+        return userAccount.getUsername();
+    }
+
 
     public int getDestinatinoId() {
         return destinatinoId;
@@ -45,19 +66,26 @@ public class ChatSession {
         this.chatActive = chatActive;
     }
 
-    public boolean sendChatMessage(int userId,String message) {
+    @PostConstruct
+    public void init() {
+        this.chatActive = false;
+    }
+
+    public boolean sendChatMessage(String message) {
         if (chatActive == false) {
             System.out.println("sendChatMessage:chat is not active");
             return false;
         }
         System.out.println("sendChatMessage");
-        boolean b = RestBackendLink.sendChatMessage(new ChatMessageVM(message, "" + userId, "" + destinatinoId));
+//        boolean b = RestBackendLink.sendChatMessage(new ChatMessageVM(message, "" + userId, "" + destinatinoId));
+        boolean b = RestBackendLink.sendChatMessage(new ChatMessageVM(message, userAccount.getUsername(), destinationName));
         return b;
     }
 
-    public boolean sendChatRequest(int userId,String message) {
+    public boolean sendChatRequest(String message) {
         System.out.println("sendChatRequest");
-        boolean b = RestBackendLink.sendChatRequest(new ChatMessageVM(message, "" + userId, "" + destinatinoId));
+        boolean b = RestBackendLink.sendChatRequest(new ChatMessageVM(message, "" + userAccount.getUserId(), "" + destinatinoId));
+//        boolean b = RestBackendLink.sendChatRequest(new ChatMessageVM(message, userName, destinationName));
         if (b) {
             chatActive = true;
         }

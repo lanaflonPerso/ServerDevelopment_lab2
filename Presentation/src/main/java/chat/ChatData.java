@@ -9,7 +9,6 @@ import org.primefaces.push.annotation.*;
  * Created by o_0 on 2016-11-21.
  */
 @PushEndpoint("/chat/{room}/{user}")
-@Singleton
 public class ChatData {
     private static final String CHANNEL = "/chat/";
     @PathParam("room")

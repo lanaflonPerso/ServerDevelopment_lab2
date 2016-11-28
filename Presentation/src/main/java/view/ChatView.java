@@ -18,16 +18,16 @@ import java.util.ArrayList;
 @ManagedBean
 @ViewScoped
 public class ChatView {
-    @ManagedProperty("#{account}")
-    private Account userAccount;
-
-    public Account getUserAccount() {
-        return userAccount;
-    }
-
-    public void setUserAccount(Account userAccount) {
-        this.userAccount = userAccount;
-    }
+//    @ManagedProperty("#{account}")
+//    private Account userAccount;
+//
+//    public Account getUserAccount() {
+//        return userAccount;
+//    }
+//
+//    public void setUserAccount(Account userAccount) {
+//        this.userAccount = userAccount;
+//    }
 
     @ManagedProperty("#{chatSession}")
     private ChatSession chatSession;
@@ -54,6 +54,7 @@ public class ChatView {
         this.incomingMsg = "";
        // this.incomingName = "";
         this.messageBoard = new ArrayList<ChatMessageVM>();
+
     }
 
     private ArrayList<ChatMessageVM> messageBoard;
@@ -64,10 +65,11 @@ public class ChatView {
 
     public void updateChatBox() {
         if (chatSession.isChatActive() == false) {
+            System.out.println("updateChatBox isChatActive == false");
             return;
         }
         if (incomingMsg != null) {
-            messageBoard.add(new ChatMessageVM(incomingMsg,chatSession.getDestinationName(),userAccount.getUsername()));
+            messageBoard.add(new ChatMessageVM(incomingMsg,chatSession.getDestinationName(),chatSession.getUserName()));
             incomingMsg = null;
             //incomingName = null;
         }
@@ -90,11 +92,14 @@ public class ChatView {
     }
 
     public String getDestinationId() {
-        return destinationId;
+        return "" + chatSession.getDestinatinoId();
     }
 
     public void setDestinationId(String destinationId) {
-        this.destinationId = destinationId;
+        if (destinationId != null) {
+            chatSession.updateDestination(destinationId);
+            this.destinationId = destinationId;
+        }
     }
 
     public String getIncomingMsg() {
@@ -103,15 +108,26 @@ public class ChatView {
 
     public void startChat() {
         boolean foundUser = chatSession.updateDestination(destinationId);
-        System.out.println("chat started: To user: " + chatSession.getDestinationName() + "  from: " + userAccount.getUsername() + " destIdHidden:" + destinationId);
+        System.out.println("chat started: To user: " + chatSession.getDestinationName() + "  from: " + chatSession.getUserName() + " destIdHidden:" + destinationId);
 
         if (foundUser) {
             RequestContext.getCurrentInstance().execute("PF('subscriber').connect('/" + chatSession.getDestinationName() + "')");
+            chatSession.setChatActive(true);
+        }else {
+            System.out.println("founduser false");
         }
     }
 
+    public void endChat() {
+        chatSession.sendChatMessage(chatSession.getUserName() +" has now left the chat");
+        chatSession.setChatActive(false);
+
+    }
+
+
+
     public String getChatRoom() {
-        return userAccount.getUsername();
+        return chatSession.getUserName();
     }
 
     public void sendChatMessage() {
@@ -119,19 +135,26 @@ public class ChatView {
             return;
         }
         if (message != null) {
-            messageBoard.add(new ChatMessageVM(incomingMsg,userAccount.getUsername(),chatSession.getDestinationName()));
-            chatSession.sendChatMessage(userAccount.getUserId(),message);
+            messageBoard.add(new ChatMessageVM(incomingMsg,chatSession.getUserName(),chatSession.getDestinationName()));
+            chatSession.sendChatMessage(message);
             message = null;
         }
+    }
+
+    public void acceptChatRequest() {
+        System.out.println("acceptChatRequest: destinationId = " + destinationId);
+
+        boolean foundUser = chatSession.updateDestination(destinationId);
+
     }
 
     public void sendChatRequest(int destId) {
         this.destinationId = "" + destId;
         chatSession.setDestinatinoId(destId);
-        boolean chat = chatSession.sendChatRequest(userAccount.getUserId(), "chat");
-        if (chat) {
-            startChat();
-        }
+        boolean chat = chatSession.sendChatRequest( "chat");
+//        if (chat) {
+//            startChat();
+//        }
 
     }
 }

@@ -51,7 +51,7 @@ public class SearchForFriends implements Serializable {
 
     public void makeNewFriends(int friendId) {
         if(friendService.makeFriend(friendId)) {
-            nonFriends = friendService.getNonFriendList();
+            nonFriends = friendService.loadNonFriends();
         }else {
             System.out.println("SearchForFriends::makeNewFriends failed");
         }
