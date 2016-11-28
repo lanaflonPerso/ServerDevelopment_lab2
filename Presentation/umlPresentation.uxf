@@ -1,0 +1,704 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.1.1">
+  <zoom_level>5</zoom_level>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>140</x>
+      <y>70</y>
+      <w>255</w>
+      <h>430</h>
+    </coordinates>
+    <panel_attributes>account</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>145</x>
+      <y>85</y>
+      <w>105</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Account&gt;&gt;
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>145</x>
+      <y>195</y>
+      <w>105</w>
+      <h>145</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;CreateAccount&gt;&gt;
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>145</x>
+      <y>345</y>
+      <w>105</w>
+      <h>145</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;UserLogin&gt;&gt;
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>410</x>
+      <y>70</y>
+      <w>255</w>
+      <h>430</h>
+    </coordinates>
+    <panel_attributes>backend</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>420</x>
+      <y>350</y>
+      <w>195</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>SModels</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>425</x>
+      <y>365</y>
+      <w>105</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;SUser&gt;&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>425</x>
+      <y>390</y>
+      <w>105</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;SProfile&gt;&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>425</x>
+      <y>415</y>
+      <w>105</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;SPost&gt;&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>425</x>
+      <y>440</y>
+      <w>105</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;SNotification&gt;&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>425</x>
+      <y>465</y>
+      <w>105</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;SChannelNotification&gt;&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>420</x>
+      <y>240</y>
+      <w>105</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;AccountService&gt;&gt;
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>420</x>
+      <y>90</y>
+      <w>105</w>
+      <h>145</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;BackendFacade&gt;&gt;
+
+--
+loginUser()
+registerUser()
+getUser()
+addFriend()
+removeFriend()
+loadFriends()
+loadNonFriends()
+
+loadProfile()
+saveProfile()
+
+loadFeed()
+getPostForProfile()
+postPost()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>530</x>
+      <y>90</y>
+      <w>105</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;ChannelRelay&gt;&gt;
+
+--
+channnelNotification()
+channelRelay()
+channelRelayJson()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>530</x>
+      <y>270</y>
+      <w>105</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;CreateAccountService&gt;&gt;
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>530</x>
+      <y>300</y>
+      <w>105</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;ProfileService&gt;&gt;
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>530</x>
+      <y>145</y>
+      <w>105</w>
+      <h>85</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;RestBackendLink&gt;&gt;
+
+--
+sendChatMessage()
+sendChatRequest()
+doRestJsonPost()
+doRestParamPost()
+doRestGet()
+parseJsonData()
+prepareParams()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>420</x>
+      <y>300</y>
+      <w>105</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;ProfileService&gt;&gt;
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>420</x>
+      <y>270</y>
+      <w>105</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;RestService&gt;&gt;
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>675</x>
+      <y>70</y>
+      <w>255</w>
+      <h>430</h>
+    </coordinates>
+    <panel_attributes>chat</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>685</x>
+      <y>90</y>
+      <w>105</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;ChatChannelRelay&gt;&gt;
+
+--
+channelRelay()
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>685</x>
+      <y>145</y>
+      <w>105</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;ChatData&gt;
+
+--
+onOpen()
+onClose()
+onMessage()
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>685</x>
+      <y>200</y>
+      <w>105</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;ChatMessgeVM&gt;
+
+--
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>685</x>
+      <y>260</y>
+      <w>105</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;ChatSession&gt;
+
+--
+getDestinationId()
+setDestinationId()
+getDestinationName()
+setDestinationName()
+isChatActive()
+setChatActive()
+sendChatMessage()
+sendChatRequest()
+updateDestination()
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>795</x>
+      <y>200</y>
+      <w>105</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;ChatWindow&gt;&gt;
+
+--
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>940</x>
+      <y>70</y>
+      <w>255</w>
+      <h>430</h>
+    </coordinates>
+    <panel_attributes>frendmanagement</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>945</x>
+      <y>90</y>
+      <w>105</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Friends&gt;&gt;
+
+--
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>945</x>
+      <y>120</y>
+      <w>105</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;FriendService&gt;&gt;
+
+--
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>945</x>
+      <y>150</y>
+      <w>105</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;FriendVM&gt;&gt;
+
+--
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>945</x>
+      <y>180</y>
+      <w>105</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;SearchForFriends&gt;&gt;
+
+--
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>945</x>
+      <y>210</y>
+      <w>105</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;ShowFriendsVM&gt;&gt;
+
+--
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>140</x>
+      <y>515</y>
+      <w>255</w>
+      <h>430</h>
+    </coordinates>
+    <panel_attributes>Frontendcoder</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>150</x>
+      <y>540</y>
+      <w>105</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;MessageCoder&gt;&gt;
+
+--
+
+decode()
+encode()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>150</x>
+      <y>650</y>
+      <w>105</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;NotificationCoder&gt;&gt;
+
+--
+
+decode()
+encode()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>400</x>
+      <y>515</y>
+      <w>255</w>
+      <h>430</h>
+    </coordinates>
+    <panel_attributes>NavigationController</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>405</x>
+      <y>540</y>
+      <w>105</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;NavigationController&gt;&gt;
+
+--
+moveToSelection()
+getNotificationChannel()
+goToStart()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>665</x>
+      <y>515</y>
+      <w>150</w>
+      <h>430</h>
+    </coordinates>
+    <panel_attributes>view</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>675</x>
+      <y>540</y>
+      <w>105</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;ChatView&gt;&gt;
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>675</x>
+      <y>580</y>
+      <w>105</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;FeedView&gt;&gt;
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>675</x>
+      <y>625</y>
+      <w>105</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;NotificationView&gt;&gt;
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>675</x>
+      <y>670</y>
+      <w>105</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;NotifyChannel&gt;&gt;
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>675</x>
+      <y>710</y>
+      <w>105</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;PostView&gt;&gt;
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>675</x>
+      <y>750</y>
+      <w>105</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;ProfileView&gt;&gt;
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>825</x>
+      <y>515</y>
+      <w>150</w>
+      <h>430</h>
+    </coordinates>
+    <panel_attributes>viewmodel</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>830</x>
+      <y>540</y>
+      <w>105</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;NotificationVM&gt;&gt;
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>830</x>
+      <y>585</y>
+      <w>105</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;PostVM&gt;&gt;
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>830</x>
+      <y>630</y>
+      <w>105</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;PrifileItem&gt;&gt;
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>830</x>
+      <y>670</y>
+      <w>105</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;ProfileVM&gt;&gt;
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>830</x>
+      <y>715</y>
+      <w>105</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;UserVM&gt;&gt;
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
