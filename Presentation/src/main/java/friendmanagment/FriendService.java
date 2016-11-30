@@ -11,7 +11,6 @@ import javax.faces.bean.SessionScoped;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
 /**
  * Created by o_0 on 2016-11-18.
@@ -22,10 +21,10 @@ public class FriendService {
     @ManagedProperty("#{account}")
     private Account userAccount;
 
+
+
     private ArrayList<FriendVM> friendList = new ArrayList<FriendVM>();
     private ArrayList<FriendVM> nonFriendList  =  new ArrayList<FriendVM>();
-
-
 
     public Account getUserAccount() {
         return userAccount;
@@ -35,8 +34,8 @@ public class FriendService {
         this.userAccount = userAccount;
     }
 
-    public boolean loadFriends(int userId) {
-        ArrayList<FriendVM> result = BackendFacade.loadFriends(userId);
+    public boolean loadFriends() {
+        ArrayList<FriendVM> result = BackendFacade.loadFriends(userAccount.getUserId());
         friendList = result;
 
         return true;
@@ -56,17 +55,21 @@ public class FriendService {
 
     public boolean makeFriend(final int friendId) {
         if(BackendFacade.addFriend(userAccount.getUserId(),friendId)) {
-            FriendVM newFriend = null;
-            for(FriendVM f:nonFriendList ) {
-                if (f.getId() == friendId) {
-                    newFriend = f;
-                }
-            }
-            nonFriendList.remove(newFriend);
+//            FriendVM newFriend = null;
+//            for(FriendVM f:nonFriendList ) {
+//                if (f.getId() == friendId) {
+//                    newFriend = f;
+//                }
+//            }
+//            nonFriendList.remove(newFriend);
             return true;
         }
         return false;
     }
 
+    public void removeFriend(int selectedUserId){
+        if (userAccount.getUserId() != selectedUserId)
+            BackendFacade.removeFriend(userAccount.getUserId(),selectedUserId);
+    }
 
 }

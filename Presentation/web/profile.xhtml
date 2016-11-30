@@ -13,9 +13,9 @@
     <f:view>
         <h:form>
             <p:commandButton value="MyProfile" actionListener="#{profileView.showMyProfile(true)}" update=":mycontent"/>
-            <p:commandButton value="Chat" actionListener="#{chatView.sendChatRequest(profileView.selectedUserId)}" action="#{navigationController.setPage('chatbox')}" update=":mycontent"/>
+            <p:commandButton value="Chat" actionListener="#{chatView.sendChatRequest(navigationController.getSelectedUserId)}" action="#{navigationController.setPage('chatbox')}" update=":mycontent"/>
             <p:commandButton value="UnFriend this person"
-                             actionListener="#{profileView.removeFriend()}" update=":mycontent"
+                             actionListener="#{friends.removeFriend}"
                              oncomplete="updateFriend()"
 
             />

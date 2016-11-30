@@ -18,6 +18,50 @@ public class NavigationController {
     private boolean renderFriend;
     private boolean renderChatReq;
 
+    private static final String indexPage = "index";
+    private String currentPage = "index";
+
+    @ManagedProperty("#{account}")
+    private Account userAccount;
+
+    @ManagedProperty("#{navigationService}")
+    private NavigationService navigationService;
+
+
+
+    @PostConstruct
+    public void init() {
+        this.renderContent = true;
+        this.renderFriend = true;
+        this.renderChatReq = false;
+        this.currentPage = "feed";
+        navigationService.setSelectedUserId(userAccount.getUserId());
+    }
+
+
+    public Account getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(Account userAccount) {
+        this.userAccount = userAccount;
+    }
+
+    public NavigationService getNavigationService() {
+        return navigationService;
+    }
+
+    public void setNavigationService(NavigationService navigationService) {
+        this.navigationService = navigationService;
+    }
+
+    public int getSelectedUserId() {
+        return navigationService.getSelectedUserId();
+    }
+
+    public void setSelectedUserId(int selectedUserId) {
+        navigationService.setSelectedUserId(selectedUserId);
+    }
 
     public boolean isRenderContent() {
         boolean tmp = renderContent;
@@ -46,8 +90,7 @@ public class NavigationController {
         this.renderFriend = renderFriend;
     }
 
-    private static final String indexPage = "index";
-    private String currentPage = "index";
+
 
     public String moveToStart() {
         return "newHome";
@@ -57,24 +100,7 @@ public class NavigationController {
         return "newHome";
     }
 
-    @ManagedProperty("#{account}")
-    private Account userAccount;
 
-    public Account getUserAccount() {
-        return userAccount;
-    }
-
-    public void setUserAccount(Account userAccount) {
-        this.userAccount = userAccount;
-    }
-
-    @PostConstruct
-    public void init() {
-        this.renderContent = true;
-        this.renderFriend = true;
-        this.renderChatReq = false;
-        this.currentPage = "feed";
-    }
 
     public String getPage() {
         return currentPage;
