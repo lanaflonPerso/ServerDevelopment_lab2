@@ -12,6 +12,7 @@ import com.sun.jersey.api.client.WebResource;
  * Created by o_0 on 2016-11-22.
  */
 public class FrontendRestLink {
+    //private final static String backendAddress[] = {"http://172.16.83.59:8080/Presentation_war/","http://172.16.83.60:8080/Presentation_war/"};
     private final static String backendAddress[] = {"http://localhost:8080/"};
 
     public static String[] getFrontendAddresses()

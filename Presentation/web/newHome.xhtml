@@ -16,6 +16,7 @@
     <p:layout style="min-width:400px;min-height:800px;">
         <h:form>
             <p:remoteCommand name="updateNewFriends" actionListener="#{friends.updateFriends}" update="mycontent myfriends"/>
+            <p:remoteCommand name="updateGetFriends" actionListener="#{friends.updateNonFriends}" update="mycontent myfriends"/>
             <p:remoteCommand name="updateFriend" actionListener="#{friends.updateFriends}" update="myfriends"/>
             <p:remoteCommand name="updateContent" update="mycontent"/>
             <p:remoteCommand name="updateChatAccept" update="chatReq"/>
@@ -32,24 +33,19 @@
                                            oncomplete="updateContent()"/></li>
                         <li><p:commandLink value="GetNewFriends"
                                            actionListener="#{navigationController.setPage('GetNewFriends')}"
-                                           oncomplete="updateContent()"/></li>
-                        <li><p:commandLink value="Page1" actionListener="#{navigationController.setPage('Page1')}"
-                                           oncomplete="updateContent()"/></li>
+                                           oncomplete="updateGetFriends()"/></li>
                         <li><p:commandLink value="profile" actionListener="#{navigationController.setPage('profile')}"
                                            oncomplete="updateContent()"/></li>
                         <li><p:commandLink value="edit profile"
                                            actionListener="#{navigationController.setPage('profileEdit')}"
                                            oncomplete="updateContent()"/></li>
-                        <li><p:commandLink value="Page2" actionListener="#{navigationController.setPage('Page2')}"
-                                           oncomplete="updateContent()"/></li>
+
                     </ul>
                     <!--</f:ajax>-->
                     <h:commandButton value="Logout" action="#{navigationController.goToStart}"/>
                 </h:form>
             </h:panelGroup>
-            <!--<h:panelGroup id="content" layout="block">-->
-            <!--<ui:include src="#{bean.page}.xhtml"/>-->
-            <!--</h:panelGroup>-->
+
             <h:panelGroup id="chatReq" layout="block">
                 <h:panelGroup rendered="#{navigationController.renderChatReq}">
                     <h:form>
@@ -98,12 +94,12 @@
     function handleNotification(data) {
 
         if (data.what == "newfriend") {
-            alert("messag: " + data.what + " : " + data.data);
+            console.log("messag: " + data.what + " : " + data.data);
             updateFriend();
         }
         if (data.what == "chatRequest") {
 
-            alert("what: " + data.what + " data.data.message: " + data.data);
+            console.log("what: " + data.what + " data.data.message: " + data.data);
             document.getElementById('chatRemote:remoteuserid').value = data.data;
             updateChatReq();
         }
@@ -111,7 +107,7 @@
     }
 
     function handleChatMessage(chatMessageVM) {
-        alert("char msg" + chatMessageVM.fromUser + ':' + chatMessageVM.toUser + ':' + chatMessageVM.message);
+        console.log("char msg" + chatMessageVM.fromUser + ':' + chatMessageVM.toUser + ':' + chatMessageVM.message);
         document.getElementById('chatinput:chatsenderMsg').value = chatMessageVM.message;
         updateChatinput();
     }

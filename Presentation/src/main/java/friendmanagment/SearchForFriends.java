@@ -18,9 +18,6 @@ import java.util.List;
 @ManagedBean
 @ViewScoped
 public class SearchForFriends implements Serializable {
-
-    private List<FriendVM> nonFriends;
-
     @ManagedProperty("#{friendService}")
     private FriendService friendService;
 
@@ -34,29 +31,22 @@ public class SearchForFriends implements Serializable {
 
     @PostConstruct
     public void init() {
-        this.nonFriends = friendService.loadNonFriends();
-        if (this.nonFriends == null) {
-            this.nonFriends = new ArrayList<FriendVM>();
-        }
-
+        friendService.loadNonFriends();
     }
 
     public List<FriendVM> getNonFriends() {
-        return nonFriends;
+        return friendService.getNonFriendList();
     }
 
     public void setNonFriends(List<FriendVM> nonFriends) {
-        this.nonFriends = nonFriends;
+
     }
 
     public void makeNewFriends(int friendId) {
         if(friendService.makeFriend(friendId)) {
-            nonFriends = friendService.loadNonFriends();
+            friendService.loadNonFriends();
         }else {
             System.out.println("SearchForFriends::makeNewFriends failed");
-        }
-        if (this.nonFriends == null) {
-            this.nonFriends = new ArrayList<FriendVM>();
         }
     }
 

@@ -3,6 +3,7 @@ package view;
 import account.Account;
 import backend.BackendFacade;
 import backend.ProfileService;
+import navigationcontroller.NavigationService;
 import viewmodel.PostVM;
 import viewmodel.ProfileItem;
 import viewmodel.ProfileVM;
@@ -20,12 +21,10 @@ import java.util.List;
 @ViewScoped
 public class ProfileView {
 
-//    private int id;
     private String name;
     private String info;
     private Integer age;
     private int relationshipStatus;
-    //private List<PostVM> feed;
 
 
     @PostConstruct
@@ -63,6 +62,9 @@ public class ProfileView {
     @ManagedProperty("#{profileService}")
     private ProfileService profileService;
 
+    @ManagedProperty("#{navigationService}")
+    private NavigationService navigationService;
+
     public ProfileService getProfileService() {
         return profileService;
     }
@@ -71,7 +73,13 @@ public class ProfileView {
         this.profileService = profileService;
     }
 
-    public int getSelectedUserId() {return profileService.getSelectedUserId();}
+    public NavigationService getNavigationService() {
+        return navigationService;
+    }
+
+    public void setNavigationService(NavigationService navigationService) {
+        this.navigationService = navigationService;
+    }
 
     public String getName() {
         return profileService.getName();
@@ -111,7 +119,13 @@ public class ProfileView {
         return showProfile;
     }
 
+    public void updateFeed() {
+        profileService.selectProfile(navigationService.getSelectedUserId());
+        profileService.updateFeed();
+    }
+
     public void showMyProfile(boolean updateWall) {
+        navigationService.setSelectedUserId(userAccount.getUserId());
         profileService.selectProfile(userAccount.getUserId());
         System.out.println("showMyProfile:updateWall = " + updateWall);
         if (updateWall) {
@@ -119,11 +133,14 @@ public class ProfileView {
         }
     }
 
-    public void changeProfileView(String userId,boolean updateWall) {
-        setShowProfile(userId);
+    public void changeProfileView(int userId,boolean updateWall) {
+        navigationService.setSelectedUserId(userId);
+
         System.out.println("changeProfileView:updateWall = " + updateWall);
         if (updateWall) {
-            profileService.updateFeed();
+            updateFeed();
+        }else {
+            profileService.selectProfile(navigationService.getSelectedUserId());
         }
     }
 
@@ -137,8 +154,8 @@ public class ProfileView {
             return;
         }
         this.showProfile = showProfile;
-
         profileService.selectProfile(userId);
+
     }
 
     private void updateProfileInfo() {
@@ -170,11 +187,6 @@ public class ProfileView {
         return profileService.getCurrentFeed();
     }
 
-//    public void setFeed(List<PostVM> feed) {
-//        System.out.println("setFeed");
-//        this.feed = feed;
-//    }
-
     public void saveUserProfile() {
         System.out.println("ProfileView::saveUserProfile");
         this.responseMessage = "failed";
@@ -192,10 +204,7 @@ public class ProfileView {
 
     public void loadUserProfile() {
         this.responseMessage = "";
-//        if (showProfile == null ) {
-//            System.out.println("loadUserProfile showProfile null");
-//            return;
-//        }
+
         System.out.println("loadUserProfile");
         if (userAccount.isLoggedin()) {
             // TODO: parse id to correct one
@@ -204,9 +213,5 @@ public class ProfileView {
         }else {
             System.out.println("not loggedin");
         }
-    }
-
-    public void removeFriend(){
-        profileService.removeFriend();
     }
 }

@@ -2,6 +2,7 @@ package friendmanagment;
 
 import account.Account;
 import backend.BackendFacade;
+import navigationcontroller.NavigationService;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -17,10 +18,6 @@ import java.util.List;
 @ManagedBean
 @ViewScoped
 public class Friends {
-    List<FriendVM> friendList;
-
-//    @ManagedProperty("#{friendService}")
-//    private FriendService service;
 
     @ManagedProperty("#{account}")
     private Account userAccount;
@@ -33,28 +30,54 @@ public class Friends {
         this.userAccount = userAccount;
     }
 
+    @ManagedProperty("#{friendService}")
+    private FriendService friendService;
 
+    @ManagedProperty("#{navigationService}")
+    private NavigationService navigationService;
+
+    public NavigationService getNavigationService() {
+        return navigationService;
+    }
+
+    public void setNavigationService(NavigationService navigationService) {
+        this.navigationService = navigationService;
+    }
+
+    public FriendService getFriendService() {
+        return friendService;
+    }
+
+    public void setFriendService(FriendService friendService) {
+        this.friendService = friendService;
+    }
 
     @PostConstruct
     public void init() {
         if (userAccount.isLoggedin()) {
-            this.friendList = BackendFacade.loadFriends(userAccount.getUserId());
-
-        }else {
-            this.friendList = new ArrayList<FriendVM>();
+            friendService.loadFriends();
+        } else {
+            System.out.println("Friends:init:not logedin ");
         }
-//
-//        service.loadFriends(0);
-//        friendList = service.getFriendList();
     }
 
     public void updateFriends() {
         if (userAccount.isLoggedin()) {
-            this.friendList = BackendFacade.loadFriends(userAccount.getUserId());
+            friendService.loadFriends();
+        }
+    }
+
+    public void updateNonFriends() {
+        if (userAccount.isLoggedin()) {
+            friendService.loadNonFriends();
         }
     }
 
     public List<FriendVM> getFriendList() {
-        return friendList;
+        return friendService.getFriendList();
+    }
+
+    public void removeFriend() {
+        friendService.removeFriend(navigationService.getSelectedUserId());
     }
 }

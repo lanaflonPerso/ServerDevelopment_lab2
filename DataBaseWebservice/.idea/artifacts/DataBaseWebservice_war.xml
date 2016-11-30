@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="DataBaseWebservice:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/DataBaseWebservice_war</output-path>
+    <root id="archive" name="DataBaseWebservice_war.war">
+      <element id="artifact" artifact-name="DataBaseWebservice:war exploded" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/out/artifacts/DataBaseWebservice_war_exploded/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>
