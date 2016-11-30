@@ -5,7 +5,7 @@ import backend.SModels.SProfile;
 import backend.SModels.SUser;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import friendmanagment.FriendVM;
+import viewmodel.FriendVM;
 import viewmodel.PostVM;
 import viewmodel.ProfileItem;
 import viewmodel.ProfileVM;

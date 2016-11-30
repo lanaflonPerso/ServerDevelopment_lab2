@@ -2,8 +2,8 @@ package view;
 
 import account.Account;
 import backend.BackendFacade;
-import backend.ProfileService;
-import navigationcontroller.NavigationService;
+import services.ProfileService;
+import services.NavigationService;
 import viewmodel.PostVM;
 
 import javax.annotation.PostConstruct;
@@ -100,7 +100,7 @@ public class PostView {
     public void sendPost() {
         if (userAccount.isLoggedin()) {
             PostVM postVM = BackendFacade.postPost(userAccount.getUserId(), navigationService.getSelectedUserId(), subject, messageBody, privatePost);
-            profileService.posted(postVM);
+            //profileService.posted(postVM);
         }
     }
 }

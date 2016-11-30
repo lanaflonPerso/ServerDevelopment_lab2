@@ -1,15 +1,14 @@
 package friendmanagment;
 
 import account.Account;
-import backend.BackendFacade;
-import navigationcontroller.NavigationService;
+import services.FriendService;
+import services.NavigationService;
+import viewmodel.FriendVM;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

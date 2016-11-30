@@ -1,11 +1,9 @@
 package view;
 
 import account.Account;
-import backend.BackendFacade;
-import backend.ProfileService;
-import navigationcontroller.NavigationService;
+import services.ProfileService;
+import services.NavigationService;
 import viewmodel.PostVM;
-import viewmodel.ProfileItem;
 import viewmodel.ProfileVM;
 
 import javax.annotation.PostConstruct;
@@ -113,49 +111,17 @@ public class ProfileView {
         this.relationshipStatus = relationshipStatus;
     }
 
-    private String showProfile;
-
-    public String getShowProfile() {
-        return showProfile;
-    }
-
-    public void updateFeed() {
-        profileService.selectProfile(navigationService.getSelectedUserId());
-        profileService.updateFeed();
-    }
 
     public void showMyProfile(boolean updateWall) {
         navigationService.setSelectedUserId(userAccount.getUserId());
         profileService.selectProfile(userAccount.getUserId());
-        System.out.println("showMyProfile:updateWall = " + updateWall);
-        if (updateWall) {
-            profileService.updateFeed();
-        }
     }
 
     public void changeProfileView(int userId,boolean updateWall) {
         navigationService.setSelectedUserId(userId);
 
         System.out.println("changeProfileView:updateWall = " + updateWall);
-        if (updateWall) {
-            updateFeed();
-        }else {
-            profileService.selectProfile(navigationService.getSelectedUserId());
-        }
-    }
-
-    public void setShowProfile(String showProfile) {
-        int userId = 0;
-        try {
-            userId = Integer.parseInt(showProfile);
-
-        } catch (NumberFormatException ex) {
-            System.out.println("showProfile wrong format" + showProfile);
-            return;
-        }
-        this.showProfile = showProfile;
-        profileService.selectProfile(userId);
-
+        profileService.selectProfile(navigationService.getSelectedUserId());
     }
 
     private void updateProfileInfo() {
@@ -181,11 +147,6 @@ public class ProfileView {
         this.responseMessage = responseMessage;
     }
 
-
-    public List<PostVM> getFeed() {
-        System.out.println("getFeed");
-        return profileService.getCurrentFeed();
-    }
 
     public void saveUserProfile() {
         System.out.println("ProfileView::saveUserProfile");

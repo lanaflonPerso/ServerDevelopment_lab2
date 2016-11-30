@@ -1,6 +1,7 @@
 package navigationcontroller;
 
 import account.Account;
+import services.NavigationService;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;

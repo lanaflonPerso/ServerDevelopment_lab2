@@ -1,6 +1,7 @@
-package backend;
+package services;
 
 import account.Account;
+import backend.BackendFacade;
 import viewmodel.PostVM;
 import viewmodel.ProfileItem;
 
@@ -18,6 +19,36 @@ import java.util.List;
 @SessionScoped
 public class ProfileService implements ProfileItem {
 
+
+    private String name;
+    private String info;
+    private Integer age;
+    private int relationshipStatus;
+    private int selectedUserId;
+
+    public int getSelectedUserId() {
+        return selectedUserId;
+    }
+
+    @PostConstruct
+    public void init() {
+        if (userAccount == null) {
+            System.out.println("inint error (userAccount == null) ");
+            return;
+        }
+        this.selectedUserId = -1;
+        this.name = userAccount.getUsername();
+        this.info = "";
+        this.age = -1;
+        this.relationshipStatus = -1;
+        selectProfile(userAccount.getUserId());
+        this.selectedUserId = userAccount.getUserId();
+    }
+    /**
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     * ManagedProperty stuff
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     */
     @ManagedProperty("#{account}")
     private Account userAccount;
 
@@ -29,41 +60,11 @@ public class ProfileService implements ProfileItem {
         this.userAccount = userAccount;
     }
 
-
-    private String name;
-    private String info;
-    private Integer age;
-    private int relationshipStatus;
-    private List<PostVM> wallPosts;
-    private int selectedUserId;
-    //private int profileId;
-
-    public int getSelectedUserId() {
-        return selectedUserId;
-    }
-
-
-//    public int getProfileId() {
-//        return profileId;
-//    }
-
-    @PostConstruct
-    public void init() {
-        if (userAccount == null) {
-            System.out.println("inint error (userAccount == null) ");
-            return;
-        }
-        this.wallPosts  = new ArrayList<PostVM>();
-        this.selectedUserId = -1;
-        //this.profileId = userAccount.getProfileId();
-        this.name = userAccount.getUsername();
-        this.info = "";
-        this.age = -1;
-        this.relationshipStatus = -1;
-        selectProfile(userAccount.getUserId());
-        this.selectedUserId = userAccount.getUserId();
-    }
-
+    /**
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     * Getters and setters for the profile
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     */
     public String getName() {
         return name;
     }
@@ -95,6 +96,13 @@ public class ProfileService implements ProfileItem {
     public void setRelationshipStatus(int relationshipStatus) {
         this.relationshipStatus = relationshipStatus;
     }
+
+
+    /**
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     * Select load and save methods
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     */
 
     public boolean saveUserProfile(ProfileItem profileItem) {
 
@@ -139,34 +147,9 @@ public class ProfileService implements ProfileItem {
         this.name = profile.getName();
         this.info = profile.getInfo();
         this.age = profile.getAge();
-        //this.profileId = profile.getProfileId();
         this.relationshipStatus = profile.getRelationshipStatus();
     }
 
-    public void posted(PostVM post) {
-        if (wallPosts == null) {
-            wallPosts = new ArrayList<PostVM>();
-        }
-        if (post != null) {
-            wallPosts.add(post);
-        }
-    }
 
-    public List<PostVM> updateFeed() {
-        System.out.println("ProfileService:updateFeed");
-        List<PostVM> postForProfile = BackendFacade.getSelectedProfilePost(selectedUserId,userAccount.getUserId());
-        //.getPostForProfile(profileId, userAccount.getUserId());
-        if (postForProfile != null) {
-            wallPosts = postForProfile;
-        }
-        return wallPosts;
-    }
-
-
-    public List<PostVM> getCurrentFeed() {
-        System.out.println("ProfileService:getCurrentFeed");
-        //wallPosts = BackendFacade.getPostForProfile(profileId, userAccount.getUserId());
-        return updateFeed();//wallPosts;
-    }
 
 }

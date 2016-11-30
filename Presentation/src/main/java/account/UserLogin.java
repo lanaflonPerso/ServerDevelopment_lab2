@@ -16,8 +16,6 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 public class UserLogin {
-//    @ManagedProperty("#{chatSession}")
-//    private ChatSession chatSession;
 
     @ManagedProperty("#{account}")
     private Account userAccount;
@@ -29,14 +27,7 @@ public class UserLogin {
     public void setUserAccount(Account userAccount) {
         this.userAccount = userAccount;
     }
-//
-//    public ChatSession getChatSession() {
-//        return chatSession;
-//    }
-//
-//    public void setChatSession(ChatSession chatSession) {
-//        this.chatSession = chatSession;
-//    }
+
 
     private String userName = null;
     private String password = null;

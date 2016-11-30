@@ -1,14 +1,12 @@
-package friendmanagment;
+package services;
 
 import account.Account;
 import backend.BackendFacade;
-import backend.RestBackendLink;
-import com.google.gson.reflect.TypeToken;
+import viewmodel.FriendVM;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +18,6 @@ import java.util.List;
 public class FriendService {
     @ManagedProperty("#{account}")
     private Account userAccount;
-
-
 
     private ArrayList<FriendVM> friendList = new ArrayList<FriendVM>();
     private ArrayList<FriendVM> nonFriendList  =  new ArrayList<FriendVM>();
@@ -55,13 +51,6 @@ public class FriendService {
 
     public boolean makeFriend(final int friendId) {
         if(BackendFacade.addFriend(userAccount.getUserId(),friendId)) {
-//            FriendVM newFriend = null;
-//            for(FriendVM f:nonFriendList ) {
-//                if (f.getId() == friendId) {
-//                    newFriend = f;
-//                }
-//            }
-//            nonFriendList.remove(newFriend);
             return true;
         }
         return false;

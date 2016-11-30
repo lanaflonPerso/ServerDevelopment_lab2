@@ -1,6 +1,7 @@
-package backend;
+package services;
 
 import account.Account;
+import backend.BackendFacade;
 import viewmodel.PostVM;
 
 import javax.annotation.PostConstruct;
@@ -13,18 +14,12 @@ import java.util.List;
 /**
  * Created by cj on 2016-11-27.
  */
-@ManagedBean(name = "accountService")
+@ManagedBean(name = "feedService")
 @SessionScoped
-public class AccountService {
-
-
-    private int userId;
-    private String username;
-    private int profileId;
+public class FeedService {
 
     @ManagedProperty("#{account}")
     private Account userAccount;
-
 
     @PostConstruct
     public void init() {
@@ -32,39 +27,21 @@ public class AccountService {
             System.out.println("inint error (userAccount == null) ");
             return;
         }
-        this.userId = userAccount.getUserId();
-        this.profileId = -1;
-
     }
 
 
     public List<PostVM> getNewsFeed(){
-        return BackendFacade.loadFeed(userId);
+        return BackendFacade.loadFeed(userAccount.getUserId());
     }
 
-    public int getUserId() {
-        return userId;
+
+    public List<PostVM> getProfileFeed(int selectedUserId) {
+        System.out.println("FeedService:getProfileFeed");
+        List<PostVM> postForProfile = BackendFacade.getSelectedProfilePost(selectedUserId,userAccount.getUserId());
+
+        return postForProfile;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public int getProfileId() {
-        return profileId;
-    }
-
-    public void setProfileId(int profileId) {
-        this.profileId = profileId;
-    }
 
     public Account getUserAccount() {
         return userAccount;

@@ -1,4 +1,4 @@
-package friendmanagment;
+package viewmodel;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;

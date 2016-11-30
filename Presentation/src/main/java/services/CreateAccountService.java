@@ -1,13 +1,14 @@
-package backend;
+package services;
 
 import account.Account;
+import backend.BackendFacade;
+import services.ProfileService;
 import viewmodel.UserVM;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 
 /**
  * Created by o_0 on 2016-11-25.
