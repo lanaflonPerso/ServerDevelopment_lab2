@@ -322,15 +322,15 @@ public class BackendFacade {
     /**
      * call to get posts for a profile wall. This will include all the posts that the user are allowed to see.
      * some posts might be private between two users
-     * @param profileId
-     * @param activeUserId
+     * @param selectedUserId
+     * @param visitorId
      * @return
      */
-    public static List<PostVM> getPostForProfile(int profileId, int activeUserId){
+    public static List<PostVM> getSelectedProfilePost(int selectedUserId, int visitorId){
 
         Map<String,Object> parameters = new LinkedHashMap<String,Object>();
-        parameters.put("profileId", profileId);
-        parameters.put("activeUserId", activeUserId);
+        parameters.put("selectedUserId", selectedUserId);
+        parameters.put("visitorId", visitorId);
 
         String jsonResp = RestBackendLink.doRestGet(pathPostService,"getprofileposts",parameters);
         if (jsonResp.equals("[]"))

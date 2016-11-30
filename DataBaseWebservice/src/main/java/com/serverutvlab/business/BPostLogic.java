@@ -18,21 +18,18 @@ public class BPostLogic {
 
     /**
      * get posts for profile,
-     * @param profileId
-     * @param activeUserId
+     * @param selectedUserId the user that owns tha profile
+     * @param visitorId the user that wants to look at it
      * @return returning only posts that the visiting user are allowed to se
      */
-    public List<BPost> getPostsByProfile(int profileId, int activeUserId) {
+    public List<BPost> getProfilePostsPostsByUserId(int selectedUserId, int visitorId) {
         List<BPost> result = new ArrayList<BPost>();
-        List<BPost> posts = DBFacade.getPostsForProfile(profileId);
-        BProfile activeUserProfile = DBFacade.getProfileForUserId(activeUserId);
-
-        if (activeUserProfile == null)
-            return result;
+        List<BPost> posts = DBFacade.getProfilePosts(selectedUserId);
+        //BProfile activeUserProfile = DBFacade.getProfileForUserId(activeUserId);
 
         for (BPost p: posts){
             if (p.isPrivate()){
-                if (activeUserProfile.getId() == p.getAuthorId() || activeUserProfile.getId() == p.getRecipientId()){
+                if (visitorId == p.getAuthorId() || visitorId == p.getRecipientId()){
                     if (!result.contains(p)){
                         result.add(p);
                     }
@@ -69,8 +66,7 @@ public class BPostLogic {
      */
     public List<BPost> getFeedForUser(int userId) {
         List<BPost> feed = new ArrayList<BPost>();
-        BProfile profile = DBFacade.getProfileForUserId(userId);
-        feed.addAll(DBFacade.getPostsForProfile(profile.getId()));
+        feed.addAll(DBFacade.getProfilePosts(userId));
         System.out.println("Feed count after adding own posts: " + feed.size());
 
         List<BUser> friends = DBFacade.getFriendsByUserId(userId);
@@ -79,8 +75,7 @@ public class BPostLogic {
 
 
         for (BUser f: friends){
-            BProfile p = DBFacade.getProfileForUserId(f.getId());
-            for (BPost post: DBFacade.getPostsForProfile(p.getId())) {
+            for (BPost post: DBFacade.getProfilePosts(f.getId())) {
                 if (!feed.contains(post) && !post.isPrivate())
                     feed.add(post);
             }

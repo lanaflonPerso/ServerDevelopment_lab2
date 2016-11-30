@@ -25,18 +25,18 @@ public class PostService {
 
     /**
      * get all the posts by profile that active user is allowed to se
-     * @param profileId
-     * @param activeUserId
+     * @param selectedUserId
+     * @param visitorId
      * @return
      */
     // TODO: 2016-11-21 authenticated call
     @GET
     @Path("getprofileposts")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response getPostsByProfileId(@QueryParam("profileId") int profileId,
-                                        @QueryParam("activeUserId") int activeUserId){
+    public Response getPostsByProfileId(@QueryParam("selectedUserId") int selectedUserId,
+                                        @QueryParam("visitorId") int visitorId){
 
-        List<SPost> posts = BFacade.getPostsByProfile(profileId, activeUserId);
+        List<SPost> posts = BFacade.getProfilePosts(selectedUserId,visitorId);//.getPostsByProfile(profileId, activeUserId);
 
         Gson gson = new Gson();
         String response = gson.toJson(posts);
@@ -61,7 +61,7 @@ public class PostService {
                              @QueryParam("recipientId") int recipientId,
                              @QueryParam("subject") String subject,
                              @QueryParam("messageBody") String messageBody,
-                             @QueryParam("isPrivate") boolean isPrivate){
+                             @QueryParam("isPrivatePost") boolean isPrivate){
 
         SPost post = BFacade.postPost(autoridId,recipientId,subject,messageBody,isPrivate);
 

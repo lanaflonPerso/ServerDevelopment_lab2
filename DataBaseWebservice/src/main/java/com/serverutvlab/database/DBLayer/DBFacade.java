@@ -124,8 +124,12 @@ public class DBFacade {
         if (profile == null){
             return null;
         }
-        for (PostEntity p : new PostLogic().getPostsByProfileId(profile.getId())) {
+        for (PostEntity p : new PostLogic().getPostsByUserId(userId)) {
             posts.add(new BPost(p.getId(),p.getSubject(),p.getMessageBody(),p.getTimestamp(),p.getAuthorId(),p.getRecipientId()));
+        }
+
+        if (profile.getUserId() != userId) {
+            System.out.println("getProfileForUserId , profiles userid != userid, profile.getUserId() = " + profile.getUserId() + ", userId = " + userId);
         }
 
         return new BProfile(
@@ -160,13 +164,13 @@ public class DBFacade {
 
     /**
      * get poosts for a profile,
-     * @param profileId the profile id
+     * @param profileUserId the userid that owns this profile
      * @return list of posts
      */
-    public static List<BPost> getPostsForProfile(int profileId) {
+    public static List<BPost> getProfilePosts(int profileUserId) {
         List<BPost> posts = new ArrayList<BPost>();
-        for(PostEntity e : new PostLogic().getPostsByProfileId(profileId)){
-            posts.add(new BPost(e.getId(),e.getSubject(),e.getMessageBody(),e.getAuthorName(),e.getRecipientName(),e.getTimestamp(),e.getAuthorId(),e.getRecipientId(),e.isPrivate()));
+        for(PostEntity e : new PostLogic().getPostsByUserId(profileUserId)){
+            posts.add(new BPost(e.getId(),e.getSubject(),e.getMessageBody(),e.getAuthorName(),e.getRecipientName(),e.getTimestamp(),e.getAuthorId(),e.getRecipientId(),e.isPrivatePost()));
         }
         return posts;
     }
@@ -181,15 +185,15 @@ public class DBFacade {
      * @return the created post
      */
     public static BPost postPost(int authorId, int recipientId, String subject, String messageBody, boolean isPrivate) {
-        ProfileEntity postedFrom = new ProfileLogic().getProfileById(authorId);
+        ProfileEntity postedFrom = new ProfileLogic().getProfileByUserId(authorId);
         if (postedFrom == null)
             return null;
-        ProfileEntity postedTo = new ProfileLogic().getProfileById(recipientId);
+        ProfileEntity postedTo = new ProfileLogic().getProfileByUserId(recipientId);
         if (postedTo == null)
             return null;
 
         PostEntity p = new PostLogic().createPost(authorId,recipientId,subject,messageBody,postedTo, postedFrom, isPrivate);
         System.out.println("Post returning from PostLogic: " + p.toString());
-        return p != null? new BPost(p.getId(),p.getSubject(),p.getMessageBody(),p.getAuthorName(),p.getRecipientName(),p.getTimestamp(),p.getAuthorId(),p.getRecipientId(),p.isPrivate()) : null;
+        return p != null? new BPost(p.getId(),p.getSubject(),p.getMessageBody(),p.getAuthorName(),p.getRecipientName(),p.getTimestamp(),p.getAuthorId(),p.getRecipientId(),p.isPrivatePost()) : null;
     }
 }

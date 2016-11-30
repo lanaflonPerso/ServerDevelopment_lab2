@@ -17,7 +17,7 @@ public class PostEntity {
     private int authorId;
     private int recipientId;
     private ProfileEntity postedTo;
-    private boolean isPrivate;
+    private boolean privatePost;
 
 
     @Id
@@ -117,13 +117,13 @@ public class PostEntity {
         this.recipientName = recipientName;
     }
     @Basic
-    @Column(name = "isPrivate")
-    public boolean isPrivate() {
-        return isPrivate;
+    @Column(name = "privatePost")
+    public boolean isPrivatePost() {
+        return privatePost;
     }
 
-    public void setPrivate(boolean aPrivate) {
-        isPrivate = aPrivate;
+    public void setPrivatePost(boolean privatePost) {
+        this.privatePost = privatePost;
     }
 
     @Override
@@ -158,7 +158,7 @@ public class PostEntity {
                 ", authorId=" + authorId +
                 ", recipientId=" + recipientId +
                 ", postedTo=" + postedTo +
-                ", isPrivate=" + isPrivate +
+                ", privatePost=" + privatePost +
                 '}';
     }
 }

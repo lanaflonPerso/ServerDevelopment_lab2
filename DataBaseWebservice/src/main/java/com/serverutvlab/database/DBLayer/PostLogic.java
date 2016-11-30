@@ -20,7 +20,7 @@ public class PostLogic {
      * @param id
      * @return
      */
-    public List<PostEntity> getPostsByProfileId(int id){
+    public List<PostEntity> getPostsByUserId(int id){
         EntityManager entityManager = null;
         List<PostEntity> resultList = null;
         try {
@@ -66,7 +66,7 @@ public class PostLogic {
 
     /**
      * create and inserting a post into database
-     * @param auhtoridId
+     * @param authorId
      * @param recipientId
      * @param subject
      * @param messageBody
@@ -75,18 +75,18 @@ public class PostLogic {
      * @param isPrivate
      * @return
      */
-    public PostEntity createPost(int auhtoridId, int recipientId, String subject, String messageBody, ProfileEntity postedTo, ProfileEntity postedFrom, boolean isPrivate) {
+    public PostEntity createPost(int authorId, int recipientId, String subject, String messageBody, ProfileEntity postedTo, ProfileEntity postedFrom, boolean isPrivate) {
 
         PostEntity post = new PostEntity();
         post.setSubject(subject);
         post.setMessageBody(messageBody);
         post.setRecipientId(recipientId);
-        post.setAuthorId(auhtoridId);
+        post.setAuthorId(authorId);
         post.setPostedTo(postedTo);
         post.setTimestamp(new Timestamp(System.currentTimeMillis()));
         post.setAuthorName(postedFrom.getName());
         post.setRecipientName(postedTo.getName());
-        post.setPrivate(isPrivate);
+        post.setPrivatePost(isPrivate);
         System.out.println("Inserting post: "+post.toString());
 
         EntityManager entityManager = DBManager.getInstance().createEntityManager();

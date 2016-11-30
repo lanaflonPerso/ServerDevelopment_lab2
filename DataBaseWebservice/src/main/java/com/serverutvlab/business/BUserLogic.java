@@ -134,15 +134,6 @@ public class BUserLogic {
         results.addAll(uset);
 
 
-//        List<BUser> results = new ArrayList<BUser>();
-//        for (BUser b: allUsers) {
-//            for (BUser f : friends) {
-//                if (b.getId() != f.getId() && b.getId() != userId) {
-//                    results.add(b);
-//                }
-//            }
-//        }
-
         System.out.println("All users after: " + results);
 
         return results;

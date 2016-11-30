@@ -14,7 +14,6 @@ import javax.faces.bean.SessionScoped;
 public class Account {
     private int userId;
     private String username;
-    private int profileId;
     private boolean loggedin;
 
     @PostConstruct
@@ -22,8 +21,6 @@ public class Account {
         this.loggedin = false;
         this.username = "none";
         this.userId = 0;
-        this.profileId = 0;
-
     }
 
     public int getUserId() {
@@ -42,18 +39,11 @@ public class Account {
         this.username = username;
     }
 
-    public int getProfileId() {
-        return profileId;
-    }
 
-    public void setProfileId(int profileId) {
-        this.profileId = profileId;
-    }
 
     public void fillAccount(UserVM user) {
         this.username = user.getUsername();
         this.userId = user.getUserId();
-        this.profileId = user.getProfileId();
     }
 
 
@@ -70,7 +60,6 @@ public class Account {
         return "Account{" +
                 "userId=" + userId +
                 ", username='" + username + '\'' +
-                ", profileId=" + profileId +
                 ", loggedin=" + loggedin +
                 '}';
     }
