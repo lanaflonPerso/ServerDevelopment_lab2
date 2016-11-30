@@ -82,9 +82,6 @@
                              oncomplete="updateChatAccept()"/>
         </h:form>
 
-        <p:layoutUnit position="south" resizable="true" size="200">
-
-        </p:layoutUnit>
     </p:layout>
 
     <p:socket onMessage="handleNotification" channel="/notify/#{navigationController.notificationChannel}"/>

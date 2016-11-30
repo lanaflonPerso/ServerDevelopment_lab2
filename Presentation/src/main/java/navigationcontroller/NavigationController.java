@@ -55,6 +55,7 @@ public class NavigationController {
         this.navigationService = navigationService;
     }
 
+
     public int getSelectedUserId() {
         return navigationService.getSelectedUserId();
     }
