@@ -29,9 +29,9 @@ public class ProfileVM implements ProfileItem{
         this.relationshipStatus = relationshipStatus;
     }
 
-    public int getProfileId() {
-        return profileId;
-    }
+//    public int getProfileId() {
+//        return profileId;
+//    }
 
     public String getName() {
         return name;

@@ -3,6 +3,7 @@ package view;
 import account.Account;
 import backend.BackendFacade;
 import backend.ProfileService;
+import navigationcontroller.NavigationService;
 import viewmodel.PostVM;
 
 import javax.annotation.PostConstruct;
@@ -22,6 +23,8 @@ public class PostView {
     @ManagedProperty("#{profileService}")
     private ProfileService profileService;
 
+    @ManagedProperty("#{navigationService}")
+    private NavigationService navigationService;
 
     private String subject;
     private String messageBody;
@@ -48,6 +51,14 @@ public class PostView {
 
     public void setProfileService(ProfileService profileService) {
         this.profileService = profileService;
+    }
+
+    public NavigationService getNavigationService() {
+        return navigationService;
+    }
+
+    public void setNavigationService(NavigationService navigationService) {
+        this.navigationService = navigationService;
     }
 
     public String getSubject() {
@@ -88,7 +99,7 @@ public class PostView {
 
     public void sendPost() {
         if (userAccount.isLoggedin()) {
-            PostVM postVM = BackendFacade.postPost(userAccount.getProfileId(), profileService.getProfileId(), subject, messageBody, privatePost);
+            PostVM postVM = BackendFacade.postPost(userAccount.getUserId(), navigationService.getSelectedUserId(), subject, messageBody, privatePost);
             profileService.posted(postVM);
         }
     }

@@ -36,16 +36,16 @@ public class ProfileService implements ProfileItem {
     private int relationshipStatus;
     private List<PostVM> wallPosts;
     private int selectedUserId;
-    private int profileId;
+    //private int profileId;
 
     public int getSelectedUserId() {
         return selectedUserId;
     }
 
 
-    public int getProfileId() {
-        return profileId;
-    }
+//    public int getProfileId() {
+//        return profileId;
+//    }
 
     @PostConstruct
     public void init() {
@@ -55,7 +55,7 @@ public class ProfileService implements ProfileItem {
         }
         this.wallPosts  = new ArrayList<PostVM>();
         this.selectedUserId = -1;
-        this.profileId = userAccount.getProfileId();
+        //this.profileId = userAccount.getProfileId();
         this.name = userAccount.getUsername();
         this.info = "";
         this.age = -1;
@@ -139,7 +139,7 @@ public class ProfileService implements ProfileItem {
         this.name = profile.getName();
         this.info = profile.getInfo();
         this.age = profile.getAge();
-        this.profileId = profile.getProfileId();
+        //this.profileId = profile.getProfileId();
         this.relationshipStatus = profile.getRelationshipStatus();
     }
 
@@ -154,7 +154,8 @@ public class ProfileService implements ProfileItem {
 
     public List<PostVM> updateFeed() {
         System.out.println("ProfileService:updateFeed");
-        List<PostVM> postForProfile = BackendFacade.getPostForProfile(profileId, userAccount.getUserId());
+        List<PostVM> postForProfile = BackendFacade.getSelectedProfilePost(selectedUserId,userAccount.getUserId());
+        //.getPostForProfile(profileId, userAccount.getUserId());
         if (postForProfile != null) {
             wallPosts = postForProfile;
         }

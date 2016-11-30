@@ -10,23 +10,14 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class NavigationService {
     private int selectedUserId;
-    private int selectedProfileId;
 
 
     public int getSelectedUserId() {
         return selectedUserId;
     }
 
-    public int getSelectedProfileId() {
-        return selectedProfileId;
-    }
-
     public void setSelectedUserId(int selectedUserId) {
         this.selectedUserId = selectedUserId;
-    }
-
-    public void setSelectedProfileId(int selectedProfileId) {
-        this.selectedProfileId = selectedProfileId;
     }
 
 

@@ -191,14 +191,15 @@ public class BFacade {
      */
 
     /**
-     * get posts by profile id and returning allowed post according to visitors id
-     * @param profileId
-     * @param activeUserId
+     * get posts by selectedUserId and returning allowed post according to visitors id
+     * @param selectedUserId
+     * @param visitorId
      * @return
      */
-    public static List<SPost> getPostsByProfile(int profileId, int activeUserId) {
+    public static List<SPost> getProfilePosts(int selectedUserId, int visitorId) {
         List<SPost> posts = new ArrayList<SPost>();
-        for (BPost b : new BPostLogic().getPostsByProfile(profileId,activeUserId)) {
+//        getPostsByProfile(profileId,activeUserId)
+        for (BPost b : new BPostLogic().getProfilePostsPostsByUserId(selectedUserId,visitorId)) {
             posts.add(new SPost(b.getId(),b.getSubject(),b.getMessageBody(),b.getAuthorName(),b.getRecipientName(),b.getTimestamp(),b.getAuthorId(),b.getRecipientId(),b.isPrivate()));
 
         }

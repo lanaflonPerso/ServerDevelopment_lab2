@@ -5,7 +5,7 @@ package viewmodel;
  */
 public interface ProfileItem {
 
-    public int getProfileId();
+    //public int getProfileId();
 
     public String getName();
 
