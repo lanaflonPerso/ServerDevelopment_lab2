@@ -35,9 +35,9 @@
     <orderEntry type="library" name="Maven: javax.servlet.jsp:jsp-api:2.2.1-b03" level="project" />
     <orderEntry type="library" name="Maven: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" name="Maven: org.primefaces:primefaces:6.0" level="project" />
-    <orderEntry type="library" name="Maven: org.atmosphere:atmosphere-runtime:2.4.8" level="project" />
+    <orderEntry type="library" name="Maven: org.atmosphere:atmosphere-runtime:2.4.9" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.7" level="project" />
-    <orderEntry type="library" name="Maven: org.atmosphere:atmosphere-runtime-native:2.4.8" level="project" />
+    <orderEntry type="library" name="Maven: org.atmosphere:atmosphere-runtime-native:2.4.9" level="project" />
     <orderEntry type="library" name="Maven: org.atmosphere:atmosphere-compat-jbossweb:2.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.atmosphere:atmosphere-compat-tomcat:2.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.atmosphere:atmosphere-compat-tomcat7:2.0.1" level="project" />

@@ -17,7 +17,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
-          <factory-entry name="NewPersistenceUnit" value="1aedb1c7-1e23-40dc-8428-8f8a2e3d7705" />
+          <factory-entry name="NewPersistenceUnit" value="9ab97cf9-87cb-469c-bed5-6359e2bb3afa" />
         </datasource-mapping>
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
       </configuration>
@@ -41,6 +41,10 @@
     <orderEntry type="library" name="Maven: com.sun.jersey:jersey-client:1.19.3" level="project" />
     <orderEntry type="library" name="Maven: com.sun.jersey:jersey-core:1.19.3" level="project" />
     <orderEntry type="library" name="Maven: javax.ws.rs:jsr311-api:1.1.1" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.jersey:jersey-client:1.19.3" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.jersey:jersey-core:1.19.3" level="project" />
+    <orderEntry type="library" name="Maven: javax.ws.rs:jsr311-api:1.1.1" level="project" />
+    <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.6.2" level="project" />
     <orderEntry type="library" name="Maven: com.sun.jersey:jersey-client:1.19.3" level="project" />
     <orderEntry type="library" name="Maven: com.sun.jersey:jersey-core:1.19.3" level="project" />
     <orderEntry type="library" name="Maven: javax.ws.rs:jsr311-api:1.1.1" level="project" />
