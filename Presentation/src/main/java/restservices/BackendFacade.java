@@ -1,8 +1,8 @@
-package backend;
+package restservices;
 
-import backend.SModels.SPost;
-import backend.SModels.SProfile;
-import backend.SModels.SUser;
+import restservices.SModels.SPost;
+import restservices.SModels.SProfile;
+import restservices.SModels.SUser;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import viewmodel.FriendVM;
@@ -32,7 +32,7 @@ public class BackendFacade {
      */
 
     /**
-     *  Call to backend to authenticate a user
+     *  Call to restservices to authenticate a user
      * @param userName
      * @param password
      * @return returning the user if success

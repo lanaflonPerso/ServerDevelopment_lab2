@@ -1,8 +1,6 @@
-package backend;
+package restservices;
 
-import backend.SModels.SChannelNotification;
-import chat.ChatMessageVM;
-import com.google.gson.Gson;
+import restservices.SModels.SChannelNotification;
 import org.primefaces.push.EventBus;
 import org.primefaces.push.EventBusFactory;
 import viewmodel.NotificationVM;

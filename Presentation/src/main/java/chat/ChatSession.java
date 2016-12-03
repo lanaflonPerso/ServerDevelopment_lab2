@@ -1,8 +1,8 @@
 package chat;
 
 import account.Account;
-import backend.BackendFacade;
-import backend.RestBackendLink;
+import restservices.BackendFacade;
+import restservices.RestBackendLink;
 import org.primefaces.push.EventBus;
 import org.primefaces.push.EventBusFactory;
 import viewmodel.UserVM;
@@ -10,7 +10,6 @@ import viewmodel.UserVM;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 /**

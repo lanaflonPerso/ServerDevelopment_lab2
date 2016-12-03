@@ -1,7 +1,7 @@
-package backend;
+package restservices;
 
 
-import backend.SModels.SChannelNotification;
+import restservices.SModels.SChannelNotification;
 import chat.ChatChannelRelay;
 import com.google.gson.Gson;
 

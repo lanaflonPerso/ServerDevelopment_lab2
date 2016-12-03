@@ -1,9 +1,5 @@
 package viewmodel;
 
-import backend.SModels.SPost;
-
-import java.util.List;
-
 /**
  * Created by o_0 on 2016-11-23.
  */

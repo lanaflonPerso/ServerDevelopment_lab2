@@ -1,6 +1,4 @@
-package backend.SModels;
-
-import backend.SModels.SProfile;
+package restservices.SModels;
 
 import java.sql.Timestamp;
 

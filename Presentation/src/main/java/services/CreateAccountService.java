@@ -1,8 +1,7 @@
 package services;
 
 import account.Account;
-import backend.BackendFacade;
-import services.ProfileService;
+import restservices.BackendFacade;
 import viewmodel.UserVM;
 
 import javax.annotation.PostConstruct;
@@ -51,7 +50,7 @@ public class CreateAccountService {
     }
 
     public boolean createAccount(String username, String password) {
-        // TODO: hookup to backend
+        // TODO: hookup to restservices
         UserVM user = BackendFacade.registerUser(username,password);// new UserVM(3,"d1");   /// BackendFacade.registrateUser(userName,password)
         if (user != null) {
             userAccount.fillAccount(user);

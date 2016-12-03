@@ -1,7 +1,5 @@
 package view;
 
-import account.Account;
-import backend.BackendFacade;
 import chat.ChatMessageVM;
 import chat.ChatSession;
 import org.primefaces.context.RequestContext;
@@ -18,16 +16,6 @@ import java.util.ArrayList;
 @ManagedBean
 @ViewScoped
 public class ChatView {
-//    @ManagedProperty("#{account}")
-//    private Account userAccount;
-//
-//    public Account getUserAccount() {
-//        return userAccount;
-//    }
-//
-//    public void setUserAccount(Account userAccount) {
-//        this.userAccount = userAccount;
-//    }
 
     @ManagedProperty("#{chatSession}")
     private ChatSession chatSession;

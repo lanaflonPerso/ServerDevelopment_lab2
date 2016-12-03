@@ -1,8 +1,6 @@
 package account;
 
-import backend.BackendFacade;
-import chat.ChatSession;
-import navigationcontroller.NavigationController;
+import restservices.BackendFacade;
 import viewmodel.UserVM;
 
 import javax.annotation.PostConstruct;

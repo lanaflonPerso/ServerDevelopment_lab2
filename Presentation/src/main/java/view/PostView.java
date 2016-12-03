@@ -1,7 +1,7 @@
 package view;
 
 import account.Account;
-import backend.BackendFacade;
+import restservices.BackendFacade;
 import services.ProfileService;
 import services.NavigationService;
 import viewmodel.PostVM;

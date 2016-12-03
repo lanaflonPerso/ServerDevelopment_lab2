@@ -1,7 +1,7 @@
 package services;
 
 import account.Account;
-import backend.BackendFacade;
+import restservices.BackendFacade;
 import viewmodel.FriendVM;
 
 import javax.faces.bean.ManagedBean;

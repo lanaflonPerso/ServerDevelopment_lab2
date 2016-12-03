@@ -1,4 +1,4 @@
-package backend.SModels;
+package restservices.SModels;
 
 import java.util.List;
 

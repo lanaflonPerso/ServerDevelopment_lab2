@@ -1,14 +1,13 @@
 package services;
 
 import account.Account;
-import backend.BackendFacade;
+import restservices.BackendFacade;
 import viewmodel.PostVM;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

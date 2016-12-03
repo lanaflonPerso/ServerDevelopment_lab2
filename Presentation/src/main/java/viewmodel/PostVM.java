@@ -1,7 +1,5 @@
 package viewmodel;
 
-import backend.SModels.SProfile;
-
 import java.sql.Timestamp;
 
 /**

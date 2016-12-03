@@ -1,4 +1,4 @@
-package backend.SModels;
+package restservices.SModels;
 
 /**
  * Created by o_0 on 2016-11-25.
