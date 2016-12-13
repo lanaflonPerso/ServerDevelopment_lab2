@@ -23,8 +23,6 @@ public class Server extends AbstractVerticle {
         });
 
 
-
-
         vertx
                 .createHttpServer()
                 .requestHandler(router::accept)
