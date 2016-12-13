@@ -28,7 +28,7 @@ angular.module('chatApp', [])
             return count;
         };
 
-        chatList.archive = function () {
+        chatList.clearBoard = function () {
             // var oldChatBoard = chatList.chatBoard;
             chatList.chatBoard = [];
             // angular.forEach(oldChatBoard, function (chat) {
@@ -36,6 +36,22 @@ angular.module('chatApp', [])
             //         chatList.chatBoard.push(chat);
             //     }
             // });
+        };
+
+        chatList.setUser = function () {
+            userName = chatList.myUser;
+            chatList.myUser = '';
+        };
+
+        chatList.setDestination = function () {
+            destName = chatList.theDestination;
+            chatList.theDestination = '';
+        };
+
+        chatList.regChatUser = function () {
+            console.log("regChatUser " + userName);
+            var msgData = {userName:userName};
+            socket.emit('regUser', msgData);
         };
 
         socket.on('messageEcho', function (msg) {

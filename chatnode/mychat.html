@@ -11,13 +11,26 @@
 <h2>Todo</h2>
 <div ng-controller="ChatAppController as chatCtl">
     <span>{{chatCtl.remaining()}} of {{chatCtl.chatBoard.length}} remaining</span>
-    [ <a href="" ng-click="chatCtl.archive()">archive</a> ]
+    [ <a href="" ng-click="chatCtl.clearBoard()">clear board</a> ]
     <ul class="unstyled">
         <li ng-repeat="msg in chatCtl.chatBoard">
             from: {{msg.from}} to: {{msg.to}} message: {{msg.text}}
-
         </li>
     </ul>
+    <form ng-submit="chatCtl.setUser()">
+        <input type="text" ng-model="chatCtl.myUser"  size="30"
+               placeholder="name">
+        <input class="btn-primary" type="submit" value="set user">
+    </form>
+    <form ng-submit="chatCtl.setDestination()">
+        <input type="text" ng-model="chatCtl.theDestination"  size="30"
+               placeholder="name">
+        <input class="btn-primary" type="submit" value="set destination">
+    </form>
+
+    <form ng-submit="chatCtl.regChatUser()">
+        <input class="btn-primary" type="submit" value="Reg chat user">
+    </form>
     <form ng-submit="chatCtl.sendMessage()">
         <input type="text" ng-model="chatCtl.chatText"  size="30"
                placeholder="Chat message to send">
