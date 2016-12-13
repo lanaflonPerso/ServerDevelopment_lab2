@@ -6,6 +6,19 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 var connectedUsers = {};
+
+function getKeyFromSocket(socket) {
+    var userKey;
+    for(var a in connectedUsers) {
+        console.log('disconnect: key = ' + a + ' value =  ' + connectedUsers[a]);
+        if(connectedUsers[a] == socket) {
+            userKey = a;
+            break;
+        }
+    }
+    return userKey;
+}
+
 io.on('connection', function (socket) {
     // var address = socket.handshake.address;
     // console.log('New connection: socket: ' + address.address + " port: " + address.port);
@@ -43,15 +56,8 @@ io.on('connection', function (socket) {
 
     socket.on('disconnect', function() {
         console.log('disconnect: ' +connectedUsers );
-        var userKey = '';
-        for(var a in connectedUsers) {
-            console.log('disconnect: key = ' + a + ' value =  ' + connectedUsers[a]);
-            if(connectedUsers[a] == socket) {
-                userKey = a;
-                break;
-            }
-        }
-        if(userKey.length > 0) {
+        var userKey  = getKeyFromSocket(socket);
+        if(userKey) {
             console.log('disconnect: user was = ' + userKey);
             connectedUsers[userKey] = null;
         }else {
