@@ -8,7 +8,8 @@ var io = require('socket.io')(http);
 
 io.on('connection', function (socket) {
     socket.on('sendmessage', function (msg) {
-        console.log('sendmessage:' + msg);
+
+        console.log('sendmessage: from: ' + msg.from + ' to: ' + msg.to +' text: ' + msg.text);
         io.emit("messageEcho", msg);
     });
 });

@@ -14,7 +14,7 @@
     [ <a href="" ng-click="chatCtl.archive()">archive</a> ]
     <ul class="unstyled">
         <li ng-repeat="msg in chatCtl.chatBoard">
-            {{msg.text}}
+            from: {{msg.from}} to: {{msg.to}} message: {{msg.text}}
 
         </li>
     </ul>
