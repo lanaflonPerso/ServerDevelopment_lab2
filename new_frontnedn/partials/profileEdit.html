@@ -1,0 +1,47 @@
+<div class="profile view">
+    <div class="container">
+        <form ng-submit="saveProfile()">
+            <ul>
+                <li>
+                    Name: <input type="text" ng-model="newProfile.name"  size="30"
+                                 placeholder=" {{profileVM.name}}">
+                </li>
+                <li>
+                    info: <input type="text" ng-model="newProfile.info"  size="30"
+                                 placeholder=" {{profileVM.info}}">
+                </li>
+                <li>
+                    age:<input type="text" ng-model="newProfile.age"  size="30"
+                               placeholder=" {{profileVM.age}}">
+                </li>
+                <li>
+                    relationshipStatus:<input type="text" ng-model="newProfile.relationshipStatus"  size="30"
+                                              placeholder=" {{profileVM.relationshipStatus}}">
+                </li>
+                <li>
+                    {{status}}
+                </li>
+            </ul>
+
+            <input class="btn-primary" type="submit" value="saveProfile">
+        </form>
+        <ul>
+            <li>
+                Name: {{profileVM.name}}
+            </li>
+            <li>
+                info: {{profileVM.info}}
+            </li>
+            <li>
+                age: {{profileVM.age}}
+            </li>
+            <li>
+                relationshipStatus: {{profileVM.relationshipStatus}}
+            </li>
+        </ul>
+        <form ng-submit="loadFriends()">
+
+            <input class="btn-primary" type="submit" value="loadFriends">
+        </form>
+    </div>
+</div>

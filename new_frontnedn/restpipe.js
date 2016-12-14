@@ -60,7 +60,7 @@ io.on('connection', function (socket) {
                 }else {
                     urlString += '&';
                 }
-                urlString += key + '=' + args[key];
+                urlString += key + '=' + encodeURI(args[key]);
                 console.log('test' + key + ' args:' + args[key]);
 
             }

@@ -37,6 +37,14 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 controller: 'profileAppController'
             }
         }
+    }).state('appmain.profileEdit', {
+        url: 'profileEdit',
+        views: {
+            'content@': {
+                templateUrl: '/new_frontnedn/partials/profileEdit.html',
+                controller: 'profileAppController'
+            }
+        }
     }).state('appmain.chat', {
         url: 'chat',
         views: {

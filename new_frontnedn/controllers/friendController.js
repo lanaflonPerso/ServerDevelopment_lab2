@@ -3,10 +3,10 @@
  */
 
 
-app.controller('friendAppController', function($scope,userFactory,restFactory) {
+app.controller('friendAppController', function($scope,userFactory,friendService) {
     $scope.friendlist = [];
     var loadFriends = function () {
-        var promise = restFactory.getFriendsByUserId(userFactory.getUserId());
+        var promise = friendService.getFriendsByUserId(userFactory.getUserId());
         promise.then(function (data) {
             console.log('loadFriends  data = ' +data);
 
