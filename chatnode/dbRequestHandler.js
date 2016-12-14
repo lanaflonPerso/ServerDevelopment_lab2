@@ -84,7 +84,7 @@ module.exports = {
                 console.log("Error in query, %j", error.message);
 
             } else {
-                console.log(`success`);
+                console.log("success");
             }
         });
     },
@@ -96,7 +96,7 @@ module.exports = {
                 console.log("Error in query, %j", error.message);
 
             } else {
-                console.log(`success`);
+                console.log("success");
             }
         });
     },
