@@ -33,7 +33,7 @@ public class MessageDAO {
     private static final String SQL_INSERT_MESSAGE_TO_USER = "INSERT INTO Message (fromId,toId,text,fromName,toName) VALUES (?,?,?,?,?)";
     private static final String SQL_INSERT_MESSAGE_TO_GROUP = "INSERT INTO Message (fromId,groupId,text,fromName,toName) VALUES (?,?,?,?,?)";
     private static final String SQL_GET_MESSAGES_BY_GROUP = "SELECT * FROM MESSAGE WHERE groupId = ?"; // toId = groupId
-    private static final String SQL_GET_MESSAGES_BETWEEN_USERS = "SELECT * FROM MESSAGE WHERE fromId = ? and toId = ?";
+    private static final String SQL_GET_MESSAGES_BETWEEN_USERS = "SELECT * FROM MESSAGE WHERE (fromId = ? and toId = ?) or (fromId = ? and toId = ?)";
 
 
     public void insertMessageToUser(DBMessage message) {
@@ -129,19 +129,13 @@ public class MessageDAO {
             PreparedStatement ps = dbConn.prepareStatement(SQL_GET_MESSAGES_BETWEEN_USERS);
             ps.setInt(1, fromId);
             ps.setInt(2, toId);
+            ps.setInt(3, toId);
+            ps.setInt(4, fromId);
 
             ResultSet resultSet = ps.executeQuery();
             System.out.println("Number of results: " + resultSet.getFetchSize());
 
             messages.addAll(getMessagesFromRS(resultSet));
-
-            PreparedStatement ps2 = dbConn.prepareStatement(SQL_GET_MESSAGES_BETWEEN_USERS);
-            ps2.setInt(2, fromId);
-            ps2.setInt(1, toId);
-
-            ResultSet resultSet2 = ps2.executeQuery();
-
-            messages.addAll(getMessagesFromRS(resultSet2));
 
             Collections.sort(messages);
 
