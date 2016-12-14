@@ -1,0 +1,31 @@
+<div class="mychat view">
+    <div class="container">
+        <span>{{remaining()}} of {{chatBoard.length}} remaining</span>
+        [ <a href="" ng-click="clearBoard()">clear board</a> ]
+        <ul class="unstyled">
+            <li ng-repeat="msg in chatBoard">
+                from: {{msg.from}} to: {{msg.to}} message: {{msg.text}}
+            </li>
+        </ul>
+        <form ng-submit="setUser()">
+            <input type="text" ng-model="myUser"  size="30"
+                   placeholder="name">
+            <input class="btn-primary" type="submit" value="set user">
+        </form>
+        <form ng-submit="setDestination()">
+            <input type="text" ng-model="theDestination"  size="30"
+                   placeholder="name">
+            <input class="btn-primary" type="submit" value="set destination">
+        </form>
+
+        <form ng-submit="regChatUser()">
+            <input class="btn-primary" type="submit" value="Reg chat user">
+        </form>
+        <form ng-submit="sendMessage()">
+            <input type="text" ng-model="chatText"  size="30"
+                   placeholder="Chat message to send">
+            <input class="btn-primary" type="submit" value="send">
+        </form>
+    </div>
+    </div>
+</div>

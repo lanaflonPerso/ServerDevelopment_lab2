@@ -1,0 +1,23 @@
+<div class="profile view">
+    <div class="container">
+
+        <ul>
+            <li>
+                Name: {{profileVM.name}}
+            </li>
+            <li>
+                info: {{profileVM.info}}
+            </li>
+            <li>
+                age: {{profileVM.age}}
+            </li>
+            <li>
+                relationshipStatus: {{profileVM.relationshipStatus}}
+            </li>
+        </ul>
+        <form ng-submit="loadFriends()">
+
+            <input class="btn-primary" type="submit" value="loadFriends">
+        </form>
+    </div>
+</div>

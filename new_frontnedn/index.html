@@ -1,0 +1,27 @@
+<!doctype html>
+<html ng-app="communityApp">
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0-rc.2/angular.min.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0-rc.2/angular-route.js"></script>-->
+
+    <script src="http://localhost:3500/socket.io/socket.io.js"></script>
+    <script src="//unpkg.com/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="app.js"></script>
+    <script src="factory/ioconnection.js"></script>
+    <script src="factory/restFactory.js"></script>
+    <script src="factory/userInfo.js"></script>
+    <script src="controllers/restController.js"></script>
+    <script src="controllers/profileController.js"></script>
+    <script src="controllers/friendController.js"></script>
+    <script src="controllers/chatController.js"></script>
+    <link href="style/frontpage.css" rel="stylesheet" />
+
+</head>
+<body>
+<div id="menu" ui-view="navView"></div>
+<div id="content" ui-view="content"></div>
+<div id="friend" ui-view="friends"></div>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+<div class="friends view">
+    <div class="container">
+        <ul class="unstyled">
+            This is firend page
+            <li ng-repeat="myfriend in friendlist">
+                id: {{myfriend.id}} email: {{myfriend.email}} profileId: {{myfriend.profileId}}
+            </li>
+        </ul>
+        <form ng-submit="loadFriends()">
+
+            <input class="btn-primary" type="submit" value="loadFriends">
+        </form>
+
+    </div>
+</div>
