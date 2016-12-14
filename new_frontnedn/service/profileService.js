@@ -2,7 +2,7 @@
  * Created by o_0 on 2016-12-14.
  */
 var pathProfileService = "services/profileservice/";
-
+var pathPostService = "services/postservice/";
 app.service('profileService',function ($q, socketService) {
 
     this.getProfile = function (userId) {
@@ -54,4 +54,6 @@ app.service('profileService',function ($q, socketService) {
         });
         return deferred.promise;
     };
+
+
 })

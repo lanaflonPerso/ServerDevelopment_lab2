@@ -4,20 +4,21 @@
 /**
  * Created by o_0 on 2016-12-14.
  */
-var pathUserService = "services/userservice/";
-app.service('friendService',function ($q, socketService) {
+var pathProfileService = "services/profileservice/";
+var pathPostService = "services/postservice/";
+app.service('postService',function ($q, socketService) {
 
-    this.getFriendsByUserId = function (userId) {
-        console.log('factory:getUserById');
+    this.getProfileposts = function (selectedUserId,visitorId) {
+        console.log('factory:getprofileposts');
 
         var socket = socketService.getRestPipeSocket();
-        var callbackName = "resultFriendsByUserId";
+        var callbackName = "postService";
         var redirectData = {
             userId:55,
             reqType:"GET",
-            path:pathUserService,
-            method:"getFriendsByUserId",
-            args:{userId:userId},
+            path:pathPostService,
+            method:"getprofileposts",
+            args:{selectedUserId:selectedUserId,visitorId:visitorId},
             callback:callbackName
         };
         socket.emit("redirect",redirectData);
@@ -26,22 +27,22 @@ app.service('friendService',function ($q, socketService) {
         socket.on(callbackName, function (resData) {
             var res = JSON.parse(resData);
             console.log('incoming: ' + callbackName +' data: ' + resData + ' res' + res);
-
+            // chatList.chatBoard.push({text:msg, done:false});
             deferred.resolve(res);
         });
         return deferred.promise;
     };
 
-    this.getNonFriendsByUserId = function (userId) {
-        console.log('factory:getUserById');
+    this.getNewsFeed = function (userId) {
+        console.log('factory:getNewsFeed');
 
         var socket = socketService.getRestPipeSocket();
-        var callbackName = "resultNonFriendsByUserId";
+        var callbackName = "newsFeed";
         var redirectData = {
-            userId:55,
+            userId:userId,
             reqType:"GET",
-            path:pathUserService,
-            method:"getNonFriends",
+            path:pathPostService,
+            method:"getFeed",
             args:{userId:userId},
             callback:callbackName
         };
@@ -49,9 +50,10 @@ app.service('friendService',function ($q, socketService) {
 
         var deferred = $q.defer();
         socket.on(callbackName, function (resData) {
+            console.log('incoming before jsnon parse: ' + callbackName +' data: ' + resData);
             var res = JSON.parse(resData);
             console.log('incoming: ' + callbackName +' data: ' + resData + ' res' + res);
-            
+            // chatList.chatBoard.push({text:msg, done:false});
             deferred.resolve(res);
         });
         return deferred.promise;

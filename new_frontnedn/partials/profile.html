@@ -20,4 +20,13 @@
             <input class="btn-primary" type="submit" value="loadFriends">
         </form>
     </div>
+    <div>
+        <ul class="unstyled">
+            This is firend page
+            <li ng-repeat="post in postFeed">
+                subject: {{post.subject}} </br>authorName: {{post.authorName}} recipientName: {{post.recipientName}} time: {{post.timestamp}} </br>
+                messageBody: {{post.messageBody}}
+            </li>
+        </ul>
+    </div>
 </div>

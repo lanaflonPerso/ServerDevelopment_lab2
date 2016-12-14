@@ -1,0 +1,16 @@
+<div class="makefriends view">
+    <div class="container">
+        <ul class="unstyled">
+            This is firend page
+            <input type="text" data-ng-model="friendName"/>
+            <li ng-repeat="myfriend in nonFriends | filter:friendName">
+                id: {{myfriend.id}} email: {{myfriend.email}} profileId: {{myfriend.profileId}}
+            </li>
+        </ul>
+        <form ng-submit="loadNonFriends()">
+
+            <input class="btn-primary" type="submit" value="loadNonFriends">
+        </form>
+
+    </div>
+</div>
