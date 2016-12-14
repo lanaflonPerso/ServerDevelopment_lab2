@@ -34,6 +34,7 @@ public class Server extends AbstractVerticle {
         router.post("/messageToGroup").handler(Handlers::handleSendMessageToGroup);
 
         router.route("/messageToUser*").handler(BodyHandler.create());
+
         router.post("/messageToUser").handler(Handlers::handleSendMessageToUser);
 
 
@@ -41,7 +42,7 @@ public class Server extends AbstractVerticle {
                 .createHttpServer()
                 .requestHandler(router::accept)
                 .listen(
-                        config().getInteger("http.port", 8080),
+                        config().getInteger("http.port", 3000),
                         result -> {
                             if (result.succeeded()) {
                                 fut.complete();
@@ -51,7 +52,7 @@ public class Server extends AbstractVerticle {
                         }
                 );
 
-        System.out.println("server started, listening on port 8080... ");
-    }
 
+
+    }
 }

@@ -6,6 +6,9 @@
 		"mysql": "^2.10.2",
 		"socketio" : "1.0.0",
 		"angularjs": "0.0.1",
-		"angular-ui-router": "0.3.2"
+		"angular-ui-router": "0.3.2",
+		"vertx-eventbus-client": "0.0.4",
+		"angular-vertxbus": "6.1.1",
+		"angular-ws": "1.1.0"
 	}
 } 

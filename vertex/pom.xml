@@ -7,11 +7,28 @@
     <artifactId>lab2.vertex</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <repository>
+        <id>my.mvn.repo</id>
+        <url>https://github.com/keesun/mvn-repo/raw/master</url>
+    </repository>
+
     <dependencies>
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-web</artifactId>
             <version>3.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-core</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nhncorp</groupId>
+            <artifactId>mod-socket-io</artifactId>
+            <version>LATEST</version>
         </dependency>
 
         <dependency>
@@ -27,6 +44,8 @@
         </dependency>
 
     </dependencies>
+
+
 
     <build>
         <plugins>
