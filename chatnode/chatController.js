@@ -9,7 +9,7 @@ angular.module('chatApp', [])
     .controller('ChatAppController', function($scope) {
         var chatList = this;
         chatList.chatBoard = [{text:'welcome to chat',from:userName,to:destName}];
-        var socket = io("http://localhost:3000");
+        var socket = io("http://localhost:3002");//io("http://localhost:3002");
 
 
         chatList.sendMessage = function () {
@@ -22,20 +22,11 @@ angular.module('chatApp', [])
         chatList.remaining = function () {
             var count = 0;
             count += chatList.chatBoard.length;
-            // angular.forEach(chatList.chatBoard,function (chat) {
-            //     count += chat.done ? 0 : 1;
-            // });
             return count;
         };
 
         chatList.clearBoard = function () {
-            // var oldChatBoard = chatList.chatBoard;
             chatList.chatBoard = [];
-            // angular.forEach(oldChatBoard, function (chat) {
-            //     if (chat.done == false) {
-            //         chatList.chatBoard.push(chat);
-            //     }
-            // });
         };
 
         chatList.setUser = function () {
