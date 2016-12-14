@@ -31,7 +31,7 @@ app.service('profileService',function ($q, socketService) {
     };
 
     this.saveProfile = function (userId,username,info,age,relationshipStatus) {
-        console.log('factory:getProfile');
+        console.log('factory:saveProfile');
 
         var socket = socketService.getRestPipeSocket();
         var callbackName = "updateProfile";
