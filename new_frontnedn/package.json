@@ -1,0 +1,11 @@
+{
+	"name": "mysqlApplication",
+	"version": "1.0.0",
+	"dependencies": {
+		"express": "^4.13.4",
+		"mysql": "^2.10.2",
+		"socketio" : "1.0.0",
+		"angularjs": "0.0.1",
+		"angular-ui-router": "0.3.2"
+	}
+} 

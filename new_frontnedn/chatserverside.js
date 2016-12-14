@@ -45,6 +45,8 @@ io.on('connection', function (socket) {
         // io.emit("messageEcho", msg);
         var sockFrom = connectedUsers[msg.from];
         var sockTo = connectedUsers[msg.to];
+
+
         if(sockFrom) {
             console.log('sendmessage: msg.from =  ' +sockFrom);
             sockFrom.emit("messageEcho", msg);
