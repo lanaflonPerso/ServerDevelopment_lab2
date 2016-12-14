@@ -1,7 +1,10 @@
+import DBLayer.DBFacade;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.Router;
+import io.vertx.ext.web.RoutingContext;
+import io.vertx.ext.web.handler.BodyHandler;
 
 /**
  * Created by cj on 2016-12-05.
@@ -10,6 +13,7 @@ public class Server extends AbstractVerticle {
 
     @Override
     public void start(Future<Void> fut) throws Exception {
+        System.out.println("server starting...");
         Router router = Router.router(vertx);
 
         router.route("/").handler(routingContext -> {
@@ -17,10 +21,20 @@ public class Server extends AbstractVerticle {
             response.putHeader("content-type", "text/html").end("<h1>Hello from my first Vert.x 3 application</h1>");
         });
 
-        router.route("/users").handler(routingContext -> {
-            HttpServerResponse response = routingContext.response();
-            response.putHeader("content-type", "text/html").end("Display all the users!");
-        });
+        router.route("/messagesByGroup*").handler(BodyHandler.create());
+        router.get("/messagesByGroup").handler(Handlers::handleGetMessagesByGroup);
+
+        router.route("/messagesBetweenUsers*").handler(BodyHandler.create());
+        router.get("/messagesBetweenUsers").handler(Handlers::handleGetMessagesBetweenUsers);
+
+        router.route("/getGroups*").handler(BodyHandler.create());
+        router.get("/getGroups").handler(Handlers::handleGetGroups);
+
+        router.route("/messageToGroup*").handler(BodyHandler.create());
+        router.post("/messageToGroup").handler(Handlers::handleSendMessageToGroup);
+
+        router.route("/messageToUser*").handler(BodyHandler.create());
+        router.post("/messageToUser").handler(Handlers::handleSendMessageToUser);
 
 
         vertx
@@ -37,5 +51,7 @@ public class Server extends AbstractVerticle {
                         }
                 );
 
+        System.out.println("server started, listening on port 8080... ");
     }
+
 }
