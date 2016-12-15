@@ -8,79 +8,18 @@ var destName = 'bob';
 app
     .controller('ChatAppController', function ($scope, userFactory, friendService) {
         var chatBoard = [];
-       //var socket = io("http://localhost:3000");//io("http://localhost:3002");
+        $scope.selectedChatUserId = 0;
+        $scope.selectedChatUserName = "";
+        $scope.selectedType = false;
+
+        $scope.friendList = [];
+        // test data , load from backend in init
+        $scope.groupList = [];
+        //var socket = io("http://localhost:3000");//io("http://localhost:3002");
 
 
         var host = "ws://localhost:8085/chatserver";
         var wSocket = new WebSocket(host);
-
-
-        wSocket.onopen = function () {
-            alert(" Web Socket is connected, sending data");
-            var req = {request: "register", userId: 1};
-            var data = JSON.stringify(req);
-            wSocket.send(data);
-
-        };
-
-        wSocket.onerror = function () {
-            alert("Fel!");
-        };
-
-        wSocket.onmessage = function (event) {
-            var data = JSON.parse(event.data);
-
-            console.log("onmessage: " + data);
-            if(data && data.request) {
-                console.log("onmessage req ok: ");
-                var req = data.request;
-                if (req == "sendMessageToUser") {
-                    $scope.chatBoard.push(data);
-                    $scope.$apply();
-                }
-            }
-
-
-        };
-
-
-        // fixa json som f;rutom data 'ven skickar vilken fiunktion som ;nskas
-        $scope.getMessagesBetweenUsers = function () {
-            // Request for all messages between users
-            var req = {request: "getMessagesBetweenUsers", fromId: 1, toId: 3};
-            var data = JSON.stringify(req);
-            wSocket.send(data);
-        };
-
-        $scope.joinGroup = function () {
-            // Request for all messages between users
-            var req = {request: "joinGroup", groupId: 1, groupName: "grupp6", userId: userFactory.getUserId()};
-            var data = JSON.stringify(req);
-            wSocket.send(data);
-        };
-
-        $scope.getMessagesByGroup = function () {
-            // Request for all messages between users
-            var req = {request: "getMessagesByGroup", groupId: 1};
-            var data = JSON.stringify(req);
-            wSocket.send(data);
-        };
-
-        $scope.getGroups = function () {
-            // Request for all messages between users
-            var req = {request: "getGroups"};
-            var data = JSON.stringify(req);
-            wSocket.send(data);
-        };
-
-
-        $scope.selectedChatUserId = 0;
-        $scope.selectedChatUserName = 0;
-        $scope.selectedType = 0;
-
-        $scope.friendList = [];
-        // test data , load from backend in init
-        $scope.groupList = [{id: 5, profileId: 0, email: "gruppNamn"}];
 
         var loadFriends = function () {
             var promise = friendService.getFriendsByUserId(userFactory.getUserId());
@@ -101,11 +40,97 @@ app
             loadFriends();
         }
 
+        wSocket.onopen = function () {
+            console.log(" Web Socket is connected, sending data");
+            var req = {request: "register", userId: 1};
+            var data = JSON.stringify(req);
+            wSocket.send(data);
+            getGroups();
+
+
+        };
+
+        wSocket.onerror = function () {
+            alert("Fel!");
+        };
+
+        wSocket.onmessage = function (event) {
+            var data = JSON.parse(event.data);
+
+            console.log("onmessage: " + data);
+            if(data && data.request) {
+                console.log("onmessage req ok: ");
+                var req = data.request;
+                if (req == "sendMessageToUser") {
+                    $scope.chatBoard.push(data);
+                    $scope.$apply();
+                }
+                if (req == "sendMessageToGroup") {
+                    $scope.chatBoard.push(data);
+                    $scope.$apply();
+                }
+                if (req == "getMessagesBetweenUsers") {
+                    $scope.chatBoard = [];
+                    $scope.chatBoard = data.response;
+                    $scope.$apply();
+                }
+                if (req == "getMessagesByGroup") {
+                    $scope.chatBoard = [];
+                    $scope.chatBoard = data.response;
+                    $scope.$apply();
+                }
+            }
+
+
+        };
+
+
+        // fixa json som f;rutom data 'ven skickar vilken fiunktion som ;nskas
+        var getMessagesBetweenUsers = function () {
+            // Request for all messages between users
+            var req = {request: "getMessagesBetweenUsers", fromId: userFactory.getUserId(), toId: $scope.selectedChatUserId};
+            var data = JSON.stringify(req);
+            wSocket.send(data);
+        };
+
+        $scope.joinGroup = function () {
+            // Request for all messages between users
+            var req = {request: "joinGroup", groupId: 1, groupName: "grupp6", userId: userFactory.getUserId()};
+            var data = JSON.stringify(req);
+            wSocket.send(data);
+        };
+
+        $scope.getMessagesByGroup = function () {
+            // Request for all messages between users
+            var req = {request: "getMessagesByGroup", groupId: $scope.selectedChatUserId };
+            var data = JSON.stringify(req);
+            wSocket.send(data);
+        };
+
+        var getGroups = function () {
+            // Request for all messages between users
+            var req = {request: "getGroups"};
+            var data = JSON.stringify(req);
+            wSocket.send(data);
+        };
+
+
+
+
+
+
+
+
         $scope.setChatTarget = function (selectedId, selectedName, isGroup) {
             $scope.selectedChatUserId = selectedId;
             $scope.selectedChatUserName = selectedName;
             $scope.selectedType = isGroup;
             console.log('setChatTarget  id = ' + selectedId + ' name = ' + selectedName + ' isgroupe = ' + isGroup);
+            if (isGroup) {
+                getMessagesByGroup();
+            }else {
+                getMessagesBetweenUsers();
+            }
         }
 
 
@@ -156,6 +181,8 @@ app
             $scope.chatBoard = [];
         };
 
+
+        //////// remove later
         $scope.setUser = function () {
             userName = $scope.myUser;
             $scope.myUser = '';
@@ -166,15 +193,7 @@ app
             $scope.theDestination = '';
         };
 
-        $scope.regChatUser = function () {
-            console.log("regChatUser " + userName);
 
-
-            var msgData = {userName: userName};
-
-
-            //socket.emit('regUser', msgData);
-        };
 
 
     });
