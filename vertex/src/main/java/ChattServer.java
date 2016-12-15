@@ -102,7 +102,7 @@ public class ChattServer extends AbstractVerticle {
                                 eb.send(request, buffer.toString());
 
                             } else if (request.equals("getGroups")){
-                                System.out.println("processing getMessagesByGroup");
+                                System.out.println("processing getGroups");
                                 eb.send(request, buffer.toString());
 
                             } else if (request.equals("sendMessageToUser")){
@@ -111,7 +111,8 @@ public class ChattServer extends AbstractVerticle {
                                 eb.send(request, buffer.toString());
 
                             } else if (request.equals("sendMessageToGroup")){
-                                System.out.println("processing sendMessageToUser");
+                                System.out.println("processing sendMessageToGroup");
+                                sendGroupMessage(data);
                                 eb.send(request, buffer.toString());
 
                             } else {
@@ -188,7 +189,7 @@ public class ChattServer extends AbstractVerticle {
 
         eb.consumer("sendBackRequest", data -> {
             JsonObject result = new JsonObject(data.body().toString());
-
+            System.out.println("sendBackRequest = " + result.toString());
             ServerWebSocket s1 = null;
             Integer id = result.getInteger("fromId");
 
@@ -196,7 +197,13 @@ public class ChattServer extends AbstractVerticle {
                 s1 = clients.get(id);
                 if (s1 != null){
                     s1.writeFinalTextFrame(result.toString());
+                    System.out.println("sendBackRequest message sent ");
+
+                }else {
+                    System.out.println("sendBackRequest message not sent ");
                 }
+            } else {
+                System.out.println("sendBackRequest message id == null ");
             }
         });
     }
