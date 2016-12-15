@@ -5,7 +5,7 @@
             [ <a href="" ng-click="clearBoard()">clear board</a> ]
             <ul class="unstyled">
                 <li ng-repeat="msg in chatBoard">
-                    from: {{msg.from}} to: {{msg.to}} message: {{msg.text}}
+                    from: {{msg.fromName}} to: {{msg.toName}} message: {{msg.text}}
                 </li>
             </ul>
             <form ng-submit="sendMessage()">
@@ -22,7 +22,7 @@
             <input type="text" data-ng-model="chatSelectThingy"/></br>
             Friends:
             <li ng-repeat="myfriend in friendList | filter:chatSelectThingy">
-                id: {{myfriend.id}} email: {{myfriend.email}} profileId: {{myfriend.profileId}}
+                <!--id: {{myfriend.id}} email: {{myfriend.email}} profileId: {{myfriend.profileId}}-->
                 <form ng-submit=setChatTarget(myfriend.id,myfriend.email,false)>
                     <!--<input type="hidden" ng-model="myUser" value="{{myfriend.id}}">-->
 
@@ -32,7 +32,7 @@
             </li>
             Groups:
             <li ng-repeat="group in groupList | filter:chatSelectThingy">
-                id: {{group.id}} email: {{group.email}} profileId: {{group.profileId}}
+                <!--id: {{group.id}} email: {{group.email}} profileId: {{group.profileId}}-->
                 <form ng-submit=setChatTarget(group.id,group.email,true)>
                     <!--<input type="hidden" ng-model="myUser" value="{{myfriend.id}}">-->
 

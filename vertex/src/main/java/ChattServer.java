@@ -21,10 +21,31 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ChattServer extends AbstractVerticle {
     ConcurrentHashMap<Integer,ServerWebSocket> clients = new ConcurrentHashMap<>();
 
-    @Override
+    public void sendMessageP2P(JsonObject data) {
+        Integer fromId = data.getInteger("fromId");
+        Integer toUser = data.getInteger("toId");
+        System.out.println("sendMessageP2P: fromId = " + fromId + " to" + toUser);
+        if (fromId != null) {
+            ServerWebSocket fromWs = clients.get(fromId);
+            if (fromWs != null) {
+                fromWs.writeFinalTextFrame(data.toString());
 
+            }
+        }
+
+        if (toUser != null) {
+            ServerWebSocket toWs = clients.get(toUser);
+            if (toWs != null) {
+                toWs.writeFinalTextFrame(data.toString());
+            }
+
+        }
+    }
+
+    @Override
     public void start() {
         EventBus eb = vertx.eventBus();
+
 
         vertx.createHttpServer().websocketHandler(new Handler<ServerWebSocket>() {
 
@@ -61,6 +82,7 @@ public class ChattServer extends AbstractVerticle {
 
                             } else if (request.equals("sendMessageToUser")){
                                 System.out.println("processing sendMessageToUser");
+                                sendMessageP2P(data);
                                 eb.send(request, buffer.toString());
 
 
@@ -71,13 +93,14 @@ public class ChattServer extends AbstractVerticle {
                                 eb.send(request, buffer.toString());
 
 
+
                             } else {
 
 
                             }
                             System.out.println("end of the world! ");
 
-                            ws.writeFinalTextFrame(buffer.toString()); // Echo it back
+                            //ws.writeFinalTextFrame(buffer.toString()); // Echo it back
                         }
                     });
                 } else {

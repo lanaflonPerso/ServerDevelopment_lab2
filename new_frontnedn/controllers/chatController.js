@@ -7,7 +7,7 @@ var destName = 'bob';
 
 app
     .controller('ChatAppController', function ($scope, userFactory, friendService) {
-        var chatBoard = [{text: 'welcome to chat', from: userName, to: destName}];
+        var chatBoard = [];
        //var socket = io("http://localhost:3000");//io("http://localhost:3002");
 
 
@@ -28,8 +28,17 @@ app
         };
 
         wSocket.onmessage = function (event) {
-            var data = event.data;
-            console.log("data: " + data);
+            var data = JSON.parse(event.data);
+
+            console.log("onmessage: " + data);
+            if(data && data.request) {
+                console.log("onmessage req ok: ");
+                var req = data.request;
+                if (req == "sendMessageToUser") {
+                    $scope.chatBoard.push(data);
+                    $scope.$apply();
+                }
+            }
 
 
         };
@@ -160,13 +169,5 @@ app
             //socket.emit('regUser', msgData);
         };
 
-        // socket.on('messageEcho', function (msg) {
-        //     console.log('incoming: from: ' + msg.from + ' to: ' + msg.to +' text: ' + msg.text);
-        //     // $scope.chatBoard.push({text:msg, done:false});
-        //     $scope.chatBoard.push(msg);
-        //     $scope.$apply();
-        //
-        //
-        // });
 
     });
