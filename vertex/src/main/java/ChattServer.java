@@ -19,12 +19,12 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by cj on 2016-12-14.
  */
 public class ChattServer extends AbstractVerticle {
+    ConcurrentHashMap<Integer,ServerWebSocket> clients = new ConcurrentHashMap<>();
 
     @Override
 
     public void start() {
         EventBus eb = vertx.eventBus();
-        ConcurrentHashMap<Integer,ServerWebSocket> clients = new ConcurrentHashMap<>();
 
         vertx.createHttpServer().websocketHandler(new Handler<ServerWebSocket>() {
 
@@ -64,6 +64,8 @@ public class ChattServer extends AbstractVerticle {
                                 eb.send(request, buffer.toString());
 
 
+
+
                             } else if (request.equals("sendMessageToGroup")){
                                 System.out.println("processing sendMessageToUser");
                                 eb.send(request, buffer.toString());
@@ -92,48 +94,47 @@ public class ChattServer extends AbstractVerticle {
             System.out.println("I have began to process ::getMessageBetweenUsers:: request = " + object);
 
             JsonObject result = Handlers.handleGetMessagesBetweenUsers(object);
-            System.out.println("Result: " + result);
-            eb.send("sendBack-"+result.getString("request"), result.toString());
+
+            eb.send("sendBackRequest", result.toString());
         });
+
+        eb.consumer("getMessagesByGroup", data -> {
+            String datat = (String) data.body();
+            JsonObject object = new JsonObject(data.body().toString());
+            System.out.println("I have began to process ::getMessagesByGroup:: request = " + object);
+
+            JsonObject result = Handlers.handleGetMessagesByGroup(object);
+
+            eb.send("sendBackRequest", result.toString());
+        });
+
+
         eb.consumer("sendMessageToUser", data -> {
             JsonObject object = new JsonObject(data.body().toString());
             System.out.println("I have began to process ::sendMessageToUser:: request = " + object);
-            JsonObject result = Handlers.handleSendMessageToUser(object);
-            System.out.println("Result: " + result);
-            eb.send("sendBack-"+result.getString("request"), result.toString());
+
+            Handlers.handleSendMessageToUser(object);
+
         });
         eb.consumer("sendMessageToGroup", data -> {
             JsonObject object = new JsonObject(data.body().toString());
             System.out.println("I have began to process ::sendMessageToGroup:: request = " + object);
-            JsonObject result = Handlers.handleSendMessageToGroup(object);
-            System.out.println("Result: " + result);
-        });
-
-        eb.consumer("sendBack-getMessagesBetweenUsers", data -> {
-            JsonObject result = new JsonObject(data.body().toString());
-
-            ServerWebSocket s1 = clients.get(result.getInteger("fromId"));
-
-            s1.writeFinalTextFrame(result.toString());
+            Handlers.handleSendMessageToGroup(object);
 
         });
 
-        eb.consumer("sendBack-sendMessageToUser", data -> {
+        eb.consumer("sendBackRequest", data -> {
             JsonObject result = new JsonObject(data.body().toString());
 
             ServerWebSocket s1 = null;
-            ServerWebSocket s2 = null;
+            Integer id = result.getInteger("fromId");
 
-            s1 = clients.get(result.getInteger("fromId"));
-            s2 = clients.get(result.getInteger("toId"));
-
-            if (s1 != null)
-                s1.writeFinalTextFrame(result.toString());
-            if (s2 != null)
-                s2.writeFinalTextFrame(result.toString());
-
+            if (id != null){
+                s1 = clients.get(id);
+                if (s1 != null){
+                    s1.writeFinalTextFrame(result.toString());
+                }
+            }
         });
-
-
     }
 }
