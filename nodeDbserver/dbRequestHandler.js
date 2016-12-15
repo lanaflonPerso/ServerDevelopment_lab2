@@ -24,7 +24,7 @@ connection.connect(function (error) {
 
 module.exports = {
 
-    getGroups: function (id) {
+    getGroups: function (id, callback) {
         var groups = []
         var query = "SELECT * FROM Group";
 
@@ -35,22 +35,22 @@ module.exports = {
             } else {
 
                 for (var i = rows.length - 1; i >= 0; i--) {
-                    var rId =  rows[i].id;
-                    var rName =  rows[i].name;
+                    var rId = rows[i].id;
+                    var rName = rows[i].name;
 
-                    var group = {id:rId, name: rName};
+                    var group = {id: rId, name: rName};
 
                     groups.push(group);
                 }
                 ;
-                return groups;
+                callback(groups);
             }
 
         });
     },
 
 
-    getMessagesByGroup: function (id) {
+    getMessagesByGroup: function (id, callback) {
         var messages = [];
         var query = "SELECT * FROM MESSAGE WHERE groupId=" + id;
 
@@ -59,18 +59,18 @@ module.exports = {
                 console.log("Error in query, %j", error.message);
             } else {
                 for (var i = rows.length - 1; i >= 0; i--) {
-                    var rId =  rows[i].id;
-                    var rFromId =  rows[i].fromId;
+                    var rId = rows[i].id;
+                    var rFromId = rows[i].fromId;
                     var rGroupId = rows[i].groupId;
                     var rText = rows[i].text;
                     var rTimestamp = rows[i].timestamp;
 
-                    var msg = { id: rId, fromId: rFromId, groupId: rGroupId, text: rText, timestamp: rTimestamp};
+                    var msg = {id: rId, fromId: rFromId, groupId: rGroupId, text: rText, timestamp: rTimestamp};
 
                     messages.push(msg);
                 }
                 ;
-                return messages;
+                callback(messages);
             }
 
         });
@@ -85,12 +85,12 @@ module.exports = {
 
             } else {
                 console.log("success");
-                callback({'id':'lala'});
+                callback({'id': 'lala'});
             }
         });
     },
 
-    insertMessageToGroup: function (fromId, groupId, text) {
+    insertMessageToGroup: function (fromId, groupId, text, callback) {
         var query = "INSERT INTO Message (fromId,groupId,text) VALUES (" + fromId + "," + groupId + "," + text + ")";
         connection.query(query, function (error, rows, fields) {
             if (!!error) {
@@ -98,15 +98,16 @@ module.exports = {
 
             } else {
                 console.log("success");
+                callback({success: true});
             }
         });
     },
 
 
-    getMessagesBetweenUsers: function (fromId,toId,callback) {
+    getMessagesBetweenUsers: function (fromId, toId, callback) {
 
         var messages = [];
-        var query = "SELECT * FROM MESSAGE WHERE (fromId =" + fromId + " and toId ="+toId+") or (fromId =" + toId + " and toId ="+fromId+")";
+        var query = "SELECT * FROM MESSAGE WHERE (fromId =" + fromId + " and toId =" + toId + ") or (fromId =" + toId + " and toId =" + fromId + ")";
 
         console.log("getMessagesBetweenUsers query = " + query);
         connection.query(query, function (error, rows, fields) {
@@ -116,19 +117,20 @@ module.exports = {
             } else {
                 for (var i = rows.length - 1; i >= 0; i--) {
 
-                    var rId =  rows[i].id;
-                    var rFromId =  rows[i].fromId;
+                    var rId = rows[i].id;
+                    var rFromId = rows[i].fromId;
                     var rToId = rows[i].toId;
                     var rText = rows[i].text;
                     var rTimestamp = rows[i].timestamp;
 
-                    var msg = { id: rId, fromId: rFromId, toId: rToId, text: rText, timestamp: rTimestamp};
+                    var msg = {id: rId, fromId: rFromId, toId: rToId, text: rText, timestamp: rTimestamp};
 
                     messages.push(msg);
-                };
+                }
+                ;
             }
 
-             messages.sort(function (a, b) {
+            messages.sort(function (a, b) {
                 if (a.timestamp > b.timestamp) {
                     return -1;
                 }
@@ -138,14 +140,48 @@ module.exports = {
                 // a must be equal to b
                 return 0;
             });
-            var msg = JSON.stringify(messages,null, 4);
+            var msg = JSON.stringify(messages, null, 4);
 //     console.log(`Super result: ${str}`);
             console.log("getMessagesBetweenUsers messages = " + msg);
             callback(messages);
-             return messages
+            return messages
 
         });
     },
+
+    joinGroup: function (groupId, userId, callback) {
+        var query = "INSERT INTO CommunityDB.GroupUserId (groupId, userId) VALUES (" + groupId + "," + userId + ")";
+        connection.query(query, function (error, rows, fields) {
+            if (!!error) {
+                console.log("Error in query, %j", error.message);
+
+            } else {
+                console.log("success");
+                callback({success: true});
+            }
+        });
+    },
+
+    usersByGroup: function (groupId, callback) {
+        var userIds = [];
+        var query = "SELECT * FROM CommunityDB.GroupUserId WHERE groupId = " + groupId;
+        connection.query(query, function (error, rows, fields) {
+            if (!!error) {
+                console.log("Error in query, %j", error.message);
+
+            } else {
+                for (var i = rows.length - 1; i >= 0; i--) {
+                    var rId = rows[i].id;
+                    userIds.push(rId);
+
+                };
+
+
+                console.log("success");
+                callback({groupId: groupId, userIds: userIds});
+            }
+        });
+    }
 };
 
 

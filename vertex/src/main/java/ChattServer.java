@@ -13,6 +13,7 @@ import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 
@@ -21,7 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class ChattServer extends AbstractVerticle {
     ConcurrentHashMap<Integer,ServerWebSocket> clients = new ConcurrentHashMap<>();
-    ConcurrentHashMap<Integer,ArrayList<Integer>> groups = new ConcurrentHashMap<>();
+    ConcurrentHashMap<Integer,List<Integer>> groups = new ConcurrentHashMap<>();
 
     public void sendMessageP2P(JsonObject data) {
         Integer fromId = data.getInteger("fromId");
@@ -44,31 +45,28 @@ public class ChattServer extends AbstractVerticle {
         }
     }
 
-    public void addGrup(Integer groupId,ArrayList<Integer> members) {
-        groups.put(groupId,members);
-    }
+    public void sendGroupMessage(JsonObject data) {
+        Integer groupId = data.getInteger("groupId");
 
-    public void sendGroupMessage(Integer groupId,JsonObject data) {
 
         System.out.println("sendGroupMessage: groupId = " + groupId);
         if (groupId == null) {
             System.out.println("error: sendGroupMessage == null");
             return;
         }
-        ArrayList<Integer> memberList = groups.get(groupId);
+        List<Integer> memberList = groups.get(groupId);
         for(Integer userId : memberList) {
             ServerWebSocket userWs = clients.get(userId);
             if (userWs != null) {
                 userWs.writeFinalTextFrame(data.toString());
-
             }
         }
-
     }
 
     @Override
     public void start() {
         EventBus eb = vertx.eventBus();
+        initGroups();
 
 
         vertx.createHttpServer().websocketHandler(new Handler<ServerWebSocket>() {
@@ -91,6 +89,9 @@ public class ChattServer extends AbstractVerticle {
                                 System.out.println("processing register");
                                 clients.put(data.getInteger("userId"), ws);
 
+                            } else if(request.equals("joinGroup")){
+                                System.out.println("processing joinGroup");
+                                eb.send(request, buffer.toString());
 
                             } else if(request.equals("getMessagesBetweenUsers")){
                                 System.out.println("processing getMessagesBetweenUsers");
@@ -98,25 +99,20 @@ public class ChattServer extends AbstractVerticle {
 
                             } else if (request.equals("getMessagesByGroup")){
                                 System.out.println("processing getMessagesByGroup");
-
+                                eb.send(request, buffer.toString());
 
                             } else if (request.equals("getGroups")){
-                                System.out.println("processing getGroups");
-
+                                System.out.println("processing getMessagesByGroup");
+                                eb.send(request, buffer.toString());
 
                             } else if (request.equals("sendMessageToUser")){
                                 System.out.println("processing sendMessageToUser");
                                 sendMessageP2P(data);
                                 eb.send(request, buffer.toString());
 
-
-
-
                             } else if (request.equals("sendMessageToGroup")){
                                 System.out.println("processing sendMessageToUser");
                                 eb.send(request, buffer.toString());
-
-
 
                             } else {
 
@@ -124,7 +120,6 @@ public class ChattServer extends AbstractVerticle {
                             }
                             System.out.println("end of the world! ");
 
-                            //ws.writeFinalTextFrame(buffer.toString()); // Echo it back
                         }
                     });
                 } else {
@@ -155,6 +150,27 @@ public class ChattServer extends AbstractVerticle {
             eb.send("sendBackRequest", result.toString());
         });
 
+        eb.consumer("getGroups", data -> {
+            String datat = (String) data.body();
+            JsonObject object = new JsonObject(data.body().toString());
+            System.out.println("I have began to process ::getGroups:: request = " + object);
+
+            JsonObject result = Handlers.handleGetGroups(object);
+
+            eb.send("sendBackRequest", result.toString());
+        });
+
+        eb.consumer("joinGroup", data -> {
+            String datat = (String) data.body();
+            JsonObject object = new JsonObject(data.body().toString());
+            System.out.println("I have began to process ::joinGroup:: request = " + object);
+
+            Handlers.Tuple tup = Handlers.handleJoinGroup(object);
+
+            groups.put(tup.groupId, tup.userIds);
+
+        });
+
 
         eb.consumer("sendMessageToUser", data -> {
             JsonObject object = new JsonObject(data.body().toString());
@@ -183,5 +199,9 @@ public class ChattServer extends AbstractVerticle {
                 }
             }
         });
+    }
+
+    private void initGroups() {
+        groups = Handlers.getGroups();
     }
 }
