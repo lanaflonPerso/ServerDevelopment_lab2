@@ -5,7 +5,7 @@ var webSocketPort = 8085;
 
 var webSocketServer = WebSocket.server;
 
-var httpServer = http.createServer( function (requset, response) {
+var httpServer = http.createServer(function (requset, response) {
 
 });
 
@@ -20,9 +20,9 @@ var groupMembers = {};
 
 function getKeyFromSocket(socket) {
     var userKey;
-    for(var a in connectedUsers) {
+    for (var a in connectedUsers) {
         console.log('disconnect: key = ' + a + ' value =  ' + connectedUsers[a]);
-        if(connectedUsers[a] == socket) {
+        if (connectedUsers[a] == socket) {
             userKey = a;
             break;
         }
@@ -30,16 +30,28 @@ function getKeyFromSocket(socket) {
     return userKey;
 }
 
+var addToGroup = function (groupId, memberList) {
+    if (groupId && memberList) {
+        groupMembers[groupId] = memberList;
+        console.log('member added: ' + memberList);
+        for (m in memberList) {
+            console.log('member : ' + m + ' mlist[m] = ' + memberList[m]);
+        }
+    } else {
+        console.log('failed to add member :');
+    }
+};
+
 var regUser = function (userId, userConn) {
 
 
-        if (connectedUsers[userId]) {
-            // already connected
-            console.log('regUser: ' + userId + ' already registrated');
-        } else {
-            connectedUsers[userId] = userConn;
-            console.log('regUser: ' + userId + ' registrated with socket: ' + userConn);
-        }
+    if (connectedUsers[userId]) {
+        // already connected
+        console.log('regUser: ' + userId + ' already registrated');
+    } else {
+        connectedUsers[userId] = userConn;
+        console.log('regUser: ' + userId + ' registrated with socket: ' + userConn);
+    }
 
 };
 
@@ -47,11 +59,11 @@ var simpleSend = function (userId, data) {
     if (userId) {
         var sockTo = connectedUsers[userId];
         if (sockTo) {
-            sockTo.sendUTF(JSON.stringify(data));
-        }else {
+            sockTo.send(JSON.stringify(data)); // .sendUTF(JSON.stringify(data));
+        } else {
             console.log("simpleSend failed sockTo == null: ");
         }
-    }else {
+    } else {
         console.log("simpleSend no iser userId:" + userId);
     }
 
@@ -61,48 +73,48 @@ var sendMessageP2P = function (data) {
     console.log("sendMessageToUser: ");
     console.log('sendmessage: from: ' + data);
 
-    simpleSend(data.fromId,data);
-    simpleSend(data.toId,data);
+    simpleSend(data.fromId, data);
+    simpleSend(data.toId, data);
 };
 
 var sendMessageGroup = function (data) {
     console.log('sendMessageGroup: ' + data);
     var groupId = data.groupId;
-    if(!groupId) {
+    if (!groupId) {
         console.log('sendMessageGroup: missing groupId');
         return false;
     }
     var memberList = groupMembers[groupId];
-    if(memberList) {
-        for( idx in memberList) {
-            simpleSend(idx,data);
+    if (memberList) {
+        for (idx in memberList) {
+            simpleSend(idx, data);
         }
-    }else {
-        console.log("sendMessageGroup no group:" + groupId );
+    } else {
+        console.log("sendMessageGroup no group:" + groupId);
     }
 
 
 };
 
 var disconnectUser = function (conn) {
-    console.log('disconected = ' );
-    console.log('disconnect: ' +connectedUsers );
-    var userKey  = getKeyFromSocket(conn);
-    if(userKey) {
+    console.log('disconected = ');
+    console.log('disconnect: ' + connectedUsers);
+    var userKey = getKeyFromSocket(conn);
+    if (userKey) {
         console.log('disconnect: user was = ' + userKey);
         connectedUsers[userKey] = null;
-    }else {
+    } else {
         console.log('disconnect: no user found');
     }
 };
 
-wsServer.on('request',function (request) {
+wsServer.on('request', function (request) {
     console.log('user connected');
 
-    var userConn = request.accept(null,request.origin);
+    var userConn = request.accept(null, request.origin);
 
 
-    userConn.on('message',function (indata) {
+    userConn.on('message', function (indata) {
         var datatest = JSON.stringify(indata);
         console.log('message = ' + indata + ' dataTest = ' + datatest);
         var data = JSON.parse(indata.utf8Data);
@@ -122,30 +134,65 @@ wsServer.on('request',function (request) {
             }
             if (req == "sendMessageToUser") {
                 sendMessageP2P(data);
+                dbRecordHandler.insertMessageToUser(data.fromId,data.toId,data.text,data.fromName,data.toName, function (msg) {
+                    console.log("sendMessageToGroup done result =  " + msg);
+                });
             }
             if (req == "sendMessageToGroup") {
-                console.log("sendMessageToGroup: " );
-
+                console.log("sendMessageToGroup: ");
                 sendMessageGroup(data);
+                dbRecordHandler.insertMessageToGroup(data.fromId,data.groupId,data.text,data.fromName,data.toName, function (msg) {
+                    console.log("sendMessageToGroup done result =  " + msg);
+                });
+            }
+            if (req == "getGroups") {
+                console.log("getGroups: ");
+                dbRecordHandler.getGroups(data.fromId, function (resp) {
+                    console.log("getGroups: done");
+                    data['response'] = resp;
+                    simpleSend(data.fromId, data);
+                });
             }
             if (req == "getMessagesBetweenUsers") {
-                console.log("getMessagesBetweenUsers: " );
+                console.log("getMessagesBetweenUsers: ");
+                dbRecordHandler.getMessagesBetweenUsers(data.fromId, data.toId, function (resp) {
+                    // console.log("getMessagesBetweenUsers: done");
+                    data['response'] = resp;
+                    console.log("getMessagesBetweenUsers: done");
+                    simpleSend(data.fromId, data);
+                });
             }
             if (req == "getMessagesByGroup") {
-                console.log("getMessagesByGroup: " );
+                console.log("getMessagesByGroup: ");
                 dbRecordHandler.getMessagesByGroup(data.groupId, function (message) {
                     data['response'] = message;
-                    simpleSend(data.fromId,data);
+                    simpleSend(data.fromId, data);
                 });
             }
             if (req == "joinGroup") {
-                console.log("joinGroup: " );
-                if(data.groupId) {
-                    dbRecordHandler.joinGroup(data.groupId,data.userId, function () {
+                console.log("joinGroup: ");
+                if (data.groupId) {
+                    dbRecordHandler.joinGroup(data.groupId, data.userId, function (message) {
+                        console.log("done : joinGroup =  " + message);
+                        dbRecordHandler.usersByGroup(data.groupId, function (result) {
+                            if (result) {
+                                console.log("usersByGroup done  =  " + result);
+                                addToGroup(result.groupId, result.userIds);
 
+                            }
+
+                        })
                     });
-                }else {
-                    dbRecordHandler.joinGroup(data.groupId,data.userId, function () {
+                } else {
+                    dbRecordHandler.createGroup(data.groupName, function (backMessage) {
+                        if (backMessage.success) {
+                            console.log("done : createGroup =  " + backMessage);
+                            dbRecordHandler.joinGroup(backMessage.groupId, data.userId, function (res) {
+                                console.log("done : createGroup =  " + res);
+                                simpleSend(data.fromId, data);
+
+                            });
+                        }
 
                     });
                 }
@@ -154,12 +201,11 @@ wsServer.on('request',function (request) {
         }
     });
 
-    userConn.on('close',function (conn) {
+    userConn.on('close', function (conn) {
         disconnectUser(conn);
     })
 
 });
-
 
 
 //

@@ -1,16 +1,18 @@
 <div class="friends view">
     <div class="container">
-        <ul class="unstyled">
+        <ul >
             This is friends page
-            <li ng-repeat="myfriend in friendlist">
+
+            <li class="friendBox" ng-repeat="myfriend in friendlist">
                 id: {{myfriend.id}} email: {{myfriend.email}} profileId: {{myfriend.profileId}}
                 <form ng-submit=selectFriend(myfriend.id)>
                     <!--<input type="hidden" ng-model="myUser" value="{{myfriend.id}}">-->
 
-                    <input class="btn-primary" type="submit" value="loadFriends">
+                    <input class="btn-primary" type="submit" value={{myfriend.email}}>
                 </form>
 
             </li>
+
         </ul>
         <form ng-submit="loadFriends()">
 

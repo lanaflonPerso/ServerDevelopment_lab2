@@ -26,7 +26,7 @@ module.exports = {
 
     getGroups: function (id, callback) {
         var groups = []
-        var query = "SELECT * FROM Group";
+        var query = "SELECT * FROM CommunityDB.Group";
 
         connection.query(query, function (error, rows, fields) {
             if (!!error) {
@@ -76,8 +76,8 @@ module.exports = {
         });
     },
 
-    insertMessageToUser: function (fromId, toId, text, callback) {
-        var query = "INSERT INTO Message (fromId,toId,text) VALUES (" + fromId + "," + toId + ",'" + text + "')";
+    insertMessageToUser: function (fromId, toId, text,  fromName, toName, callback) {
+        var query = "INSERT INTO Message (fromId,toId,text,fromName,toName) VALUES (" + fromId + "," + toId + ",'" + text + "','" + fromName +"','" + toName+ "')";
         console.log("query call = " + query);
         connection.query(query, function (error, rows, fields) {
             if (!!error) {
@@ -90,8 +90,9 @@ module.exports = {
         });
     },
 
-    insertMessageToGroup: function (fromId, groupId, text, callback) {
-        var query = "INSERT INTO Message (fromId,groupId,text) VALUES (" + fromId + "," + groupId + "," + text + ")";
+    insertMessageToGroup: function (fromId, groupId, text, fromName, toName,callback) {
+        //INSERT INTO Message (fromId,groupId,text,fromName,toName) VALUES (?,?,?,?,?)"
+        var query = "INSERT INTO Message (fromId,groupId,text,fromName,toName) VALUES (" + fromId + "," + groupId + ",'" + text + "','" + fromName +"','" + toName+ "')";
         connection.query(query, function (error, rows, fields) {
             if (!!error) {
                 console.log("Error in query, %j", error.message);
@@ -142,7 +143,7 @@ module.exports = {
             });
             var msg = JSON.stringify(messages, null, 4);
 //     console.log(`Super result: ${str}`);
-            console.log("getMessagesBetweenUsers messages = " + msg);
+            console.log("getMessagesBetweenUsers done = " );
             callback(messages);
             return messages
 
@@ -163,13 +164,13 @@ module.exports = {
     },
     createGroup: function (groupName, userId, callback) {
         var query = "INSERT INTO CommunityDB.Group (name) VALUES (" + groupName+ ")";
-        connection.query(query, function (error, rows, fields) {
+        connection.query(query, function (error, result) {
             if (!!error) {
                 console.log("Error in query, %j", error.message);
 
             } else {
-                console.log("success");
-                callback({success: true});
+                console.log("success result.insertId = " + result.insertId);
+                callback({success: true,groupId:result.insertId});
             }
         });
     },
@@ -183,10 +184,16 @@ module.exports = {
 
             } else {
                 for (var i = rows.length - 1; i >= 0; i--) {
-                    var rId = rows[i].id;
+                    var rId = rows[i].userId;
                     userIds.push(rId);
 
                 };
+
+                // filters all duplications, if pos equals last index then false
+                // else true
+                userIds.sort().filter(function(item, pos, ary) {
+                    return !pos || item != ary[pos - 1];
+                })
 
 
                 console.log("success");

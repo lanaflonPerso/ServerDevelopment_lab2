@@ -59,7 +59,7 @@ app
 
             console.log("onmessage: " + data);
             if(data && data.request) {
-                console.log("onmessage req ok: ");
+                console.log("onmessage req ok: = " + data.request);
                 var req = data.request;
                 if (req == "sendMessageToUser") {
                     $scope.chatBoard.push(data);
@@ -84,6 +84,8 @@ app
                     $scope.groupList = data.response;
                     $scope.$apply();
                 }
+            }else {
+                console.log("onmessage: failed to find handler " + data);
             }
 
 

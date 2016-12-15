@@ -1,53 +1,55 @@
 <div class="mychat view">
     <div class="container">
-        <div id="chatText">
-            <span>{{remaining()}} of {{chatBoard.length}} remaining</span>
-            [ <a href="" ng-click="clearBoard()">clear board</a> ]
-            <ul class="unstyled">
-                <li ng-repeat="msg in chatBoard">
-                    from: {{msg.fromName}} to: {{msg.toName}} time: {{msg.timestamp}}</br>message: {{msg.text}}
+        <div class="chatArea">
+            <div class="chatText">
+                <span>{{remaining()}} of {{chatBoard.length}} remaining</span>
+                [ <a href="" ng-click="clearBoard()">clear board</a> ]
+                <ul>
+                    <li class="chatMessageBox" data-ng-repeat="msg in chatBoard | orderBy:'timestamp'">
+                        from: {{msg.fromName}} to: {{msg.toName}} time: {{msg.timestamp}}
+                        </br>message: {{msg.text}}
+                    </li>
+                </ul>
+                <form ng-submit="sendMessage()">
+                    <input type="text" ng-model="chatText" size="30"
+                           placeholder="Chat message to send">
+                    <input class="btn-primary" type="submit" value="send">
+                </form>
+
+            </div>
+
+            <div class="chatSelect">
+
+                Search for chat:
+                <input type="text" data-ng-model="chatSelectThingy"/></br>
+                Friends:
+                <li ng-repeat="myfriend in friendList | filter:chatSelectThingy">
+                    <form ng-submit=setChatTarget(myfriend.id,myfriend.email,false)>
+
+                        <input class="btn-primary" type="submit" value={{myfriend.email}}>
+                    </form>
+
                 </li>
-            </ul>
-            <form ng-submit="sendMessage()">
-                <input type="text" ng-model="chatText" size="30"
-                       placeholder="Chat message to send">
-                <input class="btn-primary" type="submit" value="send">
-            </form>
 
-        </div>
 
-        <div id="chatSelect">
-
-            Search for chat:
-            <input type="text" data-ng-model="chatSelectThingy"/></br>
-            Friends:
-            <li ng-repeat="myfriend in friendList | filter:chatSelectThingy">
-                <form ng-submit=setChatTarget(myfriend.id,myfriend.email,false)>
-
-                    <input class="btn-primary" type="submit" value={{myfriend.email}}>
+                Groups:
+                <form ng-submit="createGroup()">
+                    <input type="text" ng-model="newGroupName"
+                           placeholder="Group Name">
+                    <input class="btn-primary" type="submit" value="create">
                 </form>
 
-            </li>
+                <li ng-repeat="group in groupList | filter:chatSelectThingy">
+                    <form ng-submit=setChatTarget(group.id,group.name,true)>
 
+                        <input class="btn-primary" type="submit" value={{group.name}}>
+                    </form>
 
-            Groups:
-            <form ng-submit="createGroup()">
-                <input type="text" ng-model="newGroupName" size="30"
-                       placeholder="Group Name">
-                <input class="btn-primary" type="submit" value="create">
-            </form>
+                </li>
 
-            <li ng-repeat="group in groupList | filter:chatSelectThingy">
-                <form ng-submit=setChatTarget(group.id,group.name,true)>
+            </div>
 
-                    <input class="btn-primary" type="submit" value={{group.name}}>
-                </form>
-
-            </li>
 
         </div>
-
-
-    </div>
     </div>
 </div>

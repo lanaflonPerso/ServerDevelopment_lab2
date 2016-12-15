@@ -1,20 +1,59 @@
 #menu {
     float: left;
     min-width: 5%;
-
+    max-width: 10%;
 }
+
 #content {
     float: left;
 }
+
 #friend {
     float: right;
+    min-width: 10%;
+    max-width: 20%;
 }
 
-#chatText {
+.chatArea {
+    float: none;
+    min-width: 800px;
+    margin-left: 50px;
+}
+
+.chatText {
     float: left;
-    min-width: 40%;
+    min-width: 400px;
+    max-width: 80%;
+    border: 3px solid lightcyan;
 }
 
-#chatSelect {
-    float: right;
+.chatSelect {
+    float: left;
+    min-width: 200px;
+    max-width: 20%;
+    border: 3px solid lightcyan;
+}
+
+.friendBox {
+    display: inline-table;
+    width: 100px;
+    height: 40px;
+    margin: 5px;
+    background: lightblue;
+    border: 3px solid lightcyan;
+}
+.chatMessageBoxn {
+    border-radius: 15px 50px;
+    background: lightblue;
+    padding: 20px;
+    width: 200px;
+
+}
+.chatMessageBox {
+    display: block;
+    width: 400px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    background: lightblue;
+    border: 3px solid lightcyan;
 }
