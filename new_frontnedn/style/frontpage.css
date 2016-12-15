@@ -7,3 +7,11 @@
 #friend {
     float: right;
 }
+
+#chatText {
+    float: left;
+}
+
+#chatSelect {
+    float: right;
+}
