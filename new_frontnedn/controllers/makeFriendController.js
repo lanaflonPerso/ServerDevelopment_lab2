@@ -33,5 +33,8 @@ app.controller('makeFriendAppController', function($scope,userFactory,friendServ
         return count;
     };
     $scope.loadNonFriends = loadNonFriends;
+    $scope.makeFriend = function (newFriendId) {
+        console.log('makeFriend  friendId = ' + newFriendId);
+    }
 
 });

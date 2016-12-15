@@ -34,6 +34,15 @@ app.controller('friendAppController', function($scope,$rootScope,userFactory,fri
     function init() {
         loadFriends();
     }
+
+    function update() {
+        loadFriends();
+    }
+    $scope.$on('friendUpdate',function (event, arg) {
+        console.log('On : profileUpdate  args = ' + arg);
+        update();
+    })
+
     $scope.remaining = function () {
         var count = 0;
         count += $scope.friendlist.length;
