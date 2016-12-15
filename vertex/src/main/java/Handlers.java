@@ -10,6 +10,7 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by cj on 2016-12-14.
@@ -122,6 +123,17 @@ public class Handlers {
 
     static Tuple getUserIdsForGroup(int groupId){
         return new Tuple(groupId, DBFacade.getUsersByGroup(groupId));
+    }
+
+    public static ConcurrentHashMap<Integer,List<Integer>> getGroups() {
+        ConcurrentHashMap<Integer,List<Integer>> map = new ConcurrentHashMap<Integer,List<Integer>>();
+
+        List<DBGroup> groups = DBFacade.getGroups();
+        for (DBGroup g: groups){
+            Tuple t = getUserIdsForGroup(g.getId());
+            map.put(t.groupId,t.userIds);
+        }
+        return map;
     }
 
     public static class Tuple {
