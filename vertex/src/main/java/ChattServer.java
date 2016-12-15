@@ -24,21 +24,34 @@ public class ChattServer extends AbstractVerticle {
         vertx.createHttpServer().websocketHandler(new Handler<ServerWebSocket>() {
 
             public void handle(final ServerWebSocket ws) {
-                if (ws.path().equals("/myapp")) {
+                if (ws.path().equals("/chatserver")) {
                     ws.handler(new Handler<Buffer>() {
                         @Override
                         public void handle(Buffer buffer) {
                             System.out.println("hanterar request for myapp");
                             System.out.println("Datalast:  " + buffer.toString());
-                            ws.writeFinalTextFrame(buffer.toString()); // Echo it back
-                        }
-                    });
-                } else if (ws.path().equals("/messagesByGroup")) {
-                    ws.handler(new Handler<Buffer>() {
-                        @Override
-                        public void handle(Buffer buffer) {
-                            System.out.println("hanterar request for messages");
-                            System.out.println("Datalast:  " + buffer.toString());
+
+                            JsonObject data = new JsonObject(buffer.toString());
+                            String request = data.getString("request");
+                            System.out.println("Request: "+ request);
+
+                            if (request.equals("getMessagesBetweenUsers")){
+                                System.out.println("processing getMessagesBetweenUsers");
+
+
+                            } else if (request.equals("getMessagesByGroup")){
+                                System.out.println("processing getMessagesByGroup");
+
+
+                            } else if (request.equals("getMessagesByGroup")){
+                                System.out.println("processing getMessagesByGroup");
+
+
+                            } else {
+
+
+                            }
+
                             ws.writeFinalTextFrame(buffer.toString()); // Echo it back
                         }
                     });

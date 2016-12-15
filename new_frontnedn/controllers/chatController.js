@@ -10,13 +10,13 @@ app
         var chatBoard = [{text: 'welcome to chat', from: userName, to: destName}];
 
         // var webSocket = new WebSocket("http://localhost:3000/chat");
-        var host = "ws://localhost:8085/myapp";
+        var host = "ws://localhost:8085/chatserver";
         var wSocket = new WebSocket(host);
 
 
         wSocket.onopen = function () {
             alert(" Web Socket is connected, sending data");
-            wSocket.send("hello you bastard");
+
 
         };
 
@@ -31,32 +31,31 @@ app
         };
 
 
-
-        $scope.qwerty = function () {
-
-
-            wSocket.send("qwerty");
+        // fixa json som f;rutom data 'ven skickar vilken fiunktion som ;nskas
+        $scope.getMessagesBetweenUsers = function () {
+            // Request for all messages between users
+            var req = { request:"getMessagesBetweenUsers", fromId: 1, toId: 3};
+            var data = JSON.stringify(req);
+            wSocket.send(data);
         };
 
-        function registerHandlerForUpdateCurrentPriceAndFeed() {
-
+        $scope.getMessagesByGroup = function () {
+            // Request for all messages between users
+            var req = { request:"getMessagesByGroup", groupId: 1};
+            var data = JSON.stringify(req);
+            wSocket.send(data);
         };
 
-        function bid() {
-            var newPrice = document.getElementById('my_bid_value').value;
-
-            var xmlhttp = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-            xmlhttp.onreadystatechange = function () {
-                if (xmlhttp.readyState == 4) {
-                    if (xmlhttp.status != 200) {
-                        document.getElementById('error_message').innerHTML = 'Sorry, something went wrong.';
-                    }
-                }
-            };
-            xmlhttp.open("PATCH", "http://localhost:8080/api/auctions/" + auction_id);
-            xmlhttp.setRequestHeader("Content-Type", "application/json");
-            xmlhttp.send(JSON.stringify({price: newPrice}));
+        $scope.getGroups = function () {
+            // Request for all messages between users
+            var req = { request:"getGroups"};
+            var data = JSON.stringify(req);
+            wSocket.send(data);
         };
+
+
+
+
 
 
         //var socket = io("http://localhost:3000");//io("http://localhost:3002");
