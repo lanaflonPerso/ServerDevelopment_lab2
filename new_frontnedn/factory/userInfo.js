@@ -6,11 +6,20 @@ app.factory('userFactory', function ($q) {
     var userName = "";
     var isLoggedin = true;
     var factory = {};
+    var selectedUser = 1;
     factory.getUserId = function () {
         console.log('userFactory:getUserId');
         return userId;
     };
 
+    factory.getSelectedUserId = function () {
+        console.log('userFactory:getSelectedUserId');
+        return selectedUser;
+    };
+    factory.setSelectedUserId = function (selected) {
+        console.log('userFactory:setSelectedUserId');
+        selectedUser = selected;
+    };
     factory.isLoggedin = function () {
         console.log('userFactory:getUserId');
         return isLoggedin;

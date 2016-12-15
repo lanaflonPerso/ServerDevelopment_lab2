@@ -9,11 +9,11 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             views: {
                 'navView': {
                     templateUrl: '/new_frontnedn/partials/navigation.html',
-                    controller: 'RestAppController'
+                    controller: 'homeAppController'
                 },
                 'content': {
-                    templateUrl: '/new_frontnedn/partials/myrestt.html',
-                    controller: 'RestAppController'
+                    templateUrl: '/new_frontnedn/partials/homePage.html',
+                    controller: 'homeAppController'
                 },
                 'friends': {
                     templateUrl: '/new_frontnedn/partials/friends.html',
@@ -21,15 +21,23 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 }
             }
         })
-        .state('appmain.resthome', {
-            url: 'rest',
+        .state('appmain.homeNewsfeed', {
+            url: 'home',
             views: {
                 'content@': {
-                    templateUrl: '/new_frontnedn/partials/myrestt.html',
-                    controller: 'RestAppController'
+                    templateUrl: '/new_frontnedn/partials/homePage.html',
+                    controller: 'homeAppController'
                 }
             }
-        }).state('appmain.profile', {
+        }).state('appmain.makeFriends', {
+        url: 'makeFriends',
+        views: {
+            'content@': {
+                templateUrl: '/new_frontnedn/partials/makeFriends.html',
+                controller: 'makeFriendAppController'
+            }
+        }
+    }).state('appmain.profile', {
         url: 'profile',
         views: {
             'content@': {

@@ -1,0 +1,16 @@
+<div class="myrestt view">
+    <div class="container">
+        <ul class="unstyled">
+            This is home page
+            <li ng-repeat="news in newsFeed">
+                subject: {{news.subject}} </br>authorName: {{news.authorName}} recipientName: {{news.recipientName}} time: {{news.timestamp}} </br>
+                messageBody: {{news.messageBody}}
+            </li>
+        </ul>
+
+        <form ng-submit="getNewsFeed()">
+
+            <input class="btn-primary" type="submit" value="send">
+        </form>
+    </div>
+</div>

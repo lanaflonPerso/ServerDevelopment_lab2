@@ -6,10 +6,11 @@ var userName = 'dude';
 var destName = 'bob';
 
 app
-    .controller('ChatAppController', function ($scope) {
-        var chatBoard = [{text: 'welcome to chat', from: userName, to: destName}];
+    .controller('ChatAppController', function($scope,userFactory,friendService) {
+        var chatBoard = [{text:'welcome to chat',from:userName,to:destName}];
+        var socket = io("http://localhost:3000");//io("http://localhost:3002");
 
-        // var webSocket = new WebSocket("http://localhost:3000/chat");
+
         var host = "ws://localhost:8085/chatserver";
         var wSocket = new WebSocket(host);
 
@@ -58,21 +59,52 @@ app
 
 
 
-        //var socket = io("http://localhost:3000");//io("http://localhost:3002");
 
-        // webSocket.onopen = function () {
-        //     webSocket.send("skickar");
-        // };
-        //
-        // webSocket.onerror = function () {
-        //     console.log("Helvete! ");
-        // };
-        //
-        // webSocket.onmessage = function (event) {
-        //     var data = event.data;
-        //     console.log("data: "+ data);
-        // };
 
+
+
+
+
+
+
+
+        $scope.selectedChatUserId = 0;
+        $scope.selectedChatUserName = 0;
+        $scope.selectedType = 0;
+
+        $scope.friendList = [];
+        // test data , load from backend in init
+        $scope.groupList = [{id:5,profileId:0,email:"gruppNamn"}];
+
+        var loadFriends = function () {
+            var promise = friendService.getFriendsByUserId(userFactory.getUserId());
+            promise.then(function (data) {
+                console.log('chat loadFriends  data = ' +data);
+
+                for(a in data) {
+                    console.log('chat  a = ' + a + ' data = ' + data[a]);
+                    $scope.friendList.push(data[a]);
+                }
+            });
+        };
+
+        init();
+        function init() {
+            // only to give defult value, otherwise get selectedChatUserFrom scope
+            $scope.selectedChatUser = userFactory.getSelectedUserId();
+            loadFriends();
+        }
+
+        $scope.setChatTarget = function (selectedId, selectedName, isGroup) {
+            $scope.selectedChatUserId = selectedId;
+            $scope.selectedChatUserName = selectedName;
+            $scope.selectedType = isGroup;
+            console.log('setChatTarget  id = ' +selectedId + ' name = ' + selectedName + ' isgroupe = ' + isGroup);
+        }
+
+
+        /// to get this current user id,
+        // userFactory.getUserId();
 
         $scope.chatBoard = [];
 

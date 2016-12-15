@@ -1,6 +1,10 @@
 import DBLayer.DBFacade;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
+import io.vertx.core.Handler;
+import io.vertx.core.eventbus.EventBus;
+import io.vertx.core.eventbus.Message;
+import io.vertx.core.eventbus.MessageConsumer;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
@@ -36,6 +40,13 @@ public class Server extends AbstractVerticle {
         router.route("/messageToUser*").handler(BodyHandler.create());
 
         router.post("/messageToUser").handler(Handlers::handleSendMessageToUser);
+        EventBus eb = vertx.eventBus();
+        eb.consumer("test.lala", new  Handler<Message<String>() {
+            @Override
+            public void handle(Message<String> message) {
+
+            }
+        });
 
 
         vertx

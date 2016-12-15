@@ -1,10 +1,11 @@
 /**
  * Created by o_0 on 2016-12-03.
  */
+
 var app = require('express')();
 var httpBack = require("http");
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
+ var io = require('socket.io')(http);
 
 var connectedUsers = {};
 
