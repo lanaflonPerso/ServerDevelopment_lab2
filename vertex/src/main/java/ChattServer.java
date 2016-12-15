@@ -44,6 +44,10 @@ public class ChattServer extends AbstractVerticle {
         }
     }
 
+    public void addGrup(Integer groupId,ArrayList<Integer> members) {
+        groups.put(groupId,members);
+    }
+
     public void sendGroupMessage(Integer groupId,JsonObject data) {
 
         System.out.println("sendGroupMessage: groupId = " + groupId);
@@ -97,7 +101,7 @@ public class ChattServer extends AbstractVerticle {
 
 
                             } else if (request.equals("getGroups")){
-                                System.out.println("processing getMessagesByGroup");
+                                System.out.println("processing getGroups");
 
 
                             } else if (request.equals("sendMessageToUser")){

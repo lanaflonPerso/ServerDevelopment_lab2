@@ -42,7 +42,7 @@ app
 
         wSocket.onopen = function () {
             console.log(" Web Socket is connected, sending data");
-            var req = {request: "register", userId: 1};
+            var req = {request: "register", userId: userFactory.getUserId()};
             var data = JSON.stringify(req);
             wSocket.send(data);
             getGroups();
@@ -120,6 +120,7 @@ app
             $scope.selectedType = isGroup;
             console.log('setChatTarget  id = ' + selectedId + ' name = ' + selectedName + ' isgroupe = ' + isGroup);
             if (isGroup) {
+
                 getMessagesByGroup();
             }else {
                 getMessagesBetweenUsers();
