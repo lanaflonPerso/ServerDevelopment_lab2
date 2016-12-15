@@ -85,7 +85,7 @@ module.exports = {
 
             } else {
                 console.log("success");
-                callback({'id': 'lala'});
+                callback({success: true});
             }
         });
     },
@@ -151,6 +151,18 @@ module.exports = {
 
     joinGroup: function (groupId, userId, callback) {
         var query = "INSERT INTO CommunityDB.GroupUserId (groupId, userId) VALUES (" + groupId + "," + userId + ")";
+        connection.query(query, function (error, rows, fields) {
+            if (!!error) {
+                console.log("Error in query, %j", error.message);
+
+            } else {
+                console.log("success");
+                callback({success: true});
+            }
+        });
+    },
+    createGroup: function (groupName, userId, callback) {
+        var query = "INSERT INTO CommunityDB.Group (name) VALUES (" + groupName+ ")";
         connection.query(query, function (error, rows, fields) {
             if (!!error) {
                 console.log("Error in query, %j", error.message);

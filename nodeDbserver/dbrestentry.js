@@ -1,6 +1,6 @@
 var http = require('http');
 var WebSocket = require('websocket');
-
+var dbRecordHandler = require('./dbRequestHandler');
 var webSocketPort = 8085;
 
 var webSocketServer = WebSocket.server;
@@ -133,6 +133,23 @@ wsServer.on('request',function (request) {
             }
             if (req == "getMessagesByGroup") {
                 console.log("getMessagesByGroup: " );
+                dbRecordHandler.getMessagesByGroup(data.groupId, function (message) {
+                    data['response'] = message;
+                    simpleSend(data.fromId,data);
+                });
+            }
+            if (req == "joinGroup") {
+                console.log("joinGroup: " );
+                if(data.groupId) {
+                    dbRecordHandler.joinGroup(data.groupId,data.userId, function () {
+
+                    });
+                }else {
+                    dbRecordHandler.joinGroup(data.groupId,data.userId, function () {
+
+                    });
+                }
+
             }
         }
     });
