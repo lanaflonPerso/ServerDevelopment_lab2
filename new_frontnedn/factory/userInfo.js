@@ -32,6 +32,13 @@ app.factory('userFactory', function ($q) {
         console.log('userFactory:getUserName');
         return userName;
     };
+
+    factory.setUser = function (data) {
+        userId = data.id;
+        selectedUser = data.id;
+        userName = data.email;
+    };
+
     return factory;
 
 })

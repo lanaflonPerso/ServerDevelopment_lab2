@@ -34,4 +34,29 @@ app.service('userService',function ($q, socketService) {
         });
         return deferred.promise;
     };
+
+    this.loginUser = function (userName,pass) {
+        console.log('factory:loginUser' + userName + " pass: " + pass);
+
+        var socket = socketService.getRestPipeSocket();
+        var callbackName = "userLogin";
+        var redirectData = {
+            userId:55,
+            reqType:"POST",
+            path:pathUserService,
+            method:"login",
+            args:{email:userName,password:pass},
+            callback:callbackName
+        };
+        socket.emit("redirect",redirectData);
+
+        var deferred = $q.defer();
+        socket.on(callbackName, function (msg) {
+            var res = JSON.parse(msg);
+            console.log('incoming: from: id ' + res.id + ' profileId: ' + res.profileId +'  email: ' + res.email + " " );
+            // chatList.chatBoard.push({text:msg, done:false});
+            deferred.resolve(res);
+        });
+        return deferred.promise;
+    };
 })

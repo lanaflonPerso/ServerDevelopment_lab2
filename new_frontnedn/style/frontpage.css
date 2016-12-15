@@ -1,5 +1,7 @@
 #menu {
     float: left;
+    min-width: 5%;
+
 }
 #content {
     float: left;

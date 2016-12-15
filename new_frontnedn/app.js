@@ -1,11 +1,28 @@
 var app = angular.module('communityApp', ['ui.router']);
 
 app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/index.html');
 
     $stateProvider
+        .state('login', {
+            url: '/index.html',
+            views: {
+                'navView': {
+                    templateUrl: '/new_frontnedn/partials/blank.html',
+                    controller: 'loginAppController'
+                },
+                'content': {
+                    templateUrl: '/new_frontnedn/partials/loginpage.html',
+                    controller: 'loginAppController'
+                },
+                'friends': {
+                    templateUrl: '/new_frontnedn/partials/blank.html',
+                    controller: 'loginAppController'
+                }
+            }
+        })
         .state('appmain', {
-            url: '/',
+            url: '/main',
             views: {
                 'navView': {
                     templateUrl: '/new_frontnedn/partials/navigation.html',

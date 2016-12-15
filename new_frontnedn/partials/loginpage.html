@@ -1,0 +1,21 @@
+<div class="login view">
+    <div class="container">
+        <form ng-submit="login()">
+            <ul>
+                <li>
+                    Name: <input type="text" ng-model="userLogin.name"  size="30"
+                                 placeholder=" {{profileVM.name}}">
+                </li>
+
+                <li>
+                    info: <input type="password" ng-model="userLogin.pass"  size="30" >
+                </li>
+
+            </ul>
+            {{status}}
+
+            <input class="btn-primary" type="submit" value="Login">
+        </form>
+        <a ui-sref="appmain" > To home </a></br>
+    </div>
+</div>
