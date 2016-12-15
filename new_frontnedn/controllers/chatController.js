@@ -21,6 +21,17 @@ app
         var host = "ws://localhost:8085/chatserver";
         var wSocket = new WebSocket(host);
 
+        var loadFriends = function () {
+            var promise = friendService.getFriendsByUserId(userFactory.getUserId());
+            promise.then(function (data) {
+                console.log('chat loadFriends  data = ' + data);
+
+                for (a in data) {
+                    console.log('chat  a = ' + a + ' data = ' + data[a]);
+                    $scope.friendList.push(data[a]);
+                }
+            });
+        };
 
         init();
         function init() {
@@ -54,6 +65,20 @@ app
                     $scope.chatBoard.push(data);
                     $scope.$apply();
                 }
+                if (req == "sendMessageToGroup") {
+                    $scope.chatBoard.push(data);
+                    $scope.$apply();
+                }
+                if (req == "getMessagesBetweenUsers") {
+                    $scope.chatBoard = [];
+                    $scope.chatBoard = data.response;
+                    $scope.$apply();
+                }
+                if (req == "getMessagesByGroup") {
+                    $scope.chatBoard = [];
+                    $scope.chatBoard = data.response;
+                    $scope.$apply();
+                }
             }
 
 
@@ -61,14 +86,14 @@ app
 
 
         // fixa json som f;rutom data 'ven skickar vilken fiunktion som ;nskas
-        $scope.getMessagesBetweenUsers = function () {
+        var getMessagesBetweenUsers = function () {
             // Request for all messages between users
             var req = {request: "getMessagesBetweenUsers", fromId: userFactory.getUserId(), toId: $scope.selectedChatUserId};
             var data = JSON.stringify(req);
             wSocket.send(data);
         };
 
-        $scope.getMessagesByGroup = function () {
+        var getMessagesByGroup = function () {
             // Request for all messages between users
             var req = {request: "getMessagesByGroup", groupId: $scope.selectedChatUserId };
             var data = JSON.stringify(req);
@@ -85,17 +110,7 @@ app
 
 
 
-        var loadFriends = function () {
-            var promise = friendService.getFriendsByUserId(userFactory.getUserId());
-            promise.then(function (data) {
-                console.log('chat loadFriends  data = ' + data);
 
-                for (a in data) {
-                    console.log('chat  a = ' + a + ' data = ' + data[a]);
-                    $scope.friendList.push(data[a]);
-                }
-            });
-        };
 
 
 
@@ -104,6 +119,11 @@ app
             $scope.selectedChatUserName = selectedName;
             $scope.selectedType = isGroup;
             console.log('setChatTarget  id = ' + selectedId + ' name = ' + selectedName + ' isgroupe = ' + isGroup);
+            if (isGroup) {
+                getMessagesByGroup();
+            }else {
+                getMessagesBetweenUsers();
+            }
         }
 
 
