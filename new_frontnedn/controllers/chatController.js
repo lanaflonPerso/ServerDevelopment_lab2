@@ -52,6 +52,13 @@ app
             wSocket.send(data);
         };
 
+        $scope.joinGroup = function () {
+            // Request for all messages between users
+            var req = {request: "joinGroup", groupId: 1, groupName: "grupp6", userId: userFactory.getUserId()};
+            var data = JSON.stringify(req);
+            wSocket.send(data);
+        };
+
         $scope.getMessagesByGroup = function () {
             // Request for all messages between users
             var req = {request: "getMessagesByGroup", groupId: 1};

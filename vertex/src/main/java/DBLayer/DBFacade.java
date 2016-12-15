@@ -31,8 +31,8 @@ public class DBFacade {
     }
 
 
-    public static void insertGroup(String name) {
-        DBManager.getInstance().getGroupDAO().insertGroup(name);
+    public static int insertGroup(String name) {
+        return DBManager.getInstance().getGroupDAO().insertGroup(name);
     }
 
 
@@ -47,4 +47,17 @@ public class DBFacade {
     }
 
 
+    public static void addUserToGroup(Integer groupId, Integer userId) {
+        DBManager.getInstance().getGroupDAO().addUserToGroup(groupId,userId);
+    }
+
+    public static List<Integer> getUsersByGroup(int groupId){
+        return DBManager.getInstance().getGroupDAO().getUserIdsForGroups(groupId);
+    }
+
+    public static int insertGroupAndJoin(String name, Integer userId) {
+        int groupId = DBManager.getInstance().getGroupDAO().insertGroup(name);
+        DBManager.getInstance().getGroupDAO().addUserToGroup(groupId,userId);
+        return groupId;
+    }
 }

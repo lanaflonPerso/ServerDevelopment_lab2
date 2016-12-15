@@ -68,16 +68,22 @@ public class ChattServer extends AbstractVerticle {
                                 clients.put(data.getInteger("userId"), ws);
 
 
+                            } else if(request.equals("joinGroup")){
+                                System.out.println("processing joinGroup");
+                                eb.send(request, buffer.toString());
+
                             } else if(request.equals("getMessagesBetweenUsers")){
                                 System.out.println("processing getMessagesBetweenUsers");
                                 eb.send(request, buffer.toString());
 
                             } else if (request.equals("getMessagesByGroup")){
                                 System.out.println("processing getMessagesByGroup");
+                                eb.send(request, buffer.toString());
 
 
                             } else if (request.equals("getGroups")){
                                 System.out.println("processing getMessagesByGroup");
+                                eb.send(request, buffer.toString());
 
 
                             } else if (request.equals("sendMessageToUser")){
@@ -100,7 +106,6 @@ public class ChattServer extends AbstractVerticle {
                             }
                             System.out.println("end of the world! ");
 
-                            //ws.writeFinalTextFrame(buffer.toString()); // Echo it back
                         }
                     });
                 } else {
@@ -129,6 +134,26 @@ public class ChattServer extends AbstractVerticle {
             JsonObject result = Handlers.handleGetMessagesByGroup(object);
 
             eb.send("sendBackRequest", result.toString());
+        });
+
+        eb.consumer("getGroups", data -> {
+            String datat = (String) data.body();
+            JsonObject object = new JsonObject(data.body().toString());
+            System.out.println("I have began to process ::getGroups:: request = " + object);
+
+            JsonObject result = Handlers.handleGetGroups(object);
+
+            eb.send("sendBackRequest", result.toString());
+        });
+
+        eb.consumer("joinGroup", data -> {
+            String datat = (String) data.body();
+            JsonObject object = new JsonObject(data.body().toString());
+            System.out.println("I have began to process ::joinGroup:: request = " + object);
+
+            Handlers.Tuple tup = Handlers.handleJoinGroup(object);
+            clients.put(tup.groupId, tup.userIds);
+            //eb.send("sendBackRequest", result.toString());
         });
 
 
