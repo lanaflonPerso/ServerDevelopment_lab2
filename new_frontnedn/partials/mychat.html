@@ -38,9 +38,9 @@
             </form>
 
             <li ng-repeat="group in groupList | filter:chatSelectThingy">
-                <form ng-submit=setChatTarget(group.id,group.email,true)>
+                <form ng-submit=setChatTarget(group.id,group.name,true)>
 
-                    <input class="btn-primary" type="submit" value={{group.email}}>
+                    <input class="btn-primary" type="submit" value={{group.name}}>
                 </form>
 
             </li>

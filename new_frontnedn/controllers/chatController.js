@@ -79,6 +79,11 @@ app
                     $scope.chatBoard = data.response;
                     $scope.$apply();
                 }
+                if (req == "getGroups") {
+                    $scope.groupList = [];
+                    $scope.groupList = data.response;
+                    $scope.$apply();
+                }
             }
 
 
@@ -93,23 +98,24 @@ app
             wSocket.send(data);
         };
 
-        $scope.joinGroup = function () {
+
+        var joinGroup = function () {
             // Request for all messages between users
-            var req = {request: "joinGroup", groupId: 1, groupName: "grupp6", userId: userFactory.getUserId()};
+            var req = {request: "joinGroup", groupId: $scope.selectedChatUserId, groupName: $scope.selectedChatUserName, userId: userFactory.getUserId()};
             var data = JSON.stringify(req);
             wSocket.send(data);
         };
 
-        $scope.getMessagesByGroup = function () {
+        var getMessagesByGroup = function () {
             // Request for all messages between users
-            var req = {request: "getMessagesByGroup", groupId: $scope.selectedChatUserId };
+            var req = {request: "getMessagesByGroup",fromId:userFactory.getUserId(), groupId: $scope.selectedChatUserId };
             var data = JSON.stringify(req);
             wSocket.send(data);
         };
 
         var getGroups = function () {
             // Request for all messages between users
-            var req = {request: "getGroups"};
+            var req = {request: "getGroups",fromId:userFactory.getUserId()};
             var data = JSON.stringify(req);
             wSocket.send(data);
         };
@@ -127,7 +133,7 @@ app
             $scope.selectedType = isGroup;
             console.log('setChatTarget  id = ' + selectedId + ' name = ' + selectedName + ' isgroupe = ' + isGroup);
             if (isGroup) {
-
+                joinGroup();
                 getMessagesByGroup();
             }else {
                 getMessagesBetweenUsers();
@@ -146,7 +152,7 @@ app
             var req = {};
 
             if (!$scope.selectedType) {
-
+                console.log("sendMessageToUser msg: " + $scope.chatText);
                 req = {
                     request: "sendMessageToUser",
                     fromId: userFactory.getUserId(),
@@ -156,6 +162,7 @@ app
                     text: $scope.chatText
                 };
             } else {
+                console.log("sendMessageToGroup msg: " + $scope.chatText);
                 req = {
                     request: "sendMessageToGroup",
                     fromId: userFactory.getUserId(),
@@ -179,7 +186,7 @@ app
             var data = JSON.stringify(req);
             wSocket.send(data);
 
-            $scope.chatText = '';
+            $scope.newGroupName = '';
         };
 
         $scope.remaining = function () {

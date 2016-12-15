@@ -12,6 +12,7 @@
 
 #chatText {
     float: left;
+    min-width: 40%;
 }
 
 #chatSelect {
