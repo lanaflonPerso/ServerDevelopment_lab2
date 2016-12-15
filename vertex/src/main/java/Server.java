@@ -24,23 +24,24 @@ public class Server extends AbstractVerticle {
             HttpServerResponse response = routingContext.response();
             response.putHeader("content-type", "text/html").end("<h1>Hello from my first Vert.x 3 application</h1>");
         });
-
-        router.route("/messagesByGroup*").handler(BodyHandler.create());
-        router.get("/messagesByGroup").handler(Handlers::handleGetMessagesByGroup);
-
-        router.route("/messagesBetweenUsers*").handler(BodyHandler.create());
-        router.get("/messagesBetweenUsers").handler(Handlers::handleGetMessagesBetweenUsers);
-
-        router.route("/getGroups*").handler(BodyHandler.create());
-        router.get("/getGroups").handler(Handlers::handleGetGroups);
-
-        router.route("/messageToGroup*").handler(BodyHandler.create());
-        router.post("/messageToGroup").handler(Handlers::handleSendMessageToGroup);
-
-        router.route("/messageToUser*").handler(BodyHandler.create());
-        router.post("/messageToUser").handler(Handlers::handleSendMessageToUser);
+//
+//        router.route("/messagesByGroup*").handler(BodyHandler.create());
+//        router.get("/messagesByGroup").handler(Handlers::handleGetMessagesByGroup);
+//
+//        router.route("/messagesBetweenUsers*").handler(BodyHandler.create());
+//        router.get("/messagesBetweenUsers").handler(Handlers::handleGetMessagesBetweenUsers);
+//
+//        router.route("/getGroups*").handler(BodyHandler.create());
+//        router.get("/getGroups").handler(Handlers::handleGetGroups);
+//
+//        router.route("/messageToGroup*").handler(BodyHandler.create());
+//        router.post("/messageToGroup").handler(Handlers::handleSendMessageToGroup);
+//
+//        router.route("/messageToUser*").handler(BodyHandler.create());
+//
+//        router.post("/messageToUser").handler(Handlers::handleSendMessageToUser);
         EventBus eb = vertx.eventBus();
-        eb.consumer("test.lala", new  Handler<Message<String>() {
+        eb.consumer("test.lala", new  Handler<Message<String>>() {
             @Override
             public void handle(Message<String> message) {
 
@@ -52,7 +53,7 @@ public class Server extends AbstractVerticle {
                 .createHttpServer()
                 .requestHandler(router::accept)
                 .listen(
-                        config().getInteger("http.port", 8080),
+                        config().getInteger("http.port", 3000),
                         result -> {
                             if (result.succeeded()) {
                                 fut.complete();
@@ -62,7 +63,7 @@ public class Server extends AbstractVerticle {
                         }
                 );
 
-        System.out.println("server started, listening on port 8080... ");
-    }
 
+
+    }
 }

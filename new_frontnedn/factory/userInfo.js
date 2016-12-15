@@ -3,7 +3,7 @@
  */
 app.factory('userFactory', function ($q) {
     var userId = 1;
-    var userName = "";
+    var userName = "e1";
     var isLoggedin = true;
     var factory = {};
     var selectedUser = 1;
