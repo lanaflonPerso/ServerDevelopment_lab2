@@ -12,6 +12,7 @@ import io.vertx.core.http.ServerWebSocket;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 
+import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
 
@@ -20,6 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class ChattServer extends AbstractVerticle {
     ConcurrentHashMap<Integer,ServerWebSocket> clients = new ConcurrentHashMap<>();
+    ConcurrentHashMap<Integer,ArrayList<Integer>> groups = new ConcurrentHashMap<>();
 
     public void sendMessageP2P(JsonObject data) {
         Integer fromId = data.getInteger("fromId");
@@ -40,6 +42,24 @@ public class ChattServer extends AbstractVerticle {
             }
 
         }
+    }
+
+    public void sendGroupMessage(Integer groupId,JsonObject data) {
+
+        System.out.println("sendGroupMessage: groupId = " + groupId);
+        if (groupId == null) {
+            System.out.println("error: sendGroupMessage == null");
+            return;
+        }
+        ArrayList<Integer> memberList = groups.get(groupId);
+        for(Integer userId : memberList) {
+            ServerWebSocket userWs = clients.get(userId);
+            if (userWs != null) {
+                userWs.writeFinalTextFrame(data.toString());
+
+            }
+        }
+
     }
 
     @Override
