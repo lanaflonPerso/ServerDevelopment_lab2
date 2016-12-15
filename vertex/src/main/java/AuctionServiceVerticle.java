@@ -56,7 +56,7 @@ public class AuctionServiceVerticle extends AbstractVerticle {
         router.route().consumes("application/json");
         router.route().produces("application/json");
 
-        router.get("/messageByGroup/:id").handler(Handlers::handleGetMessagesByGroup);
+        //router.get("/messageByGroup/:id").handler(Handlers::handleGetMessagesByGroup);
 
         return router;
     }

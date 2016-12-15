@@ -6,9 +6,9 @@ var userName = 'dude';
 var destName = 'bob';
 
 app
-    .controller('ChatAppController', function($scope,userFactory,friendService) {
-        var chatBoard = [{text:'welcome to chat',from:userName,to:destName}];
-        var socket = io("http://localhost:3000");//io("http://localhost:3002");
+    .controller('ChatAppController', function ($scope, userFactory, friendService) {
+        var chatBoard = [{text: 'welcome to chat', from: userName, to: destName}];
+       //var socket = io("http://localhost:3000");//io("http://localhost:3002");
 
 
         var host = "ws://localhost:8085/chatserver";
@@ -17,10 +17,11 @@ app
 
         wSocket.onopen = function () {
             alert(" Web Socket is connected, sending data");
-
+            var req = {request: "register", userId: 1};
+            var data = JSON.stringify(req);
+            wSocket.send(data);
 
         };
-
 
         wSocket.onerror = function () {
             alert("Fel!");
@@ -28,44 +29,33 @@ app
 
         wSocket.onmessage = function (event) {
             var data = event.data;
-            console.log("data: "+ data);
+            console.log("data: " + data);
+
+
         };
 
 
         // fixa json som f;rutom data 'ven skickar vilken fiunktion som ;nskas
         $scope.getMessagesBetweenUsers = function () {
             // Request for all messages between users
-            var req = { request:"getMessagesBetweenUsers", fromId: 1, toId: 3};
+            var req = {request: "getMessagesBetweenUsers", fromId: 1, toId: 3};
             var data = JSON.stringify(req);
             wSocket.send(data);
         };
 
         $scope.getMessagesByGroup = function () {
             // Request for all messages between users
-            var req = { request:"getMessagesByGroup", groupId: 1};
+            var req = {request: "getMessagesByGroup", groupId: 1};
             var data = JSON.stringify(req);
             wSocket.send(data);
         };
 
         $scope.getGroups = function () {
             // Request for all messages between users
-            var req = { request:"getGroups"};
+            var req = {request: "getGroups"};
             var data = JSON.stringify(req);
             wSocket.send(data);
         };
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         $scope.selectedChatUserId = 0;
@@ -74,14 +64,14 @@ app
 
         $scope.friendList = [];
         // test data , load from backend in init
-        $scope.groupList = [{id:5,profileId:0,email:"gruppNamn"}];
+        $scope.groupList = [{id: 5, profileId: 0, email: "gruppNamn"}];
 
         var loadFriends = function () {
             var promise = friendService.getFriendsByUserId(userFactory.getUserId());
             promise.then(function (data) {
-                console.log('chat loadFriends  data = ' +data);
+                console.log('chat loadFriends  data = ' + data);
 
-                for(a in data) {
+                for (a in data) {
                     console.log('chat  a = ' + a + ' data = ' + data[a]);
                     $scope.friendList.push(data[a]);
                 }
@@ -99,7 +89,7 @@ app
             $scope.selectedChatUserId = selectedId;
             $scope.selectedChatUserName = selectedName;
             $scope.selectedType = isGroup;
-            console.log('setChatTarget  id = ' +selectedId + ' name = ' + selectedName + ' isgroupe = ' + isGroup);
+            console.log('setChatTarget  id = ' + selectedId + ' name = ' + selectedName + ' isgroupe = ' + isGroup);
         }
 
 
@@ -110,9 +100,33 @@ app
 
 
         $scope.sendMessage = function () {
-            console.log("submittin form: " + $scope.chatText);
-            var msgData = {text: $scope.chatText, from: userName, to: destName};
-            //socket.emit('sendmessage', msgData);
+            console.log("submitting form: " + $scope.chatText);
+            var req = {};
+
+            if (!$scope.selectedType) {
+
+                req = {
+                    request: "sendMessageToUser",
+                    fromId: userFactory.getUserId(),
+                    fromName: userFactory.getUserName(),
+                    toId: $scope.selectedChatUserId,
+                    toName: $scope.selectedChatUserName,
+                    text: $scope.chatText
+                };
+            } else {
+                req = {
+                    request: "sendMessageToGroup",
+                    fromId: userFactory.getUserId(),
+                    fromName: userFactory.getUserName(),
+                    groupId: $scope.selectedChatUserId,
+                    toName: $scope.selectedChatUserName,
+                    text: $scope.chatText
+                };
+            }
+
+            var data = JSON.stringify(req);
+            wSocket.send(data);
+
             $scope.chatText = '';
         };
 

@@ -3,6 +3,7 @@ import DBLayer.DBManager;
 import DBLayer.DBModels.DBGroup;
 import DBLayer.DBModels.DBMessage;
 import com.google.gson.Gson;
+import io.vertx.core.eventbus.Message;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
@@ -16,9 +17,8 @@ public class Handlers {
 
 
 
-    public static void handleSendMessageToUser(RoutingContext routingContext){
+    static JsonObject handleSendMessageToUser(JsonObject obj){
 
-        JsonObject obj = routingContext.getBodyAsJson();
 
         int fromId = obj.getInteger("fromId");
         int toId = obj.getInteger("toId");
@@ -35,16 +35,12 @@ public class Handlers {
 
         DBFacade.insertMessageToUser(msg);
 
-        routingContext.response()
-                .setStatusCode(200)
-                .putHeader("content-type", "text/html")
-                .end("Message To User Sent: " + obj.toString());
+        return obj;
     }
 
 
-    public static void handleSendMessageToGroup(RoutingContext routingContext){
+    static JsonObject handleSendMessageToGroup(JsonObject obj){
 
-        JsonObject obj = routingContext.getBodyAsJson();
 
         int fromId = obj.getInteger("fromId");
         int groupId = obj.getInteger("groupId");
@@ -59,67 +55,48 @@ public class Handlers {
 
         DBFacade.insertMessageToGroup(msg);
 
-        routingContext.response()
-                .setStatusCode(200)
-                .putHeader("content-type", "text/html")
-                .end("Message To Group Sent: " + obj.toString());
+        return obj;
     }
 
 
 
-    public static void handleGetMessagesByGroup(RoutingContext routingContext){
+    static JsonObject handleGetMessagesByGroup(JsonObject obj){
 
-        int groupId = Integer.parseInt(routingContext.request().getParam("groupId"));
+        int groupId = obj.getInteger("groupId");
         System.out.println("Id from param: " + groupId);
 
 
 
         List<DBMessage> messages = DBFacade.getMessagesByGroup(groupId);
 
-        Gson gson = new Gson();
-        String response = gson.toJson(messages);
+        obj.put("response",messages);
 
+        return obj;
 
-        routingContext.response()
-                .setStatusCode(200)
-                .putHeader("content-type", "text/html")
-                .end("Messages: " + response);
     }
 
-    public static void handleGetMessagesBetweenUsers(RoutingContext routingContext){
+    static JsonObject handleGetMessagesBetweenUsers(JsonObject obj){
 
-        int fromId = Integer.parseInt(routingContext.request().getParam("fromId"));
-        int toId = Integer.parseInt(routingContext.request().getParam("toId"));
-        System.out.println("FromId from param: " + fromId);
-        System.out.println("ToId from param: " + toId);
+        int fromId = obj.getInteger("fromId");
+        int toId = obj.getInteger("toId");
 
         List<DBMessage> messages = DBFacade.getMessagesBetweenUsers(fromId,toId);
 
-        Gson gson = new Gson();
-        String response = gson.toJson(messages);
+        obj.put("response",messages);
 
-
-        routingContext.response()
-                .setStatusCode(200)
-                .putHeader("content-type", "text/html")
-                .end("Messages: " + response);
+        return obj;
     }
 
 
-    public static void handleGetGroups(RoutingContext routingContext){
-
+    static JsonObject handleGetGroups(JsonObject obj){
 
         List<DBGroup> groups = DBFacade.getGroups();
 
-        Gson gson = new Gson();
-        String response = gson.toJson(groups);
+        obj.put("response",groups);
+
+        return obj;
 
 
-        routingContext.response()
-                .setStatusCode(200)
-                .putHeader("content-type", "text/html")
-                .end("Messages: " + response);
+
     }
-
-
 }
