@@ -11,7 +11,7 @@ app
         $scope.selectedChatUserId = 0;
         $scope.selectedChatUserName = "";
         $scope.selectedType = false;
-
+        $scope.newGroupName = "";
         $scope.friendList = [];
         // test data , load from backend in init
         $scope.groupList = [];
@@ -165,6 +165,16 @@ app
                 };
             }
 
+            var data = JSON.stringify(req);
+            wSocket.send(data);
+
+            $scope.chatText = '';
+        };
+
+
+        $scope.createGroup = function () {
+            var req = {request:"joinGroup", groupName: $scope.newGroupName, userId: userFactory.getUserId()}
+            console.log("submitting form groupName: " + $scope.newGroupName);
             var data = JSON.stringify(req);
             wSocket.send(data);
 

@@ -28,7 +28,15 @@
                 </form>
 
             </li>
+
+
             Groups:
+            <form ng-submit="createGroup()">
+                <input type="text" ng-model="newGroupName" size="30"
+                       placeholder="Group Name">
+                <input class="btn-primary" type="submit" value="create">
+            </form>
+
             <li ng-repeat="group in groupList | filter:chatSelectThingy">
                 <form ng-submit=setChatTarget(group.id,group.email,true)>
 

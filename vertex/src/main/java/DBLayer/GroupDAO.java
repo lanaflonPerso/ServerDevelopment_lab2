@@ -3,10 +3,7 @@ package DBLayer;
 import DBLayer.DBModels.DBGroup;
 import DBLayer.DBModels.DBMessage;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -34,7 +31,7 @@ public class GroupDAO {
         System.out.println("Creating group: " + name);
         try {
             dbConn = DBManager.getInstance().getConnection();
-            ps = dbConn.prepareStatement(SQL_INSERT_GROUP);
+            ps = dbConn.prepareStatement(SQL_INSERT_GROUP, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, name);
             ps.executeUpdate();
 
@@ -65,6 +62,7 @@ public class GroupDAO {
         try {
             dbConn = DBManager.getInstance().getConnection();
             PreparedStatement ps = dbConn.prepareStatement(SQL_GET_USERS_BY_GROUP);
+            ps.setInt(1,groupId);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
